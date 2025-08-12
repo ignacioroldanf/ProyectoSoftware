@@ -1,0 +1,74 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{77E9AB1A-491F-4FD2-9104-05F254E458F5}|Modelo\\Modelo.csproj|c:\\users\\nacho\\onedrive - universidad abierta interamericana\\desktop\\facu - copia\\2025 1er cuatri\\proyecto\\sag - diploma\\modelo\\rutinafactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77E9AB1A-491F-4FD2-9104-05F254E458F5}|Modelo\\Modelo.csproj|solutionrelative:modelo\\rutinafactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|c:\\users\\nacho\\onedrive - universidad abierta interamericana\\desktop\\facu - copia\\2025 1er cuatri\\proyecto\\sag - diploma\\sag - diploma\\vista\\formgestionarrutinas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\formgestionarrutinas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|c:\\users\\nacho\\onedrive - universidad abierta interamericana\\desktop\\facu - copia\\2025 1er cuatri\\proyecto\\sag - diploma\\sag - diploma\\vista\\formgestionarrutinas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\formgestionarrutinas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FormGestionarRutinas.cs",
+              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "RelativeToolTip": "SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T02:31:08.986Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FormGestionarRutinas.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarRutinas.cs [Dise\u00F1o]",
+              "RelativeToolTip": "SAG - Diploma\\Vista\\FormGestionarRutinas.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T18:15:44.619Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RutinaFactory.cs",
+              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\Modelo\\RutinaFactory.cs",
+              "RelativeDocumentMoniker": "Modelo\\RutinaFactory.cs",
+              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\Modelo\\RutinaFactory.cs",
+              "RelativeToolTip": "Modelo\\RutinaFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T15:50:34.846Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

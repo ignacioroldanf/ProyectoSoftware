@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Modelo</id>
+    <version>1.0.0</version>
+    <authors>Modelo</authors>
+    <description>Package Description</description>
+    <repository type="git" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.EntityFrameworkCore.SqlServer" version="9.0.7" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\Modelo\bin\Debug\net8.0\Modelo.runtimeconfig.json" target="lib\net8.0\Modelo.runtimeconfig.json" />
+    <file src="C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\Modelo\bin\Debug\net8.0\Modelo.dll" target="lib\net8.0\Modelo.dll" />
+  </files>
+</package>

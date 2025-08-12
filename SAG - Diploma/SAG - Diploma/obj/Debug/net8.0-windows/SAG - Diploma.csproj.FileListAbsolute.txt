@@ -1,0 +1,24 @@
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG - Diploma.csproj.GenerateResource.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG - Diploma.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG - Diploma.AssemblyInfoInputs.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG - Diploma.AssemblyInfo.cs
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG - Diploma.csproj.CoreCompileInputs.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\bin\Debug\net8.0-windows\SAG - Diploma.exe
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\bin\Debug\net8.0-windows\SAG - Diploma.deps.json
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\bin\Debug\net8.0-windows\SAG - Diploma.runtimeconfig.json
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\bin\Debug\net8.0-windows\SAG - Diploma.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\bin\Debug\net8.0-windows\SAG - Diploma.pdb
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG - Diploma.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\refint\SAG - Diploma.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG - Diploma.pdb
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG - Diploma.genruntimeconfig.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\ref\SAG - Diploma.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormGestionarClientes.resources
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormGestionarPlanes.resources
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormGestionarProgresos.resources
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormGestionarRutinas.resources
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormInicioSesion.resources
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormCliente.resources
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormPlan.resources
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Properties.Resources.resources
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormInicio.resources
