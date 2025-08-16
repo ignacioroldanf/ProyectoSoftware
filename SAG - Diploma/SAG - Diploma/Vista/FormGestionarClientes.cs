@@ -16,12 +16,12 @@ namespace SAG___Diploma.Vista
     public partial class FormGestionarClientes : Form
     {
         DiplomaContext context = new DiplomaContext();
-        private readonly CtrlGestionarClientes _controladorCliente;
+        private readonly CtrlGestionarClientes _ctrlCliente;
 
         public FormGestionarClientes()
         {
             InitializeComponent();
-            _controladorCliente = new CtrlGestionarClientes(new DiplomaContext());
+            _ctrlCliente = new CtrlGestionarClientes(new DiplomaContext());
         }
         private void btnSalir_Click_1(object sender, EventArgs e)
         {
@@ -48,7 +48,7 @@ namespace SAG___Diploma.Vista
             dtgvClientes.DataSource = clientes;
         }
 
-        private void btnAgregar_Click_1(object sender, EventArgs e)
+        private void btnAgregar_Click(object sender, EventArgs e)
         {
             FormCliente vistaCliente = new FormCliente();
 
@@ -76,7 +76,7 @@ namespace SAG___Diploma.Vista
             }
 
             int clienteId = (int)dtgvClientes.SelectedRows[0].Cells["Id"].Value;
-            Cliente ClienteSeleccionado = _controladorCliente.BuscarPorID(clienteId);
+            Cliente ClienteSeleccionado = _ctrlCliente.BuscarPorID(clienteId);
 
             FormCliente vistaCliente = new FormCliente();
             vistaCliente.CargarCliente(ClienteSeleccionado);
@@ -98,7 +98,7 @@ namespace SAG___Diploma.Vista
 
                 if (resultado == DialogResult.Yes)
                 {
-                    _controladorCliente.EliminarCliente(clienteId);
+                    _ctrlCliente.EliminarCliente(clienteId);
                     CargarClientes();
                     MessageBox.Show("Cliente eliminado correctamente.");
                 }
@@ -108,10 +108,20 @@ namespace SAG___Diploma.Vista
                 MessageBox.Show("Seleccione un cliente para eliminar.");
             }
         }
-
-        private void btnAsignarSuscripcion_Click(object sender, EventArgs e)
+        private void btnGestionarSuscripcion_Click(object sender, EventArgs e)
         {
+            if (dtgvClientes.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione un cliente primero.");
+                return;
+            }
 
+            int idCliente = Convert.ToInt32(dtgvClientes.SelectedRows[0].Cells["ID"].Value);
+
+            using (FormGestionarSuscripciones vistaSuscripciones = new FormGestionarSuscripciones(idCliente))
+            {
+                vistaSuscripciones.ShowDialog();
+            }
         }
     }
 }

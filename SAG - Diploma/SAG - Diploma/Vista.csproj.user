@@ -19,6 +19,9 @@
     <Compile Update="Vista\FormGestionarRutinas.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Vista\FormGestionarSuscripciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Vista\FormInicio.cs">
       <SubType>Form</SubType>
     </Compile>

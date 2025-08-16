@@ -15,3 +15,21 @@ C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copi
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\Controlador\obj\Debug\net8.0\Controlador.pdb
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\Controlador\obj\Debug\net8.0\Controlador.genruntimeconfig.cache
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\Controlador\obj\Debug\net8.0\ref\Controlador.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\bin\Debug\net8.0\Controlador.deps.json
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\bin\Debug\net8.0\Controlador.runtimeconfig.json
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\bin\Debug\net8.0\Controlador.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\bin\Debug\net8.0\Controlador.pdb
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\bin\Debug\net8.0\Modelo.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\bin\Debug\net8.0\Modelo.pdb
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\Controlador.csproj.AssemblyReference.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\Controlador.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\Controlador.AssemblyInfoInputs.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\Controlador.AssemblyInfo.cs
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\Controlador.csproj.CoreCompileInputs.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\Controlador.sourcelink.json
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\Controla.6B62700F.Up2Date
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\Controlador.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\refint\Controlador.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\Controlador.pdb
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\Controlador.genruntimeconfig.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Controlador\obj\Debug\net8.0\ref\Controlador.dll

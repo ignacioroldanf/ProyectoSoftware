@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnAsignarSuscripcion = new Button();
+            btnGestionarSuscripcion = new Button();
             dtgvClientes = new DataGridView();
             textBox1 = new TextBox();
             lblFiltrar = new Label();
@@ -44,16 +44,16 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // btnAsignarSuscripcion
+            // btnGestionarSuscripcion
             // 
-            btnAsignarSuscripcion.BackColor = SystemColors.GradientActiveCaption;
-            btnAsignarSuscripcion.Location = new Point(444, 3);
-            btnAsignarSuscripcion.Name = "btnAsignarSuscripcion";
-            btnAsignarSuscripcion.Size = new Size(105, 49);
-            btnAsignarSuscripcion.TabIndex = 4;
-            btnAsignarSuscripcion.Text = "Asignar Suscripcion";
-            btnAsignarSuscripcion.UseVisualStyleBackColor = false;
-            btnAsignarSuscripcion.Click += btnAsignarSuscripcion_Click;
+            btnGestionarSuscripcion.BackColor = SystemColors.GradientActiveCaption;
+            btnGestionarSuscripcion.Location = new Point(444, 3);
+            btnGestionarSuscripcion.Name = "btnGestionarSuscripcion";
+            btnGestionarSuscripcion.Size = new Size(105, 49);
+            btnGestionarSuscripcion.TabIndex = 4;
+            btnGestionarSuscripcion.Text = "Gestionar Suscripcion";
+            btnGestionarSuscripcion.UseVisualStyleBackColor = false;
+            btnGestionarSuscripcion.Click += btnGestionarSuscripcion_Click;
             // 
             // dtgvClientes
             // 
@@ -88,7 +88,7 @@
             panelSuperior.BackColor = Color.White;
             panelSuperior.Controls.Add(btnFiltrar);
             panelSuperior.Controls.Add(lblFiltrar);
-            panelSuperior.Controls.Add(btnAsignarSuscripcion);
+            panelSuperior.Controls.Add(btnGestionarSuscripcion);
             panelSuperior.Controls.Add(pictureBox1);
             panelSuperior.Controls.Add(textBox1);
             panelSuperior.Controls.Add(btnAgregar);
@@ -129,7 +129,7 @@
             btnAgregar.TabIndex = 20;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = false;
-            btnAgregar.Click += btnAgregar_Click_1;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // btnEliminar
             // 
@@ -184,7 +184,7 @@
         }
 
         #endregion
-        private Button btnAsignarSuscripcion;
+        private Button btnGestionarSuscripcion;
         private DataGridView dtgvClientes;
         private TextBox textBox1;
         private Label lblFiltrar;

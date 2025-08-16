@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "l1Pj8B1GjrQ=",
+  "dgSpecHash": "a0OU43x+l9M=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\Modelo\\Modelo.csproj",
+  "projectFilePath": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\Modelo\\Modelo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nacho\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Nacho\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

@@ -12,3 +12,18 @@ C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copi
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\Modelo\obj\Debug\net8.0\Modelo.pdb
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\Modelo\obj\Debug\net8.0\Modelo.genruntimeconfig.cache
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\SAG - Diploma\Modelo\obj\Debug\net8.0\ref\Modelo.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\bin\Debug\net8.0\Modelo.deps.json
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\bin\Debug\net8.0\Modelo.runtimeconfig.json
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\bin\Debug\net8.0\Modelo.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\bin\Debug\net8.0\Modelo.pdb
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\obj\Debug\net8.0\Modelo.csproj.AssemblyReference.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\obj\Debug\net8.0\Modelo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\obj\Debug\net8.0\Modelo.AssemblyInfoInputs.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\obj\Debug\net8.0\Modelo.AssemblyInfo.cs
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\obj\Debug\net8.0\Modelo.csproj.CoreCompileInputs.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\obj\Debug\net8.0\Modelo.sourcelink.json
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\obj\Debug\net8.0\Modelo.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\obj\Debug\net8.0\refint\Modelo.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\obj\Debug\net8.0\Modelo.pdb
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\obj\Debug\net8.0\Modelo.genruntimeconfig.cache
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\Modelo\obj\Debug\net8.0\ref\Modelo.dll

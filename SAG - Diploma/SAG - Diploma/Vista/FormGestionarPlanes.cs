@@ -30,18 +30,6 @@ namespace SAG___Diploma.Vista
             _clienteSeleccionado = cliente;
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-
-        }
-
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            FormPlan vistaPlan = new FormPlan();
-            vistaPlan.Show();
-        }
-
         private void FormGestionarPlanes_Load(object sender, EventArgs e)
         {
             CargarPlanes();
@@ -75,9 +63,19 @@ namespace SAG___Diploma.Vista
             dtgvPlanes.DataSource = planes;
         }
 
-        private void btnSalir_Click_1(object sender, EventArgs e)
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            FormPlan vistaPlan = new FormPlan();
+            vistaPlan.Show();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
 
         }
     }

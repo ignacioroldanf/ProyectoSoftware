@@ -4746,11 +4746,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\Controlador\\Controlador.csproj",
+      "projectUniqueName": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\Controlador\\Controlador.csproj",
       "projectName": "Controlador",
-      "projectPath": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\Controlador\\Controlador.csproj",
+      "projectPath": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\Controlador\\Controlador.csproj",
       "packagesPath": "C:\\Users\\Nacho\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\Controlador\\obj\\",
+      "outputPath": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\Controlador\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4771,8 +4771,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\Modelo\\Modelo.csproj": {
-              "projectPath": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\SAG - Diploma\\Modelo\\Modelo.csproj"
+            "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\Modelo\\Modelo.csproj": {
+              "projectPath": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\Modelo\\Modelo.csproj"
             }
           }
         }
