@@ -30,9 +30,10 @@
         {
             btnGestionarSuscripcion = new Button();
             dtgvClientes = new DataGridView();
-            textBox1 = new TextBox();
+            txtFiltrar = new TextBox();
             lblFiltrar = new Label();
             panelSuperior = new Panel();
+            btnCargar = new Button();
             btnFiltrar = new Button();
             pictureBox1 = new PictureBox();
             btnAgregar = new Button();
@@ -67,17 +68,17 @@
             dtgvClientes.Size = new Size(1110, 479);
             dtgvClientes.TabIndex = 5;
             // 
-            // textBox1
+            // txtFiltrar
             // 
-            textBox1.Location = new Point(780, 23);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(230, 27);
-            textBox1.TabIndex = 7;
+            txtFiltrar.Location = new Point(805, 23);
+            txtFiltrar.Name = "txtFiltrar";
+            txtFiltrar.Size = new Size(230, 27);
+            txtFiltrar.TabIndex = 7;
             // 
             // lblFiltrar
             // 
             lblFiltrar.AutoSize = true;
-            lblFiltrar.Location = new Point(780, 0);
+            lblFiltrar.Location = new Point(805, 0);
             lblFiltrar.Name = "lblFiltrar";
             lblFiltrar.Size = new Size(230, 20);
             lblFiltrar.TabIndex = 8;
@@ -86,11 +87,12 @@
             // panelSuperior
             // 
             panelSuperior.BackColor = Color.White;
+            panelSuperior.Controls.Add(btnCargar);
             panelSuperior.Controls.Add(btnFiltrar);
             panelSuperior.Controls.Add(lblFiltrar);
             panelSuperior.Controls.Add(btnGestionarSuscripcion);
             panelSuperior.Controls.Add(pictureBox1);
-            panelSuperior.Controls.Add(textBox1);
+            panelSuperior.Controls.Add(txtFiltrar);
             panelSuperior.Controls.Add(btnAgregar);
             panelSuperior.Controls.Add(btnEliminar);
             panelSuperior.Controls.Add(btnModificar);
@@ -100,14 +102,26 @@
             panelSuperior.Size = new Size(1147, 61);
             panelSuperior.TabIndex = 34;
             // 
+            // btnCargar
+            // 
+            btnCargar.BackColor = SystemColors.GradientActiveCaption;
+            btnCargar.Location = new Point(694, 3);
+            btnCargar.Name = "btnCargar";
+            btnCargar.Size = new Size(105, 49);
+            btnCargar.TabIndex = 23;
+            btnCargar.Text = "Borrar Filtros";
+            btnCargar.UseVisualStyleBackColor = false;
+            btnCargar.Click += btnCargar_Click;
+            // 
             // btnFiltrar
             // 
-            btnFiltrar.Location = new Point(1016, 23);
+            btnFiltrar.Location = new Point(1041, 23);
             btnFiltrar.Name = "btnFiltrar";
             btnFiltrar.Size = new Size(94, 29);
             btnFiltrar.TabIndex = 15;
             btnFiltrar.Text = "Filtrar";
             btnFiltrar.UseVisualStyleBackColor = true;
+            btnFiltrar.Click += btnFiltrar_Click;
             // 
             // pictureBox1
             // 
@@ -186,7 +200,7 @@
         #endregion
         private Button btnGestionarSuscripcion;
         private DataGridView dtgvClientes;
-        private TextBox textBox1;
+        private TextBox txtFiltrar;
         private Label lblFiltrar;
         private Panel panelSuperior;
         private Button btnFiltrar;
@@ -195,5 +209,6 @@
         private Button btnEliminar;
         private Button btnModificar;
         private Button btnSalir;
+        private Button btnCargar;
     }
 }

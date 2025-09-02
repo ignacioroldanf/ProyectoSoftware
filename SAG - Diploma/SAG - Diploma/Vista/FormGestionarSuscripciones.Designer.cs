@@ -133,7 +133,7 @@
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(105, 49);
             btnEliminar.TabIndex = 22;
-            btnEliminar.Text = "Eliminar";
+            btnEliminar.Text = "Cancelar Suscripción";
             btnEliminar.UseVisualStyleBackColor = false;
             btnEliminar.Click += btnEliminar_Click;
             // 

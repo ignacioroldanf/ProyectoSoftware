@@ -1,4 +1,5 @@
 ﻿using Controlador;
+using Microsoft.EntityFrameworkCore;
 using Modelo.Modelo;
 using System;
 using System.Collections.Generic;
@@ -97,7 +98,39 @@ namespace SAG___Diploma.Vista
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            if (dtgvSuscripciones.CurrentRow != null)
+            {
+                int idSuscripcion = (int)dtgvSuscripciones.CurrentRow.Cells["ID"].Value;
 
+                var result = MessageBox.Show(
+                    "¿Está seguro que desea cancelar la suscripción seleccionada?",
+                    "Confirmar cancelación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        _ctrlSuscripciones.CancelarSuscripcion(idSuscripcion);
+                        MessageBox.Show("Suscripción cancelada correctamente.", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        CargarSuscripciones(); // refrescar grilla
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al cancelar la suscripción: {ex.Message}",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una suscripción.", "Advertencia",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)

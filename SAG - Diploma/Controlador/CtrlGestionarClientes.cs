@@ -1,4 +1,5 @@
-﻿using Modelo.Modelo;
+﻿using Microsoft.EntityFrameworkCore;
+using Modelo.Modelo;
 
 namespace Controlador
 {
@@ -55,6 +56,17 @@ namespace Controlador
         {
             return _context.Clientes.FirstOrDefault(c => c.IdCliente == clienteID);
         }
+        public List<Cliente> FiltrarPorDNI(string dni)
+        {
+            return _context.Clientes
+                .Include(c => c.Suscripciones)
+                    .ThenInclude(s => s.IdEstadoSuscripcionNavigation)
+                .Include(c => c.Suscripciones)
+                    .ThenInclude(s => s.IdPlanNavigation)
+                .Where(c => c.DniCliente.ToString() == dni) // Convertimos DniCliente a string para comparar con dni
+                .ToList();
+        }
+
 
         public void AsignarSuscripcion(int idCliente, int idPlan, DateOnly inicio, DateOnly fin, int idEstado = 1)
         {

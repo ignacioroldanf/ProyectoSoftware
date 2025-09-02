@@ -23,6 +23,7 @@ namespace SAG___Diploma.Vista
         public FormGestionarPlanes()
         {
             InitializeComponent();
+            _controladorPlanes = new CtrlGestionarPlanes(_context);
         }
         public void IniciarModoAsignacion(Cliente cliente)
         {
@@ -33,40 +34,34 @@ namespace SAG___Diploma.Vista
         private void FormGestionarPlanes_Load(object sender, EventArgs e)
         {
             CargarPlanes();
-
-            if (ModoAsignacion)
-            {
-                btnAgregar.Visible = false;
-                btnModificar.Visible = false;
-                btnEliminar.Visible = false;
-                btnAsignar.Visible = true; // Este botón lo agregás para asignar
-            }
-            else
-            {
-                btnAsignar.Visible = false;
-            }
         }
 
-        public void CargarPlanes()
+        private void CargarPlanes()
         {
-            var planes = _context.Planes
-                .Select(c => new
+            var planes = _controladorPlanes.Listar()
+                .Select(p => new
                 {
-                    ID = c.IdPlan,
-                    Nombre = c.NombrePlan,
-                    Duracion = c.DuracionMeses,
-                    PrecioMensual = c.PrecioMensual,
-                    Soporte = c.Soporte,
-                    Descripcion = c.DescripPlan
+                    p.IdPlan,
+                    p.NombrePlan,
+                    p.DuracionMeses,
+                    Soporte = p.Soporte == true ? "Sí" : "No",
+                    p.PrecioMensual,
+                    p.DescripPlan
                 })
                 .ToList();
+
             dtgvPlanes.DataSource = planes;
         }
 
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormPlan vistaPlan = new FormPlan();
-            vistaPlan.Show();
+            FormPlan formPlan = new FormPlan();
+            if (formPlan.ShowDialog() == DialogResult.OK)
+            {
+                _controladorPlanes.AgregarPlan(formPlan.PlanEditado);
+                CargarPlanes();
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -76,7 +71,36 @@ namespace SAG___Diploma.Vista
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
+            if (dtgvPlanes.CurrentRow != null)
+            {
+                int id = (int)dtgvPlanes.CurrentRow.Cells["IdPlan"].Value;
+                var planExistente = _controladorPlanes.Listar().FirstOrDefault(p => p.IdPlan == id);
 
+                if (planExistente != null)
+                {
+                    FormPlan formPlan = new FormPlan(planExistente);
+                    if (formPlan.ShowDialog() == DialogResult.OK)
+                    {
+                        _controladorPlanes.ModificarPrecio(formPlan.PlanEditado);
+                        CargarPlanes();
+                    }
+                }
+            }
+
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (dtgvPlanes.CurrentRow != null)
+            {
+                int id = (int)dtgvPlanes.CurrentRow.Cells["IdPlan"].Value;
+
+                if (MessageBox.Show("¿Está seguro de eliminar este plan?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _controladorPlanes.EliminarPlan(id);
+                    CargarPlanes();
+                }
+            }
         }
     }
 }

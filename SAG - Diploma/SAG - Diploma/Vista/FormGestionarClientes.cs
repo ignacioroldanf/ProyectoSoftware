@@ -123,5 +123,36 @@ namespace SAG___Diploma.Vista
                 vistaSuscripciones.ShowDialog();
             }
         }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            string dni = txtFiltrar.Text.Trim();
+
+            if (!string.IsNullOrEmpty(dni))
+            {
+                var clientesFiltrados = _ctrlCliente.FiltrarPorDNI(dni)
+                    .Select(c => new
+                    {
+                        ID = c.IdCliente,
+                        DNI = c.DniCliente,
+                        Nombre = c.NombreCliente,
+                        Apellido = c.ApellidoCliente,
+                        Fecha_Alta = c.FechaAlta
+                    })
+                    .ToList();
+
+                dtgvClientes.DataSource = clientesFiltrados;
+            }
+            else
+            {
+                MessageBox.Show("Ingrese un número de documento para filtrar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            txtFiltrar.Clear();
+        }
+
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
+            CargarClientes();
+        }
     }
 }

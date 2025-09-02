@@ -41,11 +41,10 @@ namespace Controlador
         {
             if (planModificado != null)
             {
-                Plane planExistente = _context.Planes.FirstOrDefault(c => c.IdPlan == planModificado.IdPlan);
+                var planExistente = _context.Planes.FirstOrDefault(p => p.IdPlan == planModificado.IdPlan);
                 if (planExistente != null)
                 {
-                    planExistente.PrecioMensual= planModificado.PrecioMensual;
-
+                    planExistente.PrecioMensual = planModificado.PrecioMensual;
                     _context.SaveChanges();
                 }
             }

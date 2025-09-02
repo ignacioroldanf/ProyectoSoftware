@@ -11,6 +11,7 @@ namespace Controlador
         {
             _context = context;
         }
+
         public List<Suscripcione> Listar()
         {
             return _context.Suscripciones
@@ -19,6 +20,7 @@ namespace Controlador
                 .Include(s => s.IdEstadoSuscripcionNavigation)
                 .ToList();
         }
+
         public List<Suscripcione> ListarPorCliente(int idCliente)
         {
             ActualizarEstados(idCliente);
@@ -30,6 +32,7 @@ namespace Controlador
                 .OrderByDescending(s => s.Inicio)
                 .ToList();
         }
+
         private void ActualizarEstados(int idCliente)
         {
             var hoy = DateOnly.FromDateTime(DateTime.Now);
@@ -38,11 +41,10 @@ namespace Controlador
                 .Where(s => s.IdCliente == idCliente)
                 .ToList();
 
-            // buscar el estado "Vencida"
             var estadoVencida = _context.EstadoSuscripcions
                 .FirstOrDefault(e => e.Descripcion == "Vencida");
 
-            if (estadoVencida == null) return; // seguridad
+            if (estadoVencida == null) return;
 
             foreach (var s in suscripciones)
             {
@@ -58,7 +60,6 @@ namespace Controlador
             _context.SaveChanges();
         }
 
-
         public Suscripcione? BuscarPorID(int idSuscripcion)
         {
             return _context.Suscripciones
@@ -69,27 +70,51 @@ namespace Controlador
 
         public void AsignarSuscripcion(int idCliente, int idPlan, DateOnly inicio, DateOnly fin, int idEstado = 1)
         {
+            // Invalidar suscripción activa
+            var vigente = ObtenerSuscripcionActiva(idCliente);
+            if (vigente != null)
+            {
+                var estadoVencida = _context.EstadoSuscripcions
+                    .FirstOrDefault(e => e.Descripcion == "Vencida");
+
+                if (estadoVencida != null)
+                {
+                    vigente.IdEstadoSuscripcion = estadoVencida.IdEstadoSuscripcion;
+                }
+            }
+
             var nuevaSuscripcion = new Suscripcione
             {
                 IdCliente = idCliente,
                 IdPlan = idPlan,
                 Inicio = inicio,
                 Fin = fin,
-                IdEstadoSuscripcion = idEstado
+                IdEstadoSuscripcion = idEstado // por defecto Vigente
             };
 
             _context.Suscripciones.Add(nuevaSuscripcion);
             _context.SaveChanges();
         }
-        public void EliminarSuscripcion(int idSuscripcion)
+
+        public void CancelarSuscripcion(int idSuscripcion)
         {
-            var suscripcion = _context.Suscripciones.Find(idSuscripcion);
+            var suscripcion = _context.Suscripciones
+                .Include(s => s.IdEstadoSuscripcionNavigation)
+                .FirstOrDefault(s => s.IdSuscripcion == idSuscripcion);
+
             if (suscripcion != null)
             {
-                _context.Suscripciones.Remove(suscripcion);
-                _context.SaveChanges();
+                var estadoCancelada = _context.EstadoSuscripcions
+                    .FirstOrDefault(e => e.Descripcion == "Cancelada");
+
+                if (estadoCancelada != null)
+                {
+                    suscripcion.IdEstadoSuscripcion = estadoCancelada.IdEstadoSuscripcion;
+                    _context.SaveChanges();
+                }
             }
         }
+
         public Suscripcione? ObtenerSuscripcionActiva(int idCliente)
         {
             return _context.Suscripciones
@@ -97,6 +122,7 @@ namespace Controlador
                 .Include(s => s.IdEstadoSuscripcionNavigation)
                 .FirstOrDefault(s => s.IdCliente == idCliente && s.IdEstadoSuscripcionNavigation.Descripcion == "Vigente");
         }
+
         public DateOnly CalcularFechaFin(int idPlan, DateOnly inicio)
         {
             var plan = _context.Planes.Find(idPlan);
@@ -109,10 +135,10 @@ namespace Controlador
         {
             return _context.Clientes.FirstOrDefault(c => c.IdCliente == idCliente);
         }
+
         public List<Plane> ObtenerPlanes()
         {
             return _context.Planes.ToList();
         }
     }
 }
-
