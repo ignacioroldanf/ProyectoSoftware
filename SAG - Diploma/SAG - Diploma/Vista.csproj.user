@@ -7,6 +7,12 @@
     <Compile Update="Vista\FormCliente.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Vista\FormEjercicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vista\FormGestionarClases.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Vista\FormGestionarClientes.cs">
       <SubType>Form</SubType>
     </Compile>

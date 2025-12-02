@@ -312,3 +312,5 @@ C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copi
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\Vista.genruntimeconfig.cache
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\ref\Vista.dll
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormGestionarSuscripciones.resources
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormEjercicio.resources
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormGestionarClases.resources

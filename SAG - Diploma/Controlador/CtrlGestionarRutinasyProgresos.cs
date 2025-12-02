@@ -58,6 +58,10 @@ namespace Controlador
 
             if(dia == null || ejercicio == null) return;
 
+            bool ordenDuplicado = dia.EjerciciosAsignados.Any(ea => ea.Orden == orden);
+            if (ordenDuplicado)
+                throw new InvalidOperationException("Ya existe un ejercicio en este día con el mismo orden.");
+
             EjerciciosAsignado nuevoEjAsignado = new EjerciciosAsignado
             {
                 IdDiaRutina = idDiaRutina,
@@ -77,6 +81,9 @@ namespace Controlador
             EjerciciosAsignado ej = _context.EjerciciosAsignados.Find(idEjAsignado);
             if (ej == null) return;
 
+            bool ordenDuplicado = ej.IdDiaRutinaNavigation.EjerciciosAsignados
+                .Any(ea => ea.Orden == orden && ea.IdEjercicioAsignado != idEjAsignado);
+
             ej.Series = series;
             ej.Repeticiones = repes;
             ej.Peso = peso;
@@ -90,10 +97,12 @@ namespace Controlador
         {
             return _context.Progresos
                 .Include(p => p.IdEjercicioAsignadoNavigation)
+                    .ThenInclude(ea => ea.IdEjercicioNavigation)
                 .Where(p => p.IdCliente == idCliente)
                 .OrderByDescending(p => p.Fecha)
                 .ToList();
         }
+
 
 
         public void RegistrarProgreso(int idCliente, int idEjAsignado, int seriesHechas, int repesHechas, float pesoUsado, string observaciones)

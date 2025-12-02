@@ -33,7 +33,6 @@
             label1 = new Label();
             pictureBox1 = new PictureBox();
             btnAgregar = new Button();
-            btnCerrar = new Button();
             btnEliminar = new Button();
             btnGuardar = new Button();
             btnModificar = new Button();
@@ -51,7 +50,6 @@
             panelSuperior.Controls.Add(label1);
             panelSuperior.Controls.Add(pictureBox1);
             panelSuperior.Controls.Add(btnAgregar);
-            panelSuperior.Controls.Add(btnCerrar);
             panelSuperior.Controls.Add(btnEliminar);
             panelSuperior.Controls.Add(btnGuardar);
             panelSuperior.Controls.Add(btnModificar);
@@ -101,16 +99,6 @@
             btnAgregar.UseVisualStyleBackColor = false;
             btnAgregar.Click += btnAgregar_Click;
             // 
-            // btnCerrar
-            // 
-            btnCerrar.BackColor = SystemColors.GradientActiveCaption;
-            btnCerrar.Location = new Point(555, 3);
-            btnCerrar.Name = "btnCerrar";
-            btnCerrar.Size = new Size(105, 49);
-            btnCerrar.TabIndex = 28;
-            btnCerrar.Text = "Cerrar";
-            btnCerrar.UseVisualStyleBackColor = false;
-            // 
             // btnEliminar
             // 
             btnEliminar.BackColor = SystemColors.GradientActiveCaption;
@@ -120,6 +108,7 @@
             btnEliminar.TabIndex = 22;
             btnEliminar.Text = "Eliminar Ejercicio";
             btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // btnGuardar
             // 
@@ -130,6 +119,7 @@
             btnGuardar.TabIndex = 27;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = false;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // btnModificar
             // 
@@ -140,6 +130,7 @@
             btnModificar.TabIndex = 21;
             btnModificar.Text = "Modificar Ejercicio";
             btnModificar.UseVisualStyleBackColor = false;
+            btnModificar.Click += btnModificar_Click;
             // 
             // dtgvEjercicios
             // 
@@ -190,7 +181,6 @@
         private Label label1;
         private PictureBox pictureBox1;
         private Button btnAgregar;
-        private Button btnCerrar;
         private Button btnEliminar;
         private Button btnGuardar;
         private Button btnModificar;

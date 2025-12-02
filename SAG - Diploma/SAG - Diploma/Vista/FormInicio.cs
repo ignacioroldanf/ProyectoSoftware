@@ -53,5 +53,11 @@ namespace SAG___Diploma.Vista
             this.Close();
 
         }
+
+        private void btnGestionarClases_Click(object sender, EventArgs e)
+        {
+            FormGestionarClases vistaClases = new FormGestionarClases();
+            vistaClases.ShowDialog();
+        }
     }
 }

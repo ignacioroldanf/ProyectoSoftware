@@ -3,24 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|c:\\users\\nacho\\onedrive - universidad abierta interamericana\\desktop\\facu - copia\\2025 1er cuatri\\proyecto\\primera iteracion\\sag - diploma\\sag - diploma\\vista\\formgestionarplanes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\formgestionarplanes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|c:\\users\\nacho\\onedrive - universidad abierta interamericana\\desktop\\facu - copia\\2025 1er cuatri\\proyecto\\primera iteracion\\sag - diploma\\sag - diploma\\vista\\forminicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\forminicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{183944CD-8100-4FFB-A4F0-778D86CCCCEB}|Controlador\\Controlador.csproj|c:\\users\\nacho\\onedrive - universidad abierta interamericana\\desktop\\facu - copia\\2025 1er cuatri\\proyecto\\primera iteracion\\sag - diploma\\controlador\\ctrlgestionarplanes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{183944CD-8100-4FFB-A4F0-778D86CCCCEB}|Controlador\\Controlador.csproj|solutionrelative:controlador\\ctrlgestionarplanes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\sag - diploma\\vista\\forminicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\forminicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|c:\\users\\nacho\\onedrive - universidad abierta interamericana\\desktop\\facu - copia\\2025 1er cuatri\\proyecto\\primera iteracion\\sag - diploma\\sag - diploma\\vista\\formplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\formplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\sag - diploma\\vista\\formgestionarclases.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\formgestionarclases.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\sag - diploma\\vista\\formplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\formplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|c:\\users\\nacho\\onedrive - universidad abierta interamericana\\desktop\\facu - copia\\2025 1er cuatri\\proyecto\\primera iteracion\\sag - diploma\\sag - diploma\\vista\\formgestionarrutinas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\formgestionarrutinas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\sag - diploma\\vista\\formgestionarplanes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\formgestionarplanes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\sag - diploma\\vista\\formgestionarprogresos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\formgestionarprogresos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{183944CD-8100-4FFB-A4F0-778D86CCCCEB}|Controlador\\Controlador.csproj|c:\\users\\nacho\\onedrive - universidad abierta interamericana\\desktop\\facu - copia\\2025 1er cuatri\\proyecto\\primera iteracion\\sag - diploma\\controlador\\ctrlgestionarrutinasyprogresos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{183944CD-8100-4FFB-A4F0-778D86CCCCEB}|Controlador\\Controlador.csproj|solutionrelative:controlador\\ctrlgestionarrutinasyprogresos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|c:\\users\\nacho\\onedrive - universidad abierta interamericana\\desktop\\facu - copia\\2025 1er cuatri\\proyecto\\primera iteracion\\sag - diploma\\sag - diploma\\vista\\formgestionarprogresos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\formgestionarprogresos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\sag - diploma\\vista\\formgestionarrutinas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C8FD8036-FC52-4D92-8FEE-78A917AB1089}|SAG - Diploma\\Vista.csproj|solutionrelative:sag - diploma\\vista\\formgestionarrutinas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,66 +50,97 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FormPlan.cs",
-              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormPlan.cs",
-              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormPlan.cs",
-              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormPlan.cs",
-              "RelativeToolTip": "SAG - Diploma\\Vista\\FormPlan.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAhwEsAAABDAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "FormInicio.cs",
+              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormInicio.cs",
+              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormInicio.cs",
+              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormInicio.cs",
+              "RelativeToolTip": "SAG - Diploma\\Vista\\FormInicio.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAjwC8AAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-02T00:34:46.679Z",
+              "WhenOpened": "2025-10-25T18:02:16.856Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FormGestionarClases.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarClases.cs",
+              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormGestionarClases.cs",
+              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarClases.cs [Dise\u00F1o]",
+              "RelativeToolTip": "SAG - Diploma\\Vista\\FormGestionarClases.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-25T18:02:05.827Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CtrlGestionarPlanes.cs",
-              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\Controlador\\CtrlGestionarPlanes.cs",
-              "RelativeDocumentMoniker": "Controlador\\CtrlGestionarPlanes.cs",
-              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\Controlador\\CtrlGestionarPlanes.cs",
-              "RelativeToolTip": "Controlador\\CtrlGestionarPlanes.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAA3wCcAAAAjAAAAAAAAAA==",
+              "Title": "FormInicio.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormInicio.cs",
+              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormInicio.cs",
+              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormInicio.cs [Dise\u00F1o]",
+              "RelativeToolTip": "SAG - Diploma\\Vista\\FormInicio.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-02T00:30:04.535Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-25T17:01:00.155Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FormGestionarPlanes.cs",
-              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarPlanes.cs",
-              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormGestionarPlanes.cs",
-              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarPlanes.cs",
-              "RelativeToolTip": "SAG - Diploma\\Vista\\FormGestionarPlanes.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAwwFMAAAA1AAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "CtrlGestionarRutinasyProgresos.cs",
+              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\Controlador\\CtrlGestionarRutinasyProgresos.cs",
+              "RelativeDocumentMoniker": "Controlador\\CtrlGestionarRutinasyProgresos.cs",
+              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\Controlador\\CtrlGestionarRutinasyProgresos.cs",
+              "RelativeToolTip": "Controlador\\CtrlGestionarRutinasyProgresos.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABwAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-02T00:16:23.447Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FormPlan.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormPlan.cs",
-              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormPlan.cs",
-              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormPlan.cs [Dise\u00F1o]",
-              "RelativeToolTip": "SAG - Diploma\\Vista\\FormPlan.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-31T17:54:46.225Z",
-              "EditorCaption": " [Dise\u00F1o]"
+              "WhenOpened": "2025-10-24T15:21:13.3Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "FormGestionarPlanes.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarPlanes.cs",
-              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormGestionarPlanes.cs",
-              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarPlanes.cs [Dise\u00F1o]",
-              "RelativeToolTip": "SAG - Diploma\\Vista\\FormGestionarPlanes.cs [Dise\u00F1o]",
+              "Title": "FormGestionarProgresos.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarProgresos.cs",
+              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormGestionarProgresos.cs",
+              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarProgresos.cs [Dise\u00F1o]",
+              "RelativeToolTip": "SAG - Diploma\\Vista\\FormGestionarProgresos.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-31T17:53:44.221Z",
-              "EditorCaption": " [Dise\u00F1o]"
+              "WhenOpened": "2025-10-14T01:03:26.715Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FormGestionarRutinas.cs",
+              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "RelativeToolTip": "SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAwwGEAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T15:55:16.744Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FormGestionarProgresos.cs",
+              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarProgresos.cs",
+              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormGestionarProgresos.cs",
+              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarProgresos.cs",
+              "RelativeToolTip": "SAG - Diploma\\Vista\\FormGestionarProgresos.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAswEMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T15:49:14.37Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FormGestionarRutinas.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "RelativeDocumentMoniker": "SAG - Diploma\\Vista\\FormGestionarRutinas.cs",
+              "ToolTip": "C:\\Users\\Nacho\\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\\Desktop\\Facu - copia\\2025 1er cuatri\\Proyecto\\Primera Iteracion\\SAG - Diploma\\SAG - Diploma\\Vista\\FormGestionarRutinas.cs [Dise\u00F1o]",
+              "RelativeToolTip": "SAG - Diploma\\Vista\\FormGestionarRutinas.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T15:54:58.607Z"
             }
           ]
         }

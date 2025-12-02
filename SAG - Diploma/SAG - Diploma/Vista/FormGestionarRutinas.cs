@@ -16,19 +16,19 @@ namespace SAG___Diploma.Vista
 {
     public partial class FormGestionarRutinas : Form
     {
-        DiplomaContext context = new DiplomaContext();
-        
+        private readonly DiplomaContext _context;
         private readonly CtrlGestionarRutinasyProgresos _controlador;
-        
+
         public FormGestionarRutinas()
         {
             InitializeComponent();
-            _controlador = new CtrlGestionarRutinasyProgresos(new DiplomaContext());
+            _context = new DiplomaContext();
+            _controlador = new CtrlGestionarRutinasyProgresos(_context);
         }
 
         public void CargarClientesPremium()
         {
-            var clientesPremium = context.Clientes
+            var clientesPremium = _context.Clientes
                 .Include(c => c.Suscripciones)
                     .ThenInclude(s => s.IdEstadoSuscripcionNavigation)
                 .Include(c => c.Suscripciones)
@@ -69,17 +69,49 @@ namespace SAG___Diploma.Vista
 
             int idCliente = Convert.ToInt32(dtgvClientesPremium.CurrentRow.Cells["ID"].Value);
 
-            using FormCantDias formDias = new FormCantDias();
+            var rutinaExistente = _controlador.ConsultarRutinaActual(idCliente);
+            if (rutinaExistente != null)
+            {
+                var rta = MessageBox.Show(
+                    "El cliente ya tiene una rutina asignada. \n¿Desea crear una nueva rutina de todas formas?",
+                    "Cliente con rutina existente",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                    );
+                if (rta == DialogResult.No) return;
+            }
 
-            if (formDias.ShowDialog() != DialogResult.OK) return;
+            using FormCantDias formDias = new FormCantDias();
+            if(formDias.ShowDialog() != DialogResult.OK) return;
 
             int dias = formDias.CantDiasSeleccionada;
-
+            
             var rutina = _controlador.CrearRutina(idCliente, dias);
+
+            if(rutina == null)
+            {
+                MessageBox.Show("No se pudo crear la rutina.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                return;
+            }
+
+            FormRutinas formRutina = new FormRutinas(rutina, _controlador, false);
+            formRutina.ShowDialog();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (dtgvClientesPremium.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un cliente");
+                return;
+            }
+
+            int idCliente = Convert.ToInt32(dtgvClientesPremium.CurrentRow.Cells["ID"].Value);
+            var rutina = _controlador.ConsultarRutinaActual(idCliente);
 
             if (rutina == null)
             {
-                MessageBox.Show("no se pudo crear");
+                MessageBox.Show("El cliente no tiene una rutina asignada.");
                 return;
             }
 
@@ -87,6 +119,61 @@ namespace SAG___Diploma.Vista
             frmRutinas.ShowDialog();
         }
 
+        private void btnRegistrar_Click(object sender, EventArgs e)
+        {
+            if (dtgvClientesPremium.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un cliente.");
+                return;
+            }
 
+            int idCliente = Convert.ToInt32(dtgvClientesPremium.CurrentRow.Cells["ID"].Value);
+
+            // Modo edición
+            FormGestionarProgresos formProgresos = new FormGestionarProgresos(_controlador, idCliente, false);
+            formProgresos.ShowDialog();
+        }
+
+        private void btnConsultarHistorial_Click(object sender, EventArgs e)
+        {
+            if (dtgvClientesPremium.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un cliente.");
+                return;
+            }
+
+            int idCliente = Convert.ToInt32(dtgvClientesPremium.CurrentRow.Cells["ID"].Value);
+
+            // Modo lectura
+            FormGestionarProgresos formProgresos = new FormGestionarProgresos(_controlador, idCliente, true);
+            formProgresos.ShowDialog();
+        }
+
+        private void btnConsultarRutina_Click(object sender, EventArgs e)
+        {
+            if (dtgvClientesPremium.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un cliente");
+                return;
+            }
+
+            int idCliente = Convert.ToInt32(dtgvClientesPremium.CurrentRow.Cells["ID"].Value);
+            var rutina = _controlador.ConsultarRutinaActual(idCliente);
+
+            if (rutina == null)
+            {
+                MessageBox.Show("El cliente no tiene una rutina asignada.");
+                return;
+            }
+
+            // Modo lectura
+            FormRutinas frmRutinas = new FormRutinas(rutina, _controlador, true);
+            frmRutinas.ShowDialog();
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

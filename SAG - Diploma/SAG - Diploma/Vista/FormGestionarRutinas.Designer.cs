@@ -36,7 +36,7 @@
             btnConsultarHistorial = new Button();
             btnConsultarRutina = new Button();
             lblFiltrar = new Label();
-            textBox1 = new TextBox();
+            txtFiltrar = new TextBox();
             btnFiltrar = new Button();
             panelSuperior = new Panel();
             pictureBox1 = new PictureBox();
@@ -77,6 +77,7 @@
             btnRegistrar.TabIndex = 22;
             btnRegistrar.Text = "Registrar Progreso";
             btnRegistrar.UseVisualStyleBackColor = false;
+            btnRegistrar.Click += btnRegistrar_Click;
             // 
             // btnModificar
             // 
@@ -87,6 +88,7 @@
             btnModificar.TabIndex = 21;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = false;
+            btnModificar.Click += btnModificar_Click;
             // 
             // btnCrearRutina
             // 
@@ -108,6 +110,7 @@
             btnConsultarHistorial.TabIndex = 27;
             btnConsultarHistorial.Text = "Consultar Historial";
             btnConsultarHistorial.UseVisualStyleBackColor = false;
+            btnConsultarHistorial.Click += btnConsultarHistorial_Click;
             // 
             // btnConsultarRutina
             // 
@@ -118,6 +121,7 @@
             btnConsultarRutina.TabIndex = 28;
             btnConsultarRutina.Text = "Consultar Rutina";
             btnConsultarRutina.UseVisualStyleBackColor = false;
+            btnConsultarRutina.Click += btnConsultarRutina_Click;
             // 
             // lblFiltrar
             // 
@@ -128,12 +132,12 @@
             lblFiltrar.TabIndex = 31;
             lblFiltrar.Text = "Filtrar por número de documento";
             // 
-            // textBox1
+            // txtFiltrar
             // 
-            textBox1.Location = new Point(780, 23);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(230, 27);
-            textBox1.TabIndex = 30;
+            txtFiltrar.Location = new Point(780, 23);
+            txtFiltrar.Name = "txtFiltrar";
+            txtFiltrar.Size = new Size(230, 27);
+            txtFiltrar.TabIndex = 30;
             // 
             // btnFiltrar
             // 
@@ -143,6 +147,7 @@
             btnFiltrar.TabIndex = 29;
             btnFiltrar.Text = "Filtrar";
             btnFiltrar.UseVisualStyleBackColor = true;
+            btnFiltrar.Click += btnFiltrar_Click;
             // 
             // panelSuperior
             // 
@@ -150,7 +155,7 @@
             panelSuperior.Controls.Add(btnFiltrar);
             panelSuperior.Controls.Add(lblFiltrar);
             panelSuperior.Controls.Add(pictureBox1);
-            panelSuperior.Controls.Add(textBox1);
+            panelSuperior.Controls.Add(txtFiltrar);
             panelSuperior.Controls.Add(btnCrearRutina);
             panelSuperior.Controls.Add(btnConsultarRutina);
             panelSuperior.Controls.Add(btnRegistrar);
@@ -203,7 +208,7 @@
         private Button btnConsultarHistorial;
         private Button btnConsultarRutina;
         private Label lblFiltrar;
-        private TextBox textBox1;
+        private TextBox txtFiltrar;
         private Button btnFiltrar;
         private Panel panelSuperior;
         private PictureBox pictureBox1;
