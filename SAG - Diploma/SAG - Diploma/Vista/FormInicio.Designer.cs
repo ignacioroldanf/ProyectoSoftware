@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormInicio));
             panelMenu = new Panel();
+            btnGestionarClases = new Button();
             btnCerrarSesion = new Button();
             btnGestionarRutinas = new Button();
             btnGestionarPlanes = new Button();
@@ -39,7 +40,6 @@
             pcLogo = new PictureBox();
             panelApp = new Panel();
             lblBienvenido = new Label();
-            btnGestionarClases = new Button();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pcLogo).BeginInit();
@@ -61,6 +61,22 @@
             panelMenu.Name = "panelMenu";
             panelMenu.Size = new Size(223, 725);
             panelMenu.TabIndex = 1;
+            // 
+            // btnGestionarClases
+            // 
+            btnGestionarClases.BackColor = Color.Black;
+            btnGestionarClases.Dock = DockStyle.Top;
+            btnGestionarClases.FlatAppearance.BorderColor = SystemColors.Info;
+            btnGestionarClases.FlatAppearance.BorderSize = 2;
+            btnGestionarClases.Font = new Font("Segoe UI", 10F);
+            btnGestionarClases.ForeColor = Color.White;
+            btnGestionarClases.Location = new Point(0, 433);
+            btnGestionarClases.Name = "btnGestionarClases";
+            btnGestionarClases.Size = new Size(223, 60);
+            btnGestionarClases.TabIndex = 7;
+            btnGestionarClases.Text = "GESTIONAR CLASES";
+            btnGestionarClases.UseVisualStyleBackColor = false;
+            btnGestionarClases.Click += btnGestionarClases_Click;
             // 
             // btnCerrarSesion
             // 
@@ -166,9 +182,11 @@
             // 
             // panelApp
             // 
+            panelApp.Anchor = AnchorStyles.None;
+            panelApp.AutoSize = true;
             panelApp.BackColor = SystemColors.GradientActiveCaption;
             panelApp.Controls.Add(lblBienvenido);
-            panelApp.Dock = DockStyle.Fill;
+            panelApp.Cursor = Cursors.Cross;
             panelApp.Location = new Point(223, 0);
             panelApp.Name = "panelApp";
             panelApp.Size = new Size(1026, 725);
@@ -183,22 +201,6 @@
             lblBienvenido.Size = new Size(603, 37);
             lblBienvenido.TabIndex = 0;
             lblBienvenido.Text = "Bienvenido, seleccione una opción para continuar";
-            // 
-            // btnGestionarClases
-            // 
-            btnGestionarClases.BackColor = Color.Black;
-            btnGestionarClases.Dock = DockStyle.Top;
-            btnGestionarClases.FlatAppearance.BorderColor = SystemColors.Info;
-            btnGestionarClases.FlatAppearance.BorderSize = 2;
-            btnGestionarClases.Font = new Font("Segoe UI", 10F);
-            btnGestionarClases.ForeColor = Color.White;
-            btnGestionarClases.Location = new Point(0, 433);
-            btnGestionarClases.Name = "btnGestionarClases";
-            btnGestionarClases.Size = new Size(223, 60);
-            btnGestionarClases.TabIndex = 7;
-            btnGestionarClases.Text = "GESTIONAR CLASES";
-            btnGestionarClases.UseVisualStyleBackColor = false;
-            btnGestionarClases.Click += btnGestionarClases_Click;
             // 
             // FormInicio
             // 
@@ -219,6 +221,7 @@
             panelApp.ResumeLayout(false);
             panelApp.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

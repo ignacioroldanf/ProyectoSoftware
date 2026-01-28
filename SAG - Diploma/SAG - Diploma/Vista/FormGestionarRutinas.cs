@@ -29,6 +29,7 @@ namespace SAG___Diploma.Vista
         public void CargarClientesPremium()
         {
             var clientesPremium = _context.Clientes
+                .Include(c => c.IdPersonaNavigation)
                 .Include(c => c.Suscripciones)
                     .ThenInclude(s => s.IdEstadoSuscripcionNavigation)
                 .Include(c => c.Suscripciones)
@@ -37,9 +38,9 @@ namespace SAG___Diploma.Vista
                 .Select(c => new
                 {
                     ID = c.IdCliente,
-                    DNI = c.DniCliente,
-                    Nombre = c.NombreCliente,
-                    Apellido = c.ApellidoCliente
+                    DNI = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Dni : "",
+                    Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
+                    Apellido = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Apellido : "",
                 })
                 .ToList();
             dtgvClientesPremium.DataSource = clientesPremium;

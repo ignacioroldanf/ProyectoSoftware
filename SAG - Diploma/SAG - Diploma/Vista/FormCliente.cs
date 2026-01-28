@@ -22,10 +22,13 @@ namespace SAG___Diploma.Vista
         {
             clienteExistente = cliente;
 
-            txtDocumento.Text = cliente.DniCliente.ToString();
-            txtNombre.Text = cliente.NombreCliente;
-            txtApellido.Text = cliente.ApellidoCliente;
-            txtMail.Text = cliente.MailCliente;
+            if (cliente.IdPersonaNavigation != null)
+            {
+                txtDocumento.Text = cliente.IdPersonaNavigation.Dni;
+                txtNombre.Text = cliente.IdPersonaNavigation.Nombre;
+                txtApellido.Text = cliente.IdPersonaNavigation.Apellido;
+                txtMail.Text = cliente.IdPersonaNavigation.Email;
+            }
         }
 
 
@@ -57,24 +60,33 @@ namespace SAG___Diploma.Vista
             }
             if(clienteExistente == null)
             {
-                Cliente nuevoCliente = new Cliente();
+                Persona nuevaPersona = new Persona();
 
-                nuevoCliente.DniCliente = Convert.ToInt32(txtDocumento.Text);
-                nuevoCliente.NombreCliente = txtNombre.Text;
-                nuevoCliente.MailCliente = txtMail.Text;
-                nuevoCliente.ApellidoCliente = txtApellido.Text;
+                nuevaPersona.Nombre = txtNombre.Text;
+                nuevaPersona.Dni = txtDocumento.Text;
+                nuevaPersona.Apellido = txtApellido.Text;
+                nuevaPersona.Email = txtMail.Text;
+
+
+                Cliente nuevoCliente = new Cliente();
+                
                 nuevoCliente.FechaAlta = DateOnly.FromDateTime(DateTime.Now);
+                nuevoCliente.IdPersonaNavigation = nuevaPersona;
 
                 _clienteControlador.AgregarCliente(nuevoCliente);
                 MessageBox.Show("Cliente agregado correctamente");
             }
             else
             {
+                if (clienteExistente.IdPersonaNavigation == null)
+                {
+                    clienteExistente.IdPersonaNavigation = new Persona();
+                }
 
-                clienteExistente.DniCliente = Convert.ToInt32(txtDocumento.Text);
-                clienteExistente.NombreCliente = txtNombre.Text;
-                clienteExistente.ApellidoCliente = txtApellido.Text;
-                clienteExistente.MailCliente = txtMail.Text;
+                clienteExistente.IdPersonaNavigation.Dni = txtDocumento.Text;
+                clienteExistente.IdPersonaNavigation.Nombre = txtNombre.Text;
+                clienteExistente.IdPersonaNavigation.Apellido = txtApellido.Text;
+                clienteExistente.IdPersonaNavigation.Email = txtMail.Text;
 
                 _clienteControlador.ModificarCliente(clienteExistente);
                 MessageBox.Show("Cliente modificado correctamente");

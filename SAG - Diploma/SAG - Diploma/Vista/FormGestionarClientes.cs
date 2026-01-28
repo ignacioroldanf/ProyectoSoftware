@@ -29,22 +29,38 @@ namespace SAG___Diploma.Vista
 
         }
 
+
+        private string CalcularEstado(ICollection<Suscripcione> suscripciones)
+        {
+            if (suscripciones.Any(s => s.IdEstadoSuscripcionNavigation.Descripcion == "Vigente"))
+                return "Vigente";
+
+            var ultimaSuscripcion = suscripciones.OrderByDescending(s => s.Fin).FirstOrDefault();
+
+            if (ultimaSuscripcion != null && ultimaSuscripcion.IdEstadoSuscripcionNavigation != null)
+            {
+                return ultimaSuscripcion.IdEstadoSuscripcionNavigation.Descripcion;
+
+            }
+
+            return "Sin suscripción";
+        }
+
+
         public void CargarClientes()
         {
-            var clientes = context.Clientes
-                .Include(c => c.Suscripciones)
-                    .ThenInclude(s => s.IdEstadoSuscripcionNavigation)
-                .Include(c => c.Suscripciones)
-                    .ThenInclude(s => s.IdPlanNavigation)
-                .Select(c => new
-                {
-                    ID = c.IdCliente,
-                    DNI = c.DniCliente,
-                    Nombre = c.NombreCliente,
-                    Apellido = c.ApellidoCliente,
-                    Fecha_Alta = c.FechaAlta
-                })
-                .ToList();
+            var listaClientes = _ctrlCliente.Listar();
+
+            var clientes = listaClientes.Select(c => new
+            {    
+                ID = c.IdCliente,
+                DNI = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Dni : "",
+                Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
+                Apellido = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Apellido : "",
+                Suscripcion = CalcularEstado(c.Suscripciones),
+                Fecha_Alta = c.FechaAlta
+
+            }).ToList();
             dtgvClientes.DataSource = clientes;
         }
 
@@ -122,6 +138,8 @@ namespace SAG___Diploma.Vista
             {
                 vistaSuscripciones.ShowDialog();
             }
+
+            CargarClientes();
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
@@ -130,18 +148,19 @@ namespace SAG___Diploma.Vista
 
             if (!string.IsNullOrEmpty(dni))
             {
-                var clientesFiltrados = _ctrlCliente.FiltrarPorDNI(dni)
-                    .Select(c => new
-                    {
-                        ID = c.IdCliente,
-                        DNI = c.DniCliente,
-                        Nombre = c.NombreCliente,
-                        Apellido = c.ApellidoCliente,
-                        Fecha_Alta = c.FechaAlta
-                    })
-                    .ToList();
+                var clientesFiltrados = _ctrlCliente.FiltrarPorDNI(dni);
 
-                dtgvClientes.DataSource = clientesFiltrados;
+                var clientes = clientesFiltrados.Select(c => new
+                {
+                    ID = c.IdCliente,
+                    DNI = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Dni : "",
+                    Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
+                    Apellido = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Apellido : "",
+
+                    Fecha_Alta = c.FechaAlta
+
+                }).ToList();
+                dtgvClientes.DataSource = clientes;
             }
             else
             {

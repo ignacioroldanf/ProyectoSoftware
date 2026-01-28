@@ -67,7 +67,12 @@ namespace SAG___Diploma.Vista
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            this.Close();
+
+            if (MessageBox.Show("¿Está seguro que desea salir? Los datos no guardados serán eliminados", "Confirmar salida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                this.Close();
+            }
+
         }
 
         private void btnModificar_Click(object sender, EventArgs e)

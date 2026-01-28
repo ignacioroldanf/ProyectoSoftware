@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SAG___Diploma.Vista
 {
-    public partial class FormInicio : MaterialForm
+    public partial class FormInicio : Form
     {
         public FormInicio()
         {

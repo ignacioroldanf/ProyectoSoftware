@@ -41,7 +41,7 @@ namespace SAG___Diploma.Vista
             var cliente = _ctrlSuscripciones.ObtenerCliente(_idCliente);
             if (cliente != null)
             {
-                lblCliente.Text = $"{cliente.NombreCliente} {cliente.ApellidoCliente}";
+                lblCliente.Text = $"{cliente.IdPersonaNavigation.Nombre} {cliente.IdPersonaNavigation.Apellido}";
             }
             else
             {
