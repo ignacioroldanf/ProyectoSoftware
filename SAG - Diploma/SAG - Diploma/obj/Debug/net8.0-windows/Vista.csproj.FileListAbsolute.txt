@@ -314,3 +314,4 @@ C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copi
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormGestionarSuscripciones.resources
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormEjercicio.resources
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormGestionarClases.resources
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\bin\Debug\net8.0-windows\MaterialSkin.dll

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SAG___Diploma.Vista
 {
-    public partial class FormInicio : Form
+    public partial class FormInicio : MaterialForm
     {
         public FormInicio()
         {
