@@ -1,5 +1,4 @@
-﻿using MaterialSkin;
-using MaterialSkin.Controls;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,35 +18,61 @@ namespace SAG___Diploma.Vista
             InitializeComponent();
         }
 
+        //metodo para poner los forms en el panel
 
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void AbrirFormulario<MiForm>() where MiForm : Form, new()
         {
-
+            Form formulario;
+            formulario = panelForm.Controls.OfType<MiForm>().FirstOrDefault();//Busca en la coleccion el formulario
+            //si el formulario/instancia no existe
+            if (formulario == null)
+            {
+                formulario = new MiForm();
+                formulario.TopLevel = false;
+                formulario.FormBorderStyle = FormBorderStyle.None;
+                formulario.Dock = DockStyle.Fill;
+                panelForm.Controls.Add(formulario);
+                panelForm.Tag = formulario;
+                formulario.Show();
+                formulario.BringToFront();
+            }
+                formulario.BringToFront();
+                lblTitulo.Text= formulario.Text;
         }
 
         private void btnGestionarClientes_Click(object sender, EventArgs e)
         {
-            FormGestionarClientes vistaClientes = new FormGestionarClientes();
-            vistaClientes.ShowDialog();
-
+            AbrirFormulario<FormGestionarClientes>();
+            btnGestionarClientes.BackColor = Color.FromArgb(12, 61, 92);
+            btnGestionarRutinas.BackColor = Color.Black;
+            btnGestionarPlanes.BackColor = Color.Black;
+            btnGestionarClases.BackColor = Color.Black;
         }
 
         private void FormInicio_Load(object sender, EventArgs e)
         {
-            panelApp.Visible = true;
+            panelForm.Visible = true;
         }
 
         private void btnGestionarRutinas_Click(object sender, EventArgs e)
         {
-            FormGestionarRutinas vistaRutinas = new FormGestionarRutinas();
-            vistaRutinas.ShowDialog();
+            AbrirFormulario<FormGestionarRutinas>();
+            
+            btnGestionarRutinas.BackColor = Color.FromArgb(12, 61, 92);
+            btnGestionarClientes.BackColor = Color.Black;
+            btnGestionarPlanes.BackColor = Color.Black;
+            btnGestionarClases.BackColor = Color.Black;
         }
 
         private void btnGestionarPlanes_Click(object sender, EventArgs e)
         {
-            FormGestionarPlanes vistaPlanes = new FormGestionarPlanes();
-            vistaPlanes.ShowDialog();
+            AbrirFormulario<FormGestionarPlanes>();
+
+            btnGestionarClientes.BackColor = Color.Black;
+            btnGestionarRutinas.BackColor = Color.Black;
+            btnGestionarPlanes.BackColor = Color.FromArgb(12, 61, 92);
+            btnGestionarClases.BackColor = Color.Black;
+
         }
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
@@ -58,8 +83,22 @@ namespace SAG___Diploma.Vista
 
         private void btnGestionarClases_Click(object sender, EventArgs e)
         {
-            FormGestionarClases vistaClases = new FormGestionarClases();
-            vistaClases.ShowDialog();
+            AbrirFormulario<FormGestionarClases>();
+
+            btnGestionarClientes.BackColor = Color.Black;
+            btnGestionarRutinas.BackColor = Color.Black;
+            btnGestionarPlanes.BackColor = Color.Black;
+            btnGestionarClases.BackColor = Color.FromArgb(12, 61, 92);
+        }
+
+        private void pbCerrar_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnInicio_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

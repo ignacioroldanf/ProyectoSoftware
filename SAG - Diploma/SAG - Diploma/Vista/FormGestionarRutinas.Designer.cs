@@ -39,18 +39,18 @@
             txtFiltrar = new TextBox();
             btnFiltrar = new Button();
             panelSuperior = new Panel();
-            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dtgvClientesPremium).BeginInit();
             panelSuperior.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // btnSalir
             // 
+            btnSalir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalir.BackColor = SystemColors.GradientActiveCaption;
-            btnSalir.Location = new Point(1009, 562);
+            btnSalir.Font = new Font("Segoe UI", 12F);
+            btnSalir.Location = new Point(1229, 693);
             btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(101, 44);
+            btnSalir.Size = new Size(120, 68);
             btnSalir.TabIndex = 1;
             btnSalir.Text = "Salir";
             btnSalir.UseVisualStyleBackColor = false;
@@ -58,22 +58,25 @@
             // 
             // dtgvClientesPremium
             // 
+            dtgvClientesPremium.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgvClientesPremium.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgvClientesPremium.BackgroundColor = SystemColors.GradientActiveCaption;
             dtgvClientesPremium.BorderStyle = BorderStyle.None;
             dtgvClientesPremium.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtgvClientesPremium.Location = new Point(0, 77);
+            dtgvClientesPremium.Location = new Point(12, 140);
             dtgvClientesPremium.Name = "dtgvClientesPremium";
             dtgvClientesPremium.RowHeadersWidth = 51;
-            dtgvClientesPremium.Size = new Size(1110, 479);
+            dtgvClientesPremium.Size = new Size(1337, 525);
             dtgvClientesPremium.TabIndex = 23;
             // 
             // btnRegistrar
             // 
+            btnRegistrar.Anchor = AnchorStyles.Left;
             btnRegistrar.BackColor = SystemColors.GradientActiveCaption;
-            btnRegistrar.Location = new Point(333, 3);
+            btnRegistrar.Font = new Font("Segoe UI", 12F);
+            btnRegistrar.Location = new Point(264, 3);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.Size = new Size(105, 49);
+            btnRegistrar.Size = new Size(120, 68);
             btnRegistrar.TabIndex = 22;
             btnRegistrar.Text = "Registrar Progreso";
             btnRegistrar.UseVisualStyleBackColor = false;
@@ -81,10 +84,12 @@
             // 
             // btnModificar
             // 
+            btnModificar.Anchor = AnchorStyles.Left;
             btnModificar.BackColor = SystemColors.GradientActiveCaption;
-            btnModificar.Location = new Point(222, 3);
+            btnModificar.Font = new Font("Segoe UI", 12F);
+            btnModificar.Location = new Point(138, 3);
             btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(105, 49);
+            btnModificar.Size = new Size(120, 68);
             btnModificar.TabIndex = 21;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = false;
@@ -92,10 +97,12 @@
             // 
             // btnCrearRutina
             // 
+            btnCrearRutina.Anchor = AnchorStyles.Left;
             btnCrearRutina.BackColor = SystemColors.GradientActiveCaption;
-            btnCrearRutina.Location = new Point(111, 3);
+            btnCrearRutina.Font = new Font("Segoe UI", 12F);
+            btnCrearRutina.Location = new Point(12, 3);
             btnCrearRutina.Name = "btnCrearRutina";
-            btnCrearRutina.Size = new Size(105, 49);
+            btnCrearRutina.Size = new Size(120, 68);
             btnCrearRutina.TabIndex = 20;
             btnCrearRutina.Text = "Crear Rutina";
             btnCrearRutina.UseVisualStyleBackColor = false;
@@ -103,10 +110,12 @@
             // 
             // btnConsultarHistorial
             // 
+            btnConsultarHistorial.Anchor = AnchorStyles.Left;
             btnConsultarHistorial.BackColor = SystemColors.GradientActiveCaption;
-            btnConsultarHistorial.Location = new Point(444, 3);
+            btnConsultarHistorial.Font = new Font("Segoe UI", 12F);
+            btnConsultarHistorial.Location = new Point(390, 3);
             btnConsultarHistorial.Name = "btnConsultarHistorial";
-            btnConsultarHistorial.Size = new Size(105, 49);
+            btnConsultarHistorial.Size = new Size(120, 68);
             btnConsultarHistorial.TabIndex = 27;
             btnConsultarHistorial.Text = "Consultar Historial";
             btnConsultarHistorial.UseVisualStyleBackColor = false;
@@ -114,10 +123,12 @@
             // 
             // btnConsultarRutina
             // 
+            btnConsultarRutina.Anchor = AnchorStyles.Left;
             btnConsultarRutina.BackColor = SystemColors.GradientActiveCaption;
-            btnConsultarRutina.Location = new Point(555, 3);
+            btnConsultarRutina.Font = new Font("Segoe UI", 12F);
+            btnConsultarRutina.Location = new Point(516, 3);
             btnConsultarRutina.Name = "btnConsultarRutina";
-            btnConsultarRutina.Size = new Size(105, 49);
+            btnConsultarRutina.Size = new Size(120, 68);
             btnConsultarRutina.TabIndex = 28;
             btnConsultarRutina.Text = "Consultar Rutina";
             btnConsultarRutina.UseVisualStyleBackColor = false;
@@ -125,8 +136,9 @@
             // 
             // lblFiltrar
             // 
+            lblFiltrar.Anchor = AnchorStyles.Right;
             lblFiltrar.AutoSize = true;
-            lblFiltrar.Location = new Point(780, 0);
+            lblFiltrar.Location = new Point(993, 9);
             lblFiltrar.Name = "lblFiltrar";
             lblFiltrar.Size = new Size(230, 20);
             lblFiltrar.TabIndex = 31;
@@ -134,16 +146,19 @@
             // 
             // txtFiltrar
             // 
-            txtFiltrar.Location = new Point(780, 23);
+            txtFiltrar.Anchor = AnchorStyles.Right;
+            txtFiltrar.Location = new Point(993, 44);
             txtFiltrar.Name = "txtFiltrar";
             txtFiltrar.Size = new Size(230, 27);
             txtFiltrar.TabIndex = 30;
             // 
             // btnFiltrar
             // 
-            btnFiltrar.Location = new Point(1016, 23);
+            btnFiltrar.Anchor = AnchorStyles.Right;
+            btnFiltrar.Font = new Font("Segoe UI", 12F);
+            btnFiltrar.Location = new Point(1229, 3);
             btnFiltrar.Name = "btnFiltrar";
-            btnFiltrar.Size = new Size(94, 29);
+            btnFiltrar.Size = new Size(120, 68);
             btnFiltrar.TabIndex = 29;
             btnFiltrar.Text = "Filtrar";
             btnFiltrar.UseVisualStyleBackColor = true;
@@ -154,7 +169,6 @@
             panelSuperior.BackColor = Color.White;
             panelSuperior.Controls.Add(btnFiltrar);
             panelSuperior.Controls.Add(lblFiltrar);
-            panelSuperior.Controls.Add(pictureBox1);
             panelSuperior.Controls.Add(txtFiltrar);
             panelSuperior.Controls.Add(btnCrearRutina);
             panelSuperior.Controls.Add(btnConsultarRutina);
@@ -164,26 +178,15 @@
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(1139, 61);
+            panelSuperior.Size = new Size(1361, 82);
             panelSuperior.TabIndex = 32;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = Properties.Resources.bodybuilding_emblem_and_gym_logo_design_template_vector;
-            pictureBox1.Location = new Point(-20, -6);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(125, 62);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
             // 
             // FormGestionarRutinas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientActiveCaption;
-            ClientSize = new Size(1139, 650);
+            ClientSize = new Size(1361, 773);
             Controls.Add(panelSuperior);
             Controls.Add(dtgvClientesPremium);
             Controls.Add(btnSalir);
@@ -194,7 +197,6 @@
             ((System.ComponentModel.ISupportInitialize)dtgvClientesPremium).EndInit();
             panelSuperior.ResumeLayout(false);
             panelSuperior.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -211,6 +213,5 @@
         private TextBox txtFiltrar;
         private Button btnFiltrar;
         private Panel panelSuperior;
-        private PictureBox pictureBox1;
     }
 }

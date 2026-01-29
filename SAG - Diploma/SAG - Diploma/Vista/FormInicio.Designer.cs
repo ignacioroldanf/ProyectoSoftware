@@ -39,11 +39,19 @@
             panelLogo = new Panel();
             pcLogo = new PictureBox();
             panelApp = new Panel();
+            panelForm = new Panel();
+            panelBarra = new Panel();
+            lblTitulo = new Label();
+            panel1 = new Panel();
+            pbCerrar = new PictureBox();
             lblBienvenido = new Label();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pcLogo).BeginInit();
             panelApp.SuspendLayout();
+            panelBarra.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbCerrar).BeginInit();
             SuspendLayout();
             // 
             // panelMenu
@@ -59,7 +67,7 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(223, 725);
+            panelMenu.Size = new Size(321, 725);
             panelMenu.TabIndex = 1;
             // 
             // btnGestionarClases
@@ -68,11 +76,11 @@
             btnGestionarClases.Dock = DockStyle.Top;
             btnGestionarClases.FlatAppearance.BorderColor = SystemColors.Info;
             btnGestionarClases.FlatAppearance.BorderSize = 2;
-            btnGestionarClases.Font = new Font("Segoe UI", 10F);
+            btnGestionarClases.Font = new Font("Segoe UI", 16.2F);
             btnGestionarClases.ForeColor = Color.White;
-            btnGestionarClases.Location = new Point(0, 433);
+            btnGestionarClases.Location = new Point(0, 513);
             btnGestionarClases.Name = "btnGestionarClases";
-            btnGestionarClases.Size = new Size(223, 60);
+            btnGestionarClases.Size = new Size(321, 80);
             btnGestionarClases.TabIndex = 7;
             btnGestionarClases.Text = "GESTIONAR CLASES";
             btnGestionarClases.UseVisualStyleBackColor = false;
@@ -84,11 +92,11 @@
             btnCerrarSesion.Dock = DockStyle.Bottom;
             btnCerrarSesion.FlatAppearance.BorderColor = SystemColors.Info;
             btnCerrarSesion.FlatAppearance.BorderSize = 2;
-            btnCerrarSesion.Font = new Font("Segoe UI", 10F);
+            btnCerrarSesion.Font = new Font("Segoe UI", 16.2F);
             btnCerrarSesion.ForeColor = Color.White;
-            btnCerrarSesion.Location = new Point(0, 665);
+            btnCerrarSesion.Location = new Point(0, 645);
             btnCerrarSesion.Name = "btnCerrarSesion";
-            btnCerrarSesion.Size = new Size(223, 60);
+            btnCerrarSesion.Size = new Size(321, 80);
             btnCerrarSesion.TabIndex = 6;
             btnCerrarSesion.Text = "CERRAR SESIÓN";
             btnCerrarSesion.UseVisualStyleBackColor = false;
@@ -100,11 +108,11 @@
             btnGestionarRutinas.Dock = DockStyle.Top;
             btnGestionarRutinas.FlatAppearance.BorderColor = SystemColors.Info;
             btnGestionarRutinas.FlatAppearance.BorderSize = 2;
-            btnGestionarRutinas.Font = new Font("Segoe UI", 10F);
+            btnGestionarRutinas.Font = new Font("Segoe UI", 16.2F);
             btnGestionarRutinas.ForeColor = Color.White;
-            btnGestionarRutinas.Location = new Point(0, 373);
+            btnGestionarRutinas.Location = new Point(0, 433);
             btnGestionarRutinas.Name = "btnGestionarRutinas";
-            btnGestionarRutinas.Size = new Size(223, 60);
+            btnGestionarRutinas.Size = new Size(321, 80);
             btnGestionarRutinas.TabIndex = 5;
             btnGestionarRutinas.Text = "GESTIONAR RUTINAS";
             btnGestionarRutinas.UseVisualStyleBackColor = false;
@@ -116,11 +124,11 @@
             btnGestionarPlanes.Dock = DockStyle.Top;
             btnGestionarPlanes.FlatAppearance.BorderColor = SystemColors.Info;
             btnGestionarPlanes.FlatAppearance.BorderSize = 2;
-            btnGestionarPlanes.Font = new Font("Segoe UI", 10F);
+            btnGestionarPlanes.Font = new Font("Segoe UI", 16.2F);
             btnGestionarPlanes.ForeColor = Color.White;
-            btnGestionarPlanes.Location = new Point(0, 313);
+            btnGestionarPlanes.Location = new Point(0, 353);
             btnGestionarPlanes.Name = "btnGestionarPlanes";
-            btnGestionarPlanes.Size = new Size(223, 60);
+            btnGestionarPlanes.Size = new Size(321, 80);
             btnGestionarPlanes.TabIndex = 4;
             btnGestionarPlanes.Text = "GESTIONAR PLANES";
             btnGestionarPlanes.UseVisualStyleBackColor = false;
@@ -132,11 +140,11 @@
             btnGestionarClientes.Dock = DockStyle.Top;
             btnGestionarClientes.FlatAppearance.BorderColor = SystemColors.Info;
             btnGestionarClientes.FlatAppearance.BorderSize = 2;
-            btnGestionarClientes.Font = new Font("Segoe UI", 10F);
+            btnGestionarClientes.Font = new Font("Segoe UI", 16.2F);
             btnGestionarClientes.ForeColor = Color.White;
-            btnGestionarClientes.Location = new Point(0, 253);
+            btnGestionarClientes.Location = new Point(0, 273);
             btnGestionarClientes.Name = "btnGestionarClientes";
-            btnGestionarClientes.Size = new Size(223, 60);
+            btnGestionarClientes.Size = new Size(321, 80);
             btnGestionarClientes.TabIndex = 2;
             btnGestionarClientes.Text = "GESTIONAR CLIENTES";
             btnGestionarClientes.UseVisualStyleBackColor = false;
@@ -148,15 +156,16 @@
             btnInicio.Dock = DockStyle.Top;
             btnInicio.FlatAppearance.BorderColor = SystemColors.Info;
             btnInicio.FlatAppearance.BorderSize = 2;
-            btnInicio.Font = new Font("Segoe UI", 10F);
+            btnInicio.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnInicio.ForeColor = Color.White;
             btnInicio.ImageAlign = ContentAlignment.MiddleLeft;
             btnInicio.Location = new Point(0, 193);
             btnInicio.Name = "btnInicio";
-            btnInicio.Size = new Size(223, 60);
+            btnInicio.Size = new Size(321, 80);
             btnInicio.TabIndex = 1;
             btnInicio.Text = "INICIO";
             btnInicio.UseVisualStyleBackColor = false;
+            btnInicio.Click += btnInicio_Click;
             // 
             // panelLogo
             // 
@@ -165,7 +174,7 @@
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(223, 193);
+            panelLogo.Size = new Size(321, 193);
             panelLogo.TabIndex = 0;
             // 
             // pcLogo
@@ -175,28 +184,83 @@
             pcLogo.Image = (Image)resources.GetObject("pcLogo.Image");
             pcLogo.Location = new Point(0, 0);
             pcLogo.Name = "pcLogo";
-            pcLogo.Size = new Size(223, 193);
+            pcLogo.Size = new Size(321, 193);
             pcLogo.SizeMode = PictureBoxSizeMode.Zoom;
             pcLogo.TabIndex = 0;
             pcLogo.TabStop = false;
             // 
             // panelApp
             // 
-            panelApp.Anchor = AnchorStyles.None;
             panelApp.AutoSize = true;
             panelApp.BackColor = SystemColors.GradientActiveCaption;
+            panelApp.Controls.Add(panelForm);
+            panelApp.Controls.Add(panelBarra);
             panelApp.Controls.Add(lblBienvenido);
+            panelApp.Controls.Add(panelMenu);
             panelApp.Cursor = Cursors.Cross;
-            panelApp.Location = new Point(223, 0);
+            panelApp.Dock = DockStyle.Fill;
+            panelApp.Location = new Point(0, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(1026, 725);
+            panelApp.Size = new Size(1249, 725);
             panelApp.TabIndex = 2;
+            // 
+            // panelForm
+            // 
+            panelForm.BackColor = SystemColors.ActiveCaption;
+            panelForm.Dock = DockStyle.Fill;
+            panelForm.Location = new Point(321, 60);
+            panelForm.Name = "panelForm";
+            panelForm.Size = new Size(928, 665);
+            panelForm.TabIndex = 4;
+            // 
+            // panelBarra
+            // 
+            panelBarra.BackColor = Color.FromArgb(13, 93, 142);
+            panelBarra.Controls.Add(panel1);
+            panelBarra.Controls.Add(lblTitulo);
+            panelBarra.Dock = DockStyle.Top;
+            panelBarra.Location = new Point(321, 0);
+            panelBarra.Name = "panelBarra";
+            panelBarra.Size = new Size(928, 60);
+            panelBarra.TabIndex = 3;
+            // 
+            // lblTitulo
+            // 
+            lblTitulo.Dock = DockStyle.Fill;
+            lblTitulo.Font = new Font("Segoe UI", 25.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTitulo.ImageAlign = ContentAlignment.MiddleLeft;
+            lblTitulo.Location = new Point(0, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(928, 60);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "INICIO";
+            lblTitulo.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(13, 93, 142);
+            panel1.Controls.Add(pbCerrar);
+            panel1.Dock = DockStyle.Right;
+            panel1.Location = new Point(887, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(41, 60);
+            panel1.TabIndex = 0;
+            // 
+            // pbCerrar
+            // 
+            pbCerrar.Image = (Image)resources.GetObject("pbCerrar.Image");
+            pbCerrar.Location = new Point(13, 12);
+            pbCerrar.Name = "pbCerrar";
+            pbCerrar.Size = new Size(16, 16);
+            pbCerrar.TabIndex = 1;
+            pbCerrar.TabStop = false;
+            pbCerrar.Click += pbCerrar_Click;
             // 
             // lblBienvenido
             // 
             lblBienvenido.AutoSize = true;
             lblBienvenido.Font = new Font("Segoe UI", 16F);
-            lblBienvenido.Location = new Point(132, 313);
+            lblBienvenido.Location = new Point(409, 313);
             lblBienvenido.Name = "lblBienvenido";
             lblBienvenido.Size = new Size(603, 37);
             lblBienvenido.TabIndex = 0;
@@ -206,20 +270,24 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
             ClientSize = new Size(1249, 725);
             Controls.Add(panelApp);
-            Controls.Add(panelMenu);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
+            FormBorderStyle = FormBorderStyle.None;
             MinimizeBox = false;
             Name = "FormInicio";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SISTEMA DE GESTION DE GIMNASIO";
+            WindowState = FormWindowState.Maximized;
             Load += FormInicio_Load;
             panelMenu.ResumeLayout(false);
             panelLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pcLogo).EndInit();
             panelApp.ResumeLayout(false);
             panelApp.PerformLayout();
+            panelBarra.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pbCerrar).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -237,5 +305,10 @@
         private Button btnGestionarClientes;
         private Label lblBienvenido;
         private Button btnGestionarClases;
+        private Panel panelBarra;
+        private Panel panelForm;
+        private PictureBox pbCerrar;
+        private Panel panel1;
+        private Label lblTitulo;
     }
 }

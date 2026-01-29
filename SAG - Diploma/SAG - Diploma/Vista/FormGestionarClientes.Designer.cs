@@ -35,22 +35,22 @@
             panelSuperior = new Panel();
             btnCargar = new Button();
             btnFiltrar = new Button();
-            pictureBox1 = new PictureBox();
             btnAgregar = new Button();
             btnEliminar = new Button();
             btnModificar = new Button();
             btnSalir = new Button();
             ((System.ComponentModel.ISupportInitialize)dtgvClientes).BeginInit();
             panelSuperior.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // btnGestionarSuscripcion
             // 
+            btnGestionarSuscripcion.Anchor = AnchorStyles.Left;
             btnGestionarSuscripcion.BackColor = SystemColors.GradientActiveCaption;
-            btnGestionarSuscripcion.Location = new Point(444, 3);
+            btnGestionarSuscripcion.Font = new Font("Segoe UI", 12F);
+            btnGestionarSuscripcion.Location = new Point(390, 3);
             btnGestionarSuscripcion.Name = "btnGestionarSuscripcion";
-            btnGestionarSuscripcion.Size = new Size(105, 49);
+            btnGestionarSuscripcion.Size = new Size(120, 68);
             btnGestionarSuscripcion.TabIndex = 4;
             btnGestionarSuscripcion.Text = "Gestionar Suscripcion";
             btnGestionarSuscripcion.UseVisualStyleBackColor = false;
@@ -58,27 +58,30 @@
             // 
             // dtgvClientes
             // 
+            dtgvClientes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgvClientes.BackgroundColor = SystemColors.GradientActiveCaption;
             dtgvClientes.BorderStyle = BorderStyle.None;
             dtgvClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtgvClientes.Location = new Point(0, 77);
+            dtgvClientes.Location = new Point(12, 140);
             dtgvClientes.Name = "dtgvClientes";
             dtgvClientes.RowHeadersWidth = 51;
-            dtgvClientes.Size = new Size(1110, 479);
+            dtgvClientes.Size = new Size(1361, 558);
             dtgvClientes.TabIndex = 5;
             // 
             // txtFiltrar
             // 
-            txtFiltrar.Location = new Point(805, 23);
+            txtFiltrar.Anchor = AnchorStyles.Right;
+            txtFiltrar.Location = new Point(1017, 44);
             txtFiltrar.Name = "txtFiltrar";
             txtFiltrar.Size = new Size(230, 27);
             txtFiltrar.TabIndex = 7;
             // 
             // lblFiltrar
             // 
+            lblFiltrar.Anchor = AnchorStyles.Right;
             lblFiltrar.AutoSize = true;
-            lblFiltrar.Location = new Point(805, 0);
+            lblFiltrar.Location = new Point(1017, 9);
             lblFiltrar.Name = "lblFiltrar";
             lblFiltrar.Size = new Size(230, 20);
             lblFiltrar.TabIndex = 8;
@@ -88,10 +91,9 @@
             // 
             panelSuperior.BackColor = Color.White;
             panelSuperior.Controls.Add(btnCargar);
-            panelSuperior.Controls.Add(btnFiltrar);
             panelSuperior.Controls.Add(lblFiltrar);
+            panelSuperior.Controls.Add(btnFiltrar);
             panelSuperior.Controls.Add(btnGestionarSuscripcion);
-            panelSuperior.Controls.Add(pictureBox1);
             panelSuperior.Controls.Add(txtFiltrar);
             panelSuperior.Controls.Add(btnAgregar);
             panelSuperior.Controls.Add(btnEliminar);
@@ -99,15 +101,17 @@
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(1147, 61);
+            panelSuperior.Size = new Size(1385, 82);
             panelSuperior.TabIndex = 34;
             // 
             // btnCargar
             // 
+            btnCargar.Anchor = AnchorStyles.Right;
             btnCargar.BackColor = SystemColors.GradientActiveCaption;
-            btnCargar.Location = new Point(694, 3);
+            btnCargar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCargar.Location = new Point(891, 3);
             btnCargar.Name = "btnCargar";
-            btnCargar.Size = new Size(105, 49);
+            btnCargar.Size = new Size(120, 68);
             btnCargar.TabIndex = 23;
             btnCargar.Text = "Borrar Filtros";
             btnCargar.UseVisualStyleBackColor = false;
@@ -115,31 +119,24 @@
             // 
             // btnFiltrar
             // 
-            btnFiltrar.Location = new Point(1041, 23);
+            btnFiltrar.Anchor = AnchorStyles.Right;
+            btnFiltrar.Font = new Font("Segoe UI", 12F);
+            btnFiltrar.Location = new Point(1253, 3);
             btnFiltrar.Name = "btnFiltrar";
-            btnFiltrar.Size = new Size(94, 29);
+            btnFiltrar.Size = new Size(120, 68);
             btnFiltrar.TabIndex = 15;
             btnFiltrar.Text = "Filtrar";
             btnFiltrar.UseVisualStyleBackColor = true;
             btnFiltrar.Click += btnFiltrar_Click;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = Properties.Resources.bodybuilding_emblem_and_gym_logo_design_template_vector;
-            pictureBox1.Location = new Point(-20, -6);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(125, 62);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
-            // 
             // btnAgregar
             // 
+            btnAgregar.Anchor = AnchorStyles.Left;
             btnAgregar.BackColor = SystemColors.GradientActiveCaption;
-            btnAgregar.Location = new Point(111, 3);
+            btnAgregar.Font = new Font("Segoe UI", 12F);
+            btnAgregar.Location = new Point(12, 3);
             btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(105, 49);
+            btnAgregar.Size = new Size(120, 68);
             btnAgregar.TabIndex = 20;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = false;
@@ -147,10 +144,12 @@
             // 
             // btnEliminar
             // 
+            btnEliminar.Anchor = AnchorStyles.Left;
             btnEliminar.BackColor = SystemColors.GradientActiveCaption;
-            btnEliminar.Location = new Point(333, 3);
+            btnEliminar.Font = new Font("Segoe UI", 12F);
+            btnEliminar.Location = new Point(264, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(105, 49);
+            btnEliminar.Size = new Size(120, 68);
             btnEliminar.TabIndex = 22;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
@@ -158,10 +157,12 @@
             // 
             // btnModificar
             // 
+            btnModificar.Anchor = AnchorStyles.Left;
             btnModificar.BackColor = SystemColors.GradientActiveCaption;
-            btnModificar.Location = new Point(222, 3);
+            btnModificar.Font = new Font("Segoe UI", 12F);
+            btnModificar.Location = new Point(138, 3);
             btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(105, 49);
+            btnModificar.Size = new Size(120, 68);
             btnModificar.TabIndex = 21;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = false;
@@ -169,10 +170,12 @@
             // 
             // btnSalir
             // 
+            btnSalir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalir.BackColor = SystemColors.GradientActiveCaption;
-            btnSalir.Location = new Point(1009, 562);
+            btnSalir.Font = new Font("Segoe UI", 12F);
+            btnSalir.Location = new Point(1253, 702);
             btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(101, 44);
+            btnSalir.Size = new Size(120, 68);
             btnSalir.TabIndex = 1;
             btnSalir.Text = "Salir";
             btnSalir.UseVisualStyleBackColor = false;
@@ -183,17 +186,16 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientActiveCaption;
-            ClientSize = new Size(1147, 673);
+            ClientSize = new Size(1385, 782);
             Controls.Add(panelSuperior);
-            Controls.Add(dtgvClientes);
             Controls.Add(btnSalir);
+            Controls.Add(dtgvClientes);
             Name = "FormGestionarClientes";
             Text = "Gestionar Clientes";
             Load += FormGestionarClientes_Load;
             ((System.ComponentModel.ISupportInitialize)dtgvClientes).EndInit();
             panelSuperior.ResumeLayout(false);
             panelSuperior.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -204,7 +206,6 @@
         private Label lblFiltrar;
         private Panel panelSuperior;
         private Button btnFiltrar;
-        private PictureBox pictureBox1;
         private Button btnAgregar;
         private Button btnEliminar;
         private Button btnModificar;
