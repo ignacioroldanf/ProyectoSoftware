@@ -70,6 +70,8 @@ namespace SAG___Diploma.Vista
 
             if (MessageBox.Show("¿Está seguro que desea salir? Los datos no guardados serán eliminados", "Confirmar salida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                FormInicio principal = (FormInicio)this.TopLevelControl;
+                principal.AbrirFormulario<FormGestionarRutinas>();
                 this.Close();
             }
 

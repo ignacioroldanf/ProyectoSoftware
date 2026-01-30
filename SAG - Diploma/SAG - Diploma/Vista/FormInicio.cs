@@ -18,13 +18,12 @@ namespace SAG___Diploma.Vista
             InitializeComponent();
         }
 
-        //metodo para poner los forms en el panel
+        #region métodos para poner los forms en el panel
 
-        private void AbrirFormulario<MiForm>() where MiForm : Form, new()
+        public void AbrirFormulario<MiForm>() where MiForm : Form, new()
         {
             Form formulario;
-            formulario = panelForm.Controls.OfType<MiForm>().FirstOrDefault();//Busca en la coleccion el formulario
-            //si el formulario/instancia no existe
+            formulario = panelForm.Controls.OfType<MiForm>().FirstOrDefault();
             if (formulario == null)
             {
                 formulario = new MiForm();
@@ -39,6 +38,28 @@ namespace SAG___Diploma.Vista
                 formulario.BringToFront();
                 lblTitulo.Text= formulario.Text;
         }
+
+        public void AbrirFormularioPanel(Form formularioHijo)
+        {
+            if (panelForm.Controls.Count > 0)
+            {
+                panelForm.Controls.RemoveAt(0);
+            }
+
+            formularioHijo.TopLevel = false;
+            formularioHijo.FormBorderStyle = FormBorderStyle.None;
+            formularioHijo.Dock = DockStyle.Fill;
+
+            panelForm.Controls.Add(formularioHijo);
+            panelForm.Tag = formularioHijo;
+
+            formularioHijo.Show();
+            formularioHijo.BringToFront();
+
+            lblTitulo.Text = formularioHijo.Text;
+        }
+
+        #endregion
 
         private void btnGestionarClientes_Click(object sender, EventArgs e)
         {

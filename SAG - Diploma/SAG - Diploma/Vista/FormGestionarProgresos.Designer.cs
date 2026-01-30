@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             panelSuperior = new Panel();
+            label2 = new Label();
+            cmbEjercicio = new ComboBox();
             cmbDiaRutina = new ComboBox();
             label1 = new Label();
-            pictureBox1 = new PictureBox();
             dtgvEjercicios = new DataGridView();
             btnSalir = new Button();
             grpNuevoProgreso = new GroupBox();
@@ -44,10 +45,7 @@
             lblPesoUsado = new Label();
             lblRepesHechas = new Label();
             lblSeries = new Label();
-            cmbEjercicio = new ComboBox();
-            label2 = new Label();
             panelSuperior.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dtgvEjercicios).BeginInit();
             grpNuevoProgreso.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NUDRepesHechas).BeginInit();
@@ -61,60 +59,77 @@
             panelSuperior.Controls.Add(cmbEjercicio);
             panelSuperior.Controls.Add(cmbDiaRutina);
             panelSuperior.Controls.Add(label1);
-            panelSuperior.Controls.Add(pictureBox1);
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(1131, 61);
+            panelSuperior.Size = new Size(1427, 82);
             panelSuperior.TabIndex = 38;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Left;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(299, 27);
+            label2.Name = "label2";
+            label2.Size = new Size(198, 28);
+            label2.TabIndex = 34;
+            label2.Text = "Nombre del ejercicio:";
+            // 
+            // cmbEjercicio
+            // 
+            cmbEjercicio.Anchor = AnchorStyles.Left;
+            cmbEjercicio.Font = new Font("Segoe UI", 12F);
+            cmbEjercicio.FormattingEnabled = true;
+            cmbEjercicio.Location = new Point(503, 24);
+            cmbEjercicio.Name = "cmbEjercicio";
+            cmbEjercicio.Size = new Size(151, 36);
+            cmbEjercicio.TabIndex = 33;
+            cmbEjercicio.SelectedIndexChanged += cmbEjercicio_SelectedIndexChanged;
             // 
             // cmbDiaRutina
             // 
+            cmbDiaRutina.Anchor = AnchorStyles.Left;
+            cmbDiaRutina.Font = new Font("Segoe UI", 12F);
             cmbDiaRutina.FormattingEnabled = true;
-            cmbDiaRutina.Location = new Point(213, 14);
+            cmbDiaRutina.Location = new Point(142, 24);
             cmbDiaRutina.Name = "cmbDiaRutina";
-            cmbDiaRutina.Size = new Size(151, 28);
+            cmbDiaRutina.Size = new Size(151, 36);
             cmbDiaRutina.TabIndex = 32;
             cmbDiaRutina.SelectedIndexChanged += cmbDiaRutina_SelectedIndexChanged;
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Left;
             label1.AutoSize = true;
-            label1.Location = new Point(111, 17);
+            label1.Font = new Font("Segoe UI", 12F);
+            label1.Location = new Point(12, 27);
             label1.Name = "label1";
-            label1.Size = new Size(96, 20);
+            label1.Size = new Size(124, 28);
             label1.TabIndex = 31;
             label1.Text = "Ejercicios del";
             // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = Properties.Resources.bodybuilding_emblem_and_gym_logo_design_template_vector;
-            pictureBox1.Location = new Point(-20, -6);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(125, 62);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
-            // 
             // dtgvEjercicios
             // 
+            dtgvEjercicios.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgvEjercicios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgvEjercicios.BackgroundColor = SystemColors.GradientActiveCaption;
             dtgvEjercicios.BorderStyle = BorderStyle.None;
             dtgvEjercicios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtgvEjercicios.Location = new Point(17, 87);
+            dtgvEjercicios.Location = new Point(12, 140);
             dtgvEjercicios.Name = "dtgvEjercicios";
             dtgvEjercicios.RowHeadersWidth = 51;
-            dtgvEjercicios.Size = new Size(825, 479);
+            dtgvEjercicios.Size = new Size(935, 493);
             dtgvEjercicios.TabIndex = 37;
             // 
             // btnSalir
             // 
+            btnSalir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalir.BackColor = SystemColors.GradientActiveCaption;
-            btnSalir.Location = new Point(1018, 522);
+            btnSalir.Font = new Font("Segoe UI", 12F);
+            btnSalir.Location = new Point(1295, 704);
             btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(101, 44);
+            btnSalir.Size = new Size(120, 68);
             btnSalir.TabIndex = 36;
             btnSalir.Text = "Salir";
             btnSalir.UseVisualStyleBackColor = false;
@@ -122,6 +137,7 @@
             // 
             // grpNuevoProgreso
             // 
+            grpNuevoProgreso.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             grpNuevoProgreso.BackColor = Color.White;
             grpNuevoProgreso.Controls.Add(txtObservaciones);
             grpNuevoProgreso.Controls.Add(txtPesoUsado);
@@ -132,47 +148,53 @@
             grpNuevoProgreso.Controls.Add(lblPesoUsado);
             grpNuevoProgreso.Controls.Add(lblRepesHechas);
             grpNuevoProgreso.Controls.Add(lblSeries);
-            grpNuevoProgreso.Location = new Point(848, 87);
+            grpNuevoProgreso.Font = new Font("Segoe UI", 12F);
+            grpNuevoProgreso.Location = new Point(1131, 140);
             grpNuevoProgreso.Name = "grpNuevoProgreso";
-            grpNuevoProgreso.Size = new Size(271, 318);
+            grpNuevoProgreso.Size = new Size(284, 464);
             grpNuevoProgreso.TabIndex = 39;
             grpNuevoProgreso.TabStop = false;
             grpNuevoProgreso.Text = "Asignar Nuevo Progreso";
             // 
             // txtObservaciones
             // 
+            txtObservaciones.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtObservaciones.BackColor = SystemColors.Window;
-            txtObservaciones.Location = new Point(6, 165);
+            txtObservaciones.Location = new Point(6, 178);
             txtObservaciones.Multiline = true;
             txtObservaciones.Name = "txtObservaciones";
-            txtObservaciones.Size = new Size(259, 85);
+            txtObservaciones.Size = new Size(272, 150);
             txtObservaciones.TabIndex = 42;
             // 
             // txtPesoUsado
             // 
+            txtPesoUsado.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtPesoUsado.Location = new Point(202, 103);
             txtPesoUsado.Name = "txtPesoUsado";
-            txtPesoUsado.Size = new Size(63, 27);
+            txtPesoUsado.Size = new Size(76, 34);
             txtPesoUsado.TabIndex = 41;
             // 
             // NUDRepesHechas
             // 
+            NUDRepesHechas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             NUDRepesHechas.Location = new Point(202, 69);
             NUDRepesHechas.Name = "NUDRepesHechas";
-            NUDRepesHechas.Size = new Size(63, 27);
+            NUDRepesHechas.Size = new Size(76, 34);
             NUDRepesHechas.TabIndex = 40;
             // 
             // NUDSeriesHechas
             // 
+            NUDSeriesHechas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             NUDSeriesHechas.Location = new Point(202, 34);
             NUDSeriesHechas.Name = "NUDSeriesHechas";
-            NUDSeriesHechas.Size = new Size(63, 27);
+            NUDSeriesHechas.Size = new Size(76, 34);
             NUDSeriesHechas.TabIndex = 39;
             // 
             // btnAgregar
             // 
+            btnAgregar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnAgregar.BackColor = SystemColors.GradientActiveCaption;
-            btnAgregar.Location = new Point(160, 256);
+            btnAgregar.Location = new Point(173, 402);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(105, 49);
             btnAgregar.TabIndex = 20;
@@ -182,74 +204,59 @@
             // 
             // lblObservaciones
             // 
+            lblObservaciones.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblObservaciones.AutoSize = true;
-            lblObservaciones.Location = new Point(6, 142);
+            lblObservaciones.Location = new Point(6, 147);
             lblObservaciones.Name = "lblObservaciones";
-            lblObservaciones.Size = new Size(108, 20);
+            lblObservaciones.Size = new Size(143, 28);
             lblObservaciones.TabIndex = 38;
             lblObservaciones.Text = "Observaciones:";
             // 
             // lblPesoUsado
             // 
+            lblPesoUsado.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblPesoUsado.AutoSize = true;
             lblPesoUsado.Location = new Point(6, 106);
             lblPesoUsado.Name = "lblPesoUsado";
-            lblPesoUsado.Size = new Size(85, 20);
+            lblPesoUsado.Size = new Size(113, 28);
             lblPesoUsado.TabIndex = 37;
             lblPesoUsado.Text = "Peso Usado";
             // 
             // lblRepesHechas
             // 
+            lblRepesHechas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblRepesHechas.AutoSize = true;
             lblRepesHechas.Location = new Point(6, 71);
             lblRepesHechas.Name = "lblRepesHechas";
-            lblRepesHechas.Size = new Size(146, 20);
+            lblRepesHechas.Size = new Size(189, 28);
             lblRepesHechas.TabIndex = 36;
             lblRepesHechas.Text = "Repeticiones Hechas";
             // 
             // lblSeries
             // 
+            lblSeries.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblSeries.AutoSize = true;
             lblSeries.Location = new Point(6, 36);
             lblSeries.Name = "lblSeries";
-            lblSeries.Size = new Size(48, 20);
+            lblSeries.Size = new Size(63, 28);
             lblSeries.TabIndex = 35;
             lblSeries.Text = "Series";
-            // 
-            // cmbEjercicio
-            // 
-            cmbEjercicio.FormattingEnabled = true;
-            cmbEjercicio.Location = new Point(553, 14);
-            cmbEjercicio.Name = "cmbEjercicio";
-            cmbEjercicio.Size = new Size(151, 28);
-            cmbEjercicio.TabIndex = 33;
-            cmbEjercicio.SelectedIndexChanged += cmbEjercicio_SelectedIndexChanged;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(395, 17);
-            label2.Name = "label2";
-            label2.Size = new Size(152, 20);
-            label2.TabIndex = 34;
-            label2.Text = "Nombre del ejercicio:";
             // 
             // FormGestionarProgresos
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientActiveCaption;
-            ClientSize = new Size(1131, 579);
+            ClientSize = new Size(1427, 782);
             Controls.Add(grpNuevoProgreso);
             Controls.Add(panelSuperior);
             Controls.Add(dtgvEjercicios);
             Controls.Add(btnSalir);
             Name = "FormGestionarProgresos";
-            Text = "FormGestionarProgresos";
+            Text = "GESTIONAR PROGRESOS";
             Load += FormGestionarProgresos_Load;
             panelSuperior.ResumeLayout(false);
             panelSuperior.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dtgvEjercicios).EndInit();
             grpNuevoProgreso.ResumeLayout(false);
             grpNuevoProgreso.PerformLayout();
@@ -263,7 +270,6 @@
         private Panel panelSuperior;
         private ComboBox cmbDiaRutina;
         private Label label1;
-        private PictureBox pictureBox1;
         private DataGridView dtgvEjercicios;
         private Button btnSalir;
         private GroupBox grpNuevoProgreso;

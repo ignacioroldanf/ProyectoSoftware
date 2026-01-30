@@ -42,14 +42,16 @@ namespace SAG___Diploma.Vista
                 Close();
                 return;
             }
-
-            CargarDiasRutina(); 
-
+            
             grpNuevoProgreso.Enabled = !_modoLectura;
+
+            CargarDiasRutina();
+
 
             if (cmbDiaRutina.Items.Count > 0)
             {
-                cmbDiaRutina.SelectedIndex = 0;
+                _diaSeleccionado = _rutinaSeleccionada.DiasRutinas.OrderBy(d => d.NumeroDia).FirstOrDefault();
+
                 CargarEjDelDia();
 
                 if (cmbEjercicio.Items.Count > 0)
@@ -103,6 +105,8 @@ namespace SAG___Diploma.Vista
         }
         private void btnSalir_Click(object sender, EventArgs e)
         {
+            FormInicio principal = (FormInicio)this.TopLevelControl;
+            principal.AbrirFormulario<FormGestionarRutinas>();
             this.Close();
         }
 
@@ -155,12 +159,15 @@ namespace SAG___Diploma.Vista
 
         private void CargarEjDelDia()
         {
+            cmbEjercicio.SelectedIndexChanged -= cmbEjercicio_SelectedIndexChanged;
+
             cmbEjercicio.Items.Clear();
             _ejercicioSeleccionado = null;
 
             if(_diaSeleccionado == null)
             {
                 cmbEjercicio.SelectedIndex = -1;
+                cmbEjercicio.SelectedIndexChanged += cmbEjercicio_SelectedIndexChanged;
                 return;
             }
 
@@ -172,7 +179,10 @@ namespace SAG___Diploma.Vista
                 string nombreEj = ej.IdEjercicioNavigation?.NombreEjercicio ?? $"Ej #{ej.IdEjercicio}";
                 cmbEjercicio.Items.Add($"{ej.Orden} - {nombreEj}");
             }
-            if(cmbEjercicio.Items.Count > 0)
+
+            cmbEjercicio.SelectedIndexChanged += cmbEjercicio_SelectedIndexChanged;
+
+            if (cmbEjercicio.Items.Count > 0)
                 cmbEjercicio.SelectedIndex = 0;
             else
                 cmbEjercicio.SelectedItem = -1;

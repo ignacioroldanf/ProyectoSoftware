@@ -39,6 +39,7 @@
             txtFiltrar = new TextBox();
             btnFiltrar = new Button();
             panelSuperior = new Panel();
+            btnCargar = new Button();
             ((System.ComponentModel.ISupportInitialize)dtgvClientesPremium).BeginInit();
             panelSuperior.SuspendLayout();
             SuspendLayout();
@@ -48,7 +49,7 @@
             btnSalir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalir.BackColor = SystemColors.GradientActiveCaption;
             btnSalir.Font = new Font("Segoe UI", 12F);
-            btnSalir.Location = new Point(1229, 693);
+            btnSalir.Location = new Point(1295, 713);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(120, 68);
             btnSalir.TabIndex = 1;
@@ -66,7 +67,7 @@
             dtgvClientesPremium.Location = new Point(12, 140);
             dtgvClientesPremium.Name = "dtgvClientesPremium";
             dtgvClientesPremium.RowHeadersWidth = 51;
-            dtgvClientesPremium.Size = new Size(1337, 525);
+            dtgvClientesPremium.Size = new Size(1403, 567);
             dtgvClientesPremium.TabIndex = 23;
             // 
             // btnRegistrar
@@ -87,7 +88,7 @@
             btnModificar.Anchor = AnchorStyles.Left;
             btnModificar.BackColor = SystemColors.GradientActiveCaption;
             btnModificar.Font = new Font("Segoe UI", 12F);
-            btnModificar.Location = new Point(138, 3);
+            btnModificar.Location = new Point(516, 3);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(120, 68);
             btnModificar.TabIndex = 21;
@@ -100,7 +101,7 @@
             btnCrearRutina.Anchor = AnchorStyles.Left;
             btnCrearRutina.BackColor = SystemColors.GradientActiveCaption;
             btnCrearRutina.Font = new Font("Segoe UI", 12F);
-            btnCrearRutina.Location = new Point(12, 3);
+            btnCrearRutina.Location = new Point(390, 3);
             btnCrearRutina.Name = "btnCrearRutina";
             btnCrearRutina.Size = new Size(120, 68);
             btnCrearRutina.TabIndex = 20;
@@ -113,7 +114,7 @@
             btnConsultarHistorial.Anchor = AnchorStyles.Left;
             btnConsultarHistorial.BackColor = SystemColors.GradientActiveCaption;
             btnConsultarHistorial.Font = new Font("Segoe UI", 12F);
-            btnConsultarHistorial.Location = new Point(390, 3);
+            btnConsultarHistorial.Location = new Point(138, 3);
             btnConsultarHistorial.Name = "btnConsultarHistorial";
             btnConsultarHistorial.Size = new Size(120, 68);
             btnConsultarHistorial.TabIndex = 27;
@@ -126,7 +127,7 @@
             btnConsultarRutina.Anchor = AnchorStyles.Left;
             btnConsultarRutina.BackColor = SystemColors.GradientActiveCaption;
             btnConsultarRutina.Font = new Font("Segoe UI", 12F);
-            btnConsultarRutina.Location = new Point(516, 3);
+            btnConsultarRutina.Location = new Point(12, 3);
             btnConsultarRutina.Name = "btnConsultarRutina";
             btnConsultarRutina.Size = new Size(120, 68);
             btnConsultarRutina.TabIndex = 28;
@@ -138,7 +139,7 @@
             // 
             lblFiltrar.Anchor = AnchorStyles.Right;
             lblFiltrar.AutoSize = true;
-            lblFiltrar.Location = new Point(993, 9);
+            lblFiltrar.Location = new Point(1059, 9);
             lblFiltrar.Name = "lblFiltrar";
             lblFiltrar.Size = new Size(230, 20);
             lblFiltrar.TabIndex = 31;
@@ -147,7 +148,7 @@
             // txtFiltrar
             // 
             txtFiltrar.Anchor = AnchorStyles.Right;
-            txtFiltrar.Location = new Point(993, 44);
+            txtFiltrar.Location = new Point(1059, 44);
             txtFiltrar.Name = "txtFiltrar";
             txtFiltrar.Size = new Size(230, 27);
             txtFiltrar.TabIndex = 30;
@@ -156,7 +157,7 @@
             // 
             btnFiltrar.Anchor = AnchorStyles.Right;
             btnFiltrar.Font = new Font("Segoe UI", 12F);
-            btnFiltrar.Location = new Point(1229, 3);
+            btnFiltrar.Location = new Point(1295, 3);
             btnFiltrar.Name = "btnFiltrar";
             btnFiltrar.Size = new Size(120, 68);
             btnFiltrar.TabIndex = 29;
@@ -167,32 +168,46 @@
             // panelSuperior
             // 
             panelSuperior.BackColor = Color.White;
+            panelSuperior.Controls.Add(btnCargar);
             panelSuperior.Controls.Add(btnFiltrar);
             panelSuperior.Controls.Add(lblFiltrar);
-            panelSuperior.Controls.Add(txtFiltrar);
             panelSuperior.Controls.Add(btnCrearRutina);
             panelSuperior.Controls.Add(btnConsultarRutina);
+            panelSuperior.Controls.Add(txtFiltrar);
             panelSuperior.Controls.Add(btnRegistrar);
             panelSuperior.Controls.Add(btnConsultarHistorial);
             panelSuperior.Controls.Add(btnModificar);
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(1361, 82);
+            panelSuperior.Size = new Size(1427, 82);
             panelSuperior.TabIndex = 32;
+            // 
+            // btnCargar
+            // 
+            btnCargar.Anchor = AnchorStyles.Right;
+            btnCargar.BackColor = SystemColors.GradientActiveCaption;
+            btnCargar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCargar.Location = new Point(933, 3);
+            btnCargar.Name = "btnCargar";
+            btnCargar.Size = new Size(120, 68);
+            btnCargar.TabIndex = 33;
+            btnCargar.Text = "Borrar Filtros";
+            btnCargar.UseVisualStyleBackColor = false;
+            btnCargar.Click += btnCargar_Click;
             // 
             // FormGestionarRutinas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientActiveCaption;
-            ClientSize = new Size(1361, 773);
+            ClientSize = new Size(1427, 782);
             Controls.Add(panelSuperior);
             Controls.Add(dtgvClientesPremium);
             Controls.Add(btnSalir);
             MinimizeBox = false;
             Name = "FormGestionarRutinas";
-            Text = "Gestionar Rutinas y Progresos";
+            Text = "GESTIONAR RUTINAS Y PROGRESOS";
             Load += FormGestionarRutinas_Load;
             ((System.ComponentModel.ISupportInitialize)dtgvClientesPremium).EndInit();
             panelSuperior.ResumeLayout(false);
@@ -213,5 +228,6 @@
         private TextBox txtFiltrar;
         private Button btnFiltrar;
         private Panel panelSuperior;
+        private Button btnCargar;
     }
 }

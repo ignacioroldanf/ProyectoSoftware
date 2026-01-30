@@ -134,10 +134,10 @@ namespace SAG___Diploma.Vista
 
             int idCliente = Convert.ToInt32(dtgvClientes.SelectedRows[0].Cells["ID"].Value);
 
-            using (FormGestionarSuscripciones vistaSuscripciones = new FormGestionarSuscripciones(idCliente))
-            {
-                vistaSuscripciones.ShowDialog();
-            }
+            FormGestionarSuscripciones formSusc = new FormGestionarSuscripciones(idCliente);
+
+            FormInicio formPrincipal = (FormInicio)this.TopLevelControl;
+            formPrincipal.AbrirFormularioPanel(formSusc);
 
             CargarClientes();
         }

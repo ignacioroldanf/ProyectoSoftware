@@ -101,7 +101,7 @@
             // btnCancelar
             // 
             btnCancelar.BackColor = SystemColors.GradientActiveCaption;
-            btnCancelar.Location = new Point(317, 7);
+            btnCancelar.Location = new Point(320, 277);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(105, 49);
             btnCancelar.TabIndex = 12;
@@ -112,7 +112,7 @@
             // btnGuardar
             // 
             btnGuardar.BackColor = SystemColors.GradientActiveCaption;
-            btnGuardar.Location = new Point(317, 277);
+            btnGuardar.Location = new Point(209, 277);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(105, 49);
             btnGuardar.TabIndex = 11;
@@ -124,7 +124,6 @@
             // 
             panelSuperior.BackColor = Color.White;
             panelSuperior.Controls.Add(pictureBox1);
-            panelSuperior.Controls.Add(btnCancelar);
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
             panelSuperior.Name = "panelSuperior";
@@ -182,8 +181,9 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(434, 450);
+            ClientSize = new Size(434, 353);
             Controls.Add(chkSoporte);
+            Controls.Add(btnCancelar);
             Controls.Add(txtDuracion);
             Controls.Add(nudDuracion);
             Controls.Add(label1);
@@ -195,8 +195,10 @@
             Controls.Add(txtNombre);
             Controls.Add(txtPrecio);
             Controls.Add(btnGuardar);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FormPlan";
-            Text = "Plan";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "PLAN";
             Load += FormPlan_Load;
             panelSuperior.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

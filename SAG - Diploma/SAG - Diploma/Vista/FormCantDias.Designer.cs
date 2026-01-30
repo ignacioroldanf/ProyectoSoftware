@@ -38,56 +38,66 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 31);
+            label1.Location = new Point(13, 44);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(205, 20);
+            label1.Size = new Size(270, 28);
             label1.TabIndex = 0;
             label1.Text = "Cuantos días tendrá la rutina?";
             // 
             // NmrCantDias
             // 
-            NmrCantDias.Location = new Point(67, 66);
+            NmrCantDias.Location = new Point(13, 96);
+            NmrCantDias.Margin = new Padding(4);
             NmrCantDias.Maximum = new decimal(new int[] { 6, 0, 0, 0 });
             NmrCantDias.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
             NmrCantDias.Name = "NmrCantDias";
-            NmrCantDias.Size = new Size(150, 27);
+            NmrCantDias.Size = new Size(120, 34);
             NmrCantDias.TabIndex = 1;
             NmrCantDias.Value = new decimal(new int[] { 3, 0, 0, 0 });
             // 
             // BtnAceptar
             // 
+            BtnAceptar.BackColor = SystemColors.GradientActiveCaption;
             BtnAceptar.DialogResult = DialogResult.OK;
-            BtnAceptar.Location = new Point(235, 66);
+            BtnAceptar.Location = new Point(323, 92);
+            BtnAceptar.Margin = new Padding(4);
             BtnAceptar.Name = "BtnAceptar";
-            BtnAceptar.Size = new Size(94, 29);
+            BtnAceptar.Size = new Size(129, 41);
             BtnAceptar.TabIndex = 2;
             BtnAceptar.Text = "Aceptar";
-            BtnAceptar.UseVisualStyleBackColor = true;
+            BtnAceptar.UseVisualStyleBackColor = false;
             BtnAceptar.Click += BtnAceptar_Click;
             // 
             // BtnCancelar
             // 
+            BtnCancelar.BackColor = SystemColors.GradientActiveCaption;
             BtnCancelar.DialogResult = DialogResult.Cancel;
-            BtnCancelar.Location = new Point(235, 27);
+            BtnCancelar.Location = new Point(323, 38);
+            BtnCancelar.Margin = new Padding(4);
             BtnCancelar.Name = "BtnCancelar";
-            BtnCancelar.Size = new Size(94, 29);
+            BtnCancelar.Size = new Size(129, 41);
             BtnCancelar.TabIndex = 3;
             BtnCancelar.Text = "Cancelar";
-            BtnCancelar.UseVisualStyleBackColor = true;
+            BtnCancelar.UseVisualStyleBackColor = false;
             BtnCancelar.Click += BtnCancelar_Click;
             // 
             // FormCantDias
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.GradientActiveCaption;
-            ClientSize = new Size(415, 171);
+            BackColor = SystemColors.Control;
+            ClientSize = new Size(458, 193);
             Controls.Add(BtnCancelar);
             Controls.Add(BtnAceptar);
             Controls.Add(NmrCantDias);
             Controls.Add(label1);
+            Font = new Font("Segoe UI", 12F);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Margin = new Padding(4);
             Name = "FormCantDias";
-            Text = "FormCantDias";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "CANTIDAD DE DÍAS";
             ((System.ComponentModel.ISupportInitialize)NmrCantDias).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -135,6 +135,9 @@ namespace SAG___Diploma.Vista
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
+            FormInicio formPrincipal = (FormInicio)this.TopLevelControl;
+            formPrincipal.AbrirFormulario<FormGestionarClientes>();
+
             this.Close();
         }
 

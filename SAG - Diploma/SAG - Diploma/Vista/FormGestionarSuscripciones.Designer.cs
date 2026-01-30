@@ -34,7 +34,6 @@
             btnAsignar = new Button();
             lblEstadoActual = new Label();
             lblCliente = new Label();
-            pictureBox1 = new PictureBox();
             btnEliminar = new Button();
             cmbPlanes = new ComboBox();
             btnAgregar = new Button();
@@ -47,7 +46,6 @@
             label3 = new Label();
             lblPlanes = new Label();
             panelSuperior.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dtgvSuscripciones).BeginInit();
             grupoNuevaSuscripcion.SuspendLayout();
             SuspendLayout();
@@ -60,78 +58,74 @@
             panelSuperior.Controls.Add(btnAsignar);
             panelSuperior.Controls.Add(lblEstadoActual);
             panelSuperior.Controls.Add(lblCliente);
-            panelSuperior.Controls.Add(pictureBox1);
             panelSuperior.Controls.Add(btnEliminar);
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(1217, 61);
+            panelSuperior.Size = new Size(1427, 82);
             panelSuperior.TabIndex = 36;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(111, 9);
+            label1.Font = new Font("Segoe UI", 12F);
+            label1.Location = new Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(58, 20);
+            label1.Size = new Size(76, 28);
             label1.TabIndex = 35;
             label1.Text = "Cliente:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(111, 32);
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(12, 37);
             label2.Name = "label2";
-            label2.Size = new Size(103, 20);
+            label2.Size = new Size(135, 28);
             label2.TabIndex = 34;
             label2.Text = "Estado Actual:";
             // 
             // btnAsignar
             // 
+            btnAsignar.Anchor = AnchorStyles.Right;
             btnAsignar.BackColor = SystemColors.GradientActiveCaption;
-            btnAsignar.Location = new Point(969, 3);
+            btnAsignar.Font = new Font("Segoe UI", 12F);
+            btnAsignar.Location = new Point(1169, 3);
             btnAsignar.Name = "btnAsignar";
-            btnAsignar.Size = new Size(105, 49);
+            btnAsignar.Size = new Size(120, 68);
             btnAsignar.TabIndex = 32;
-            btnAsignar.Text = "Nueva Suscripcion";
+            btnAsignar.Text = "Nueva Suscripción";
             btnAsignar.UseVisualStyleBackColor = false;
             btnAsignar.Click += btnAsignar_Click;
             // 
             // lblEstadoActual
             // 
             lblEstadoActual.AutoSize = true;
-            lblEstadoActual.Location = new Point(220, 32);
+            lblEstadoActual.Font = new Font("Segoe UI", 12F);
+            lblEstadoActual.Location = new Point(153, 37);
             lblEstadoActual.Name = "lblEstadoActual";
-            lblEstadoActual.Size = new Size(54, 20);
+            lblEstadoActual.Size = new Size(71, 28);
             lblEstadoActual.TabIndex = 33;
             lblEstadoActual.Text = "Estado";
             // 
             // lblCliente
             // 
             lblCliente.AutoSize = true;
-            lblCliente.Location = new Point(175, 9);
+            lblCliente.Font = new Font("Segoe UI", 12F);
+            lblCliente.Location = new Point(94, 9);
             lblCliente.Name = "lblCliente";
-            lblCliente.Size = new Size(55, 20);
+            lblCliente.Size = new Size(72, 28);
             lblCliente.TabIndex = 32;
             lblCliente.Text = "Cliente";
             // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = Properties.Resources.bodybuilding_emblem_and_gym_logo_design_template_vector;
-            pictureBox1.Location = new Point(-20, -6);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(125, 62);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
-            // 
             // btnEliminar
             // 
+            btnEliminar.Anchor = AnchorStyles.Right;
             btnEliminar.BackColor = SystemColors.GradientActiveCaption;
-            btnEliminar.Location = new Point(1080, 3);
+            btnEliminar.Font = new Font("Segoe UI", 12F);
+            btnEliminar.Location = new Point(1295, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(105, 49);
+            btnEliminar.Size = new Size(120, 68);
             btnEliminar.TabIndex = 22;
             btnEliminar.Text = "Cancelar Suscripción";
             btnEliminar.UseVisualStyleBackColor = false;
@@ -139,17 +133,19 @@
             // 
             // cmbPlanes
             // 
+            cmbPlanes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             cmbPlanes.FormattingEnabled = true;
             cmbPlanes.Location = new Point(110, 55);
             cmbPlanes.Name = "cmbPlanes";
-            cmbPlanes.Size = new Size(148, 28);
+            cmbPlanes.Size = new Size(148, 36);
             cmbPlanes.TabIndex = 18;
             cmbPlanes.SelectedIndexChanged += cmbPlanes_SelectedIndexChanged;
             // 
             // btnAgregar
             // 
+            btnAgregar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnAgregar.BackColor = SystemColors.GradientActiveCaption;
-            btnAgregar.Location = new Point(153, 169);
+            btnAgregar.Location = new Point(153, 915);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(105, 49);
             btnAgregar.TabIndex = 20;
@@ -159,22 +155,25 @@
             // 
             // dtgvSuscripciones
             // 
+            dtgvSuscripciones.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgvSuscripciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgvSuscripciones.BackgroundColor = SystemColors.GradientActiveCaption;
             dtgvSuscripciones.BorderStyle = BorderStyle.None;
             dtgvSuscripciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtgvSuscripciones.Location = new Point(12, 77);
+            dtgvSuscripciones.Location = new Point(12, 140);
             dtgvSuscripciones.Name = "dtgvSuscripciones";
             dtgvSuscripciones.RowHeadersWidth = 51;
-            dtgvSuscripciones.Size = new Size(896, 479);
+            dtgvSuscripciones.Size = new Size(935, 493);
             dtgvSuscripciones.TabIndex = 35;
             // 
             // btnSalir
             // 
+            btnSalir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalir.BackColor = SystemColors.GradientActiveCaption;
-            btnSalir.Location = new Point(1084, 512);
+            btnSalir.Font = new Font("Segoe UI", 12F);
+            btnSalir.Location = new Point(1295, 704);
             btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(101, 44);
+            btnSalir.Size = new Size(120, 68);
             btnSalir.TabIndex = 34;
             btnSalir.Text = "Salir";
             btnSalir.UseVisualStyleBackColor = false;
@@ -182,6 +181,9 @@
             // 
             // grupoNuevaSuscripcion
             // 
+            grupoNuevaSuscripcion.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            grupoNuevaSuscripcion.AutoSize = true;
+            grupoNuevaSuscripcion.BackColor = SystemColors.ControlLightLight;
             grupoNuevaSuscripcion.Controls.Add(dtpFin);
             grupoNuevaSuscripcion.Controls.Add(dtpInicio);
             grupoNuevaSuscripcion.Controls.Add(label4);
@@ -189,57 +191,63 @@
             grupoNuevaSuscripcion.Controls.Add(btnAgregar);
             grupoNuevaSuscripcion.Controls.Add(lblPlanes);
             grupoNuevaSuscripcion.Controls.Add(cmbPlanes);
-            grupoNuevaSuscripcion.Location = new Point(914, 77);
+            grupoNuevaSuscripcion.Font = new Font("Segoe UI", 12F);
+            grupoNuevaSuscripcion.Location = new Point(1131, 140);
             grupoNuevaSuscripcion.Name = "grupoNuevaSuscripcion";
-            grupoNuevaSuscripcion.Size = new Size(271, 224);
+            grupoNuevaSuscripcion.Size = new Size(284, 997);
             grupoNuevaSuscripcion.TabIndex = 37;
             grupoNuevaSuscripcion.TabStop = false;
             grupoNuevaSuscripcion.Text = "Asignar Nueva Suscripcion";
             // 
             // dtpFin
             // 
+            dtpFin.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtpFin.Enabled = false;
             dtpFin.Format = DateTimePickerFormat.Short;
-            dtpFin.Location = new Point(110, 128);
+            dtpFin.Location = new Point(110, 157);
             dtpFin.Name = "dtpFin";
-            dtpFin.Size = new Size(148, 27);
+            dtpFin.Size = new Size(148, 34);
             dtpFin.TabIndex = 39;
             dtpFin.Value = new DateTime(2025, 8, 16, 15, 41, 58, 0);
             // 
             // dtpInicio
             // 
+            dtpInicio.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtpInicio.Format = DateTimePickerFormat.Short;
-            dtpInicio.Location = new Point(110, 93);
+            dtpInicio.Location = new Point(110, 108);
             dtpInicio.Name = "dtpInicio";
-            dtpInicio.Size = new Size(148, 27);
+            dtpInicio.Size = new Size(148, 34);
             dtpInicio.TabIndex = 38;
             dtpInicio.Value = new DateTime(2025, 8, 16, 15, 41, 58, 0);
             dtpInicio.ValueChanged += dtpInicio_ValueChanged;
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Location = new Point(6, 133);
+            label4.Location = new Point(16, 163);
             label4.Name = "label4";
-            label4.Size = new Size(28, 20);
+            label4.Size = new Size(38, 28);
             label4.TabIndex = 37;
             label4.Text = "Fin";
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Location = new Point(6, 98);
+            label3.Location = new Point(16, 113);
             label3.Name = "label3";
-            label3.Size = new Size(45, 20);
+            label3.Size = new Size(59, 28);
             label3.TabIndex = 36;
             label3.Text = "Inicio";
             // 
             // lblPlanes
             // 
+            lblPlanes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblPlanes.AutoSize = true;
-            lblPlanes.Location = new Point(6, 63);
+            lblPlanes.Location = new Point(16, 58);
             lblPlanes.Name = "lblPlanes";
-            lblPlanes.Size = new Size(37, 20);
+            lblPlanes.Size = new Size(49, 28);
             lblPlanes.TabIndex = 35;
             lblPlanes.Text = "Plan";
             // 
@@ -247,21 +255,22 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1217, 778);
+            BackColor = SystemColors.GradientActiveCaption;
+            ClientSize = new Size(1427, 782);
             Controls.Add(grupoNuevaSuscripcion);
             Controls.Add(panelSuperior);
             Controls.Add(dtgvSuscripciones);
             Controls.Add(btnSalir);
             Name = "FormGestionarSuscripciones";
-            Text = "FormGestionarSuscripciones";
+            Text = "GESTIONAR SUSCRIPCIONES";
             Load += FormGestionarSuscripciones_Load;
             panelSuperior.ResumeLayout(false);
             panelSuperior.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dtgvSuscripciones).EndInit();
             grupoNuevaSuscripcion.ResumeLayout(false);
             grupoNuevaSuscripcion.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -269,7 +278,6 @@
         private Panel panelSuperior;
         private Button btnAsignar;
         private ComboBox cmbPlanes;
-        private PictureBox pictureBox1;
         private Button btnAgregar;
         private Button btnEliminar;
         private DataGridView dtgvSuscripciones;

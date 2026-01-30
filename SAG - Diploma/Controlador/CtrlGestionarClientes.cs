@@ -100,6 +100,26 @@ namespace Controlador
                 .ToList();
         }
 
+        public List<Cliente> FiltrarClientesPremiumPorDNI(string dni)
+        {
+            return _context.Clientes
+                .Include(c => c.IdPersonaNavigation)
+                .Include(c => c.Suscripciones)
+                    .ThenInclude(s => s.IdEstadoSuscripcionNavigation)
+                .Include(c => c.Suscripciones)
+                    .ThenInclude(s => s.IdPlanNavigation)
+
+                .Where(c =>
+                    c.IdPersonaNavigation.Dni == dni
+                    &&
+                    c.Suscripciones.Any(s =>
+                        s.IdEstadoSuscripcionNavigation.Descripcion == "Vigente" &&  
+                        s.IdPlanNavigation.NombrePlan.Contains("Premium")
+                    )
+                )
+                .ToList();
+        }
+
 
         public void AsignarSuscripcion(int idCliente, int idPlan, DateOnly inicio, DateOnly fin, int idEstado = 1)
         {

@@ -66,13 +66,13 @@
             dtgvClientes.Location = new Point(12, 140);
             dtgvClientes.Name = "dtgvClientes";
             dtgvClientes.RowHeadersWidth = 51;
-            dtgvClientes.Size = new Size(1361, 558);
+            dtgvClientes.Size = new Size(1403, 558);
             dtgvClientes.TabIndex = 5;
             // 
             // txtFiltrar
             // 
             txtFiltrar.Anchor = AnchorStyles.Right;
-            txtFiltrar.Location = new Point(1017, 44);
+            txtFiltrar.Location = new Point(1059, 44);
             txtFiltrar.Name = "txtFiltrar";
             txtFiltrar.Size = new Size(230, 27);
             txtFiltrar.TabIndex = 7;
@@ -81,7 +81,7 @@
             // 
             lblFiltrar.Anchor = AnchorStyles.Right;
             lblFiltrar.AutoSize = true;
-            lblFiltrar.Location = new Point(1017, 9);
+            lblFiltrar.Location = new Point(1059, 9);
             lblFiltrar.Name = "lblFiltrar";
             lblFiltrar.Size = new Size(230, 20);
             lblFiltrar.TabIndex = 8;
@@ -101,7 +101,7 @@
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(1385, 82);
+            panelSuperior.Size = new Size(1427, 82);
             panelSuperior.TabIndex = 34;
             // 
             // btnCargar
@@ -109,7 +109,7 @@
             btnCargar.Anchor = AnchorStyles.Right;
             btnCargar.BackColor = SystemColors.GradientActiveCaption;
             btnCargar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCargar.Location = new Point(891, 3);
+            btnCargar.Location = new Point(933, 3);
             btnCargar.Name = "btnCargar";
             btnCargar.Size = new Size(120, 68);
             btnCargar.TabIndex = 23;
@@ -121,7 +121,7 @@
             // 
             btnFiltrar.Anchor = AnchorStyles.Right;
             btnFiltrar.Font = new Font("Segoe UI", 12F);
-            btnFiltrar.Location = new Point(1253, 3);
+            btnFiltrar.Location = new Point(1295, 3);
             btnFiltrar.Name = "btnFiltrar";
             btnFiltrar.Size = new Size(120, 68);
             btnFiltrar.TabIndex = 15;
@@ -173,7 +173,7 @@
             btnSalir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalir.BackColor = SystemColors.GradientActiveCaption;
             btnSalir.Font = new Font("Segoe UI", 12F);
-            btnSalir.Location = new Point(1253, 702);
+            btnSalir.Location = new Point(1295, 704);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(120, 68);
             btnSalir.TabIndex = 1;
@@ -186,12 +186,12 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientActiveCaption;
-            ClientSize = new Size(1385, 782);
+            ClientSize = new Size(1427, 782);
             Controls.Add(panelSuperior);
             Controls.Add(btnSalir);
             Controls.Add(dtgvClientes);
             Name = "FormGestionarClientes";
-            Text = "Gestionar Clientes";
+            Text = "GESTIONAR CLIENTES";
             Load += FormGestionarClientes_Load;
             ((System.ComponentModel.ISupportInitialize)dtgvClientes).EndInit();
             panelSuperior.ResumeLayout(false);

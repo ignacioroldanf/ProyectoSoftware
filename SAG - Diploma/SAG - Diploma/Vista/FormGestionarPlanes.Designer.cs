@@ -125,7 +125,7 @@
             Controls.Add(btnSalir);
             Controls.Add(dtgvPlanes);
             Name = "FormGestionarPlanes";
-            Text = "Gestionar Planes";
+            Text = "GESTIONAR PLANES";
             Load += FormGestionarPlanes_Load;
             ((System.ComponentModel.ISupportInitialize)dtgvPlanes).EndInit();
             panelSuperior.ResumeLayout(false);
