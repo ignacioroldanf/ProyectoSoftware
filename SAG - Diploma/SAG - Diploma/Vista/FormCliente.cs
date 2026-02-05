@@ -24,7 +24,7 @@ namespace SAG___Diploma.Vista
 
             if (cliente.IdPersonaNavigation != null)
             {
-                txtDocumento.Text = cliente.IdPersonaNavigation.Dni;
+                txtDocumento.Text = cliente.IdPersonaNavigation.Dni.ToString();
                 txtNombre.Text = cliente.IdPersonaNavigation.Nombre;
                 txtApellido.Text = cliente.IdPersonaNavigation.Apellido;
                 txtMail.Text = cliente.IdPersonaNavigation.Email;
@@ -63,7 +63,7 @@ namespace SAG___Diploma.Vista
                 Persona nuevaPersona = new Persona();
 
                 nuevaPersona.Nombre = txtNombre.Text;
-                nuevaPersona.Dni = txtDocumento.Text;
+                nuevaPersona.Dni = Convert.ToInt32(txtDocumento.Text);
                 nuevaPersona.Apellido = txtApellido.Text;
                 nuevaPersona.Email = txtMail.Text;
 
@@ -83,7 +83,7 @@ namespace SAG___Diploma.Vista
                     clienteExistente.IdPersonaNavigation = new Persona();
                 }
 
-                clienteExistente.IdPersonaNavigation.Dni = txtDocumento.Text;
+                clienteExistente.IdPersonaNavigation.Dni = Convert.ToInt32(txtDocumento.Text);
                 clienteExistente.IdPersonaNavigation.Nombre = txtNombre.Text;
                 clienteExistente.IdPersonaNavigation.Apellido = txtApellido.Text;
                 clienteExistente.IdPersonaNavigation.Email = txtMail.Text;

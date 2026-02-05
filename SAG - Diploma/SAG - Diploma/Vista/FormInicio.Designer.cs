@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormInicio));
             panelMenu = new Panel();
+            btnReportes = new Button();
+            btnUsuarios = new Button();
+            btnGrupos = new Button();
             btnGestionarClases = new Button();
             btnCerrarSesion = new Button();
             btnGestionarRutinas = new Button();
@@ -57,6 +60,9 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.DarkGray;
+            panelMenu.Controls.Add(btnReportes);
+            panelMenu.Controls.Add(btnUsuarios);
+            panelMenu.Controls.Add(btnGrupos);
             panelMenu.Controls.Add(btnGestionarClases);
             panelMenu.Controls.Add(btnCerrarSesion);
             panelMenu.Controls.Add(btnGestionarRutinas);
@@ -67,8 +73,55 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(321, 725);
+            panelMenu.Size = new Size(321, 1000);
             panelMenu.TabIndex = 1;
+            // 
+            // btnReportes
+            // 
+            btnReportes.BackColor = Color.Black;
+            btnReportes.Dock = DockStyle.Bottom;
+            btnReportes.FlatAppearance.BorderColor = SystemColors.Info;
+            btnReportes.FlatAppearance.BorderSize = 2;
+            btnReportes.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
+            btnReportes.ForeColor = Color.White;
+            btnReportes.Location = new Point(0, 680);
+            btnReportes.Name = "btnReportes";
+            btnReportes.Size = new Size(321, 80);
+            btnReportes.TabIndex = 10;
+            btnReportes.Text = "REPORTES";
+            btnReportes.UseVisualStyleBackColor = false;
+            // 
+            // btnUsuarios
+            // 
+            btnUsuarios.BackColor = Color.Black;
+            btnUsuarios.Dock = DockStyle.Bottom;
+            btnUsuarios.FlatAppearance.BorderColor = SystemColors.Info;
+            btnUsuarios.FlatAppearance.BorderSize = 2;
+            btnUsuarios.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
+            btnUsuarios.ForeColor = Color.White;
+            btnUsuarios.Location = new Point(0, 760);
+            btnUsuarios.Name = "btnUsuarios";
+            btnUsuarios.Size = new Size(321, 80);
+            btnUsuarios.TabIndex = 9;
+            btnUsuarios.Text = "USUARIOS";
+            btnUsuarios.UseVisualStyleBackColor = false;
+            btnUsuarios.Click += btnUsuarios_Click;
+            // 
+            // btnGrupos
+            // 
+            btnGrupos.BackColor = Color.Black;
+            btnGrupos.Dock = DockStyle.Bottom;
+            btnGrupos.FlatAppearance.BorderColor = SystemColors.Info;
+            btnGrupos.FlatAppearance.BorderSize = 2;
+            btnGrupos.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
+            btnGrupos.ForeColor = Color.White;
+            btnGrupos.Location = new Point(0, 840);
+            btnGrupos.Name = "btnGrupos";
+            btnGrupos.Size = new Size(321, 80);
+            btnGrupos.TabIndex = 8;
+            btnGrupos.Text = "GRUPOS";
+            btnGrupos.UseVisualStyleBackColor = false;
+            btnGrupos.Click += btnGrupos_Click;
             // 
             // btnGestionarClases
             // 
@@ -94,7 +147,7 @@
             btnCerrarSesion.FlatAppearance.BorderSize = 2;
             btnCerrarSesion.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
             btnCerrarSesion.ForeColor = Color.White;
-            btnCerrarSesion.Location = new Point(0, 645);
+            btnCerrarSesion.Location = new Point(0, 920);
             btnCerrarSesion.Name = "btnCerrarSesion";
             btnCerrarSesion.Size = new Size(321, 80);
             btnCerrarSesion.TabIndex = 6;
@@ -201,7 +254,7 @@
             panelApp.Dock = DockStyle.Fill;
             panelApp.Location = new Point(0, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(1249, 725);
+            panelApp.Size = new Size(1249, 1000);
             panelApp.TabIndex = 2;
             // 
             // panelForm
@@ -210,7 +263,7 @@
             panelForm.Dock = DockStyle.Fill;
             panelForm.Location = new Point(321, 60);
             panelForm.Name = "panelForm";
-            panelForm.Size = new Size(928, 665);
+            panelForm.Size = new Size(928, 940);
             panelForm.TabIndex = 4;
             // 
             // panelBarra
@@ -271,7 +324,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1249, 725);
+            ClientSize = new Size(1249, 1000);
             Controls.Add(panelApp);
             FormBorderStyle = FormBorderStyle.None;
             MinimizeBox = false;
@@ -310,5 +363,9 @@
         private PictureBox pbCerrar;
         private Panel panel1;
         private Label lblTitulo;
+        private Button button2;
+        private Button btnGrupos;
+        private Button btnUsuarios;
+        private Button btnReportes;
     }
 }

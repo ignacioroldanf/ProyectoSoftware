@@ -1,4 +1,5 @@
 ﻿
+using Controlador;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,8 +36,8 @@ namespace SAG___Diploma.Vista
                 formulario.Show();
                 formulario.BringToFront();
             }
-                formulario.BringToFront();
-                lblTitulo.Text= formulario.Text;
+            formulario.BringToFront();
+            lblTitulo.Text = formulario.Text;
         }
 
         public void AbrirFormularioPanel(Form formularioHijo)
@@ -61,6 +62,27 @@ namespace SAG___Diploma.Vista
 
         #endregion
 
+
+        private bool ValidarPermiso(string nombreAccion)
+        {
+
+            if (CtrlGestionarSesiones.Sesion.NombreRol == "Administrador" ||
+                CtrlGestionarSesiones.Sesion.NombreRol == "Admin")
+            {
+                return true;
+            }
+
+            if (CtrlGestionarSesiones.Sesion.TienePermiso(nombreAccion))
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos para acceder a esta función.",
+                                "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+        }
         private void btnGestionarClientes_Click(object sender, EventArgs e)
         {
             AbrirFormulario<FormGestionarClientes>();
@@ -77,23 +99,28 @@ namespace SAG___Diploma.Vista
 
         private void btnGestionarRutinas_Click(object sender, EventArgs e)
         {
-            AbrirFormulario<FormGestionarRutinas>();
-            
-            btnGestionarRutinas.BackColor = Color.FromArgb(12, 61, 92);
-            btnGestionarClientes.BackColor = Color.Black;
-            btnGestionarPlanes.BackColor = Color.Black;
-            btnGestionarClases.BackColor = Color.Black;
+            if(ValidarPermiso("Abrir Gestionar Rutinas"))
+            {
+                AbrirFormulario<FormGestionarRutinas>();
+
+                btnGestionarRutinas.BackColor = Color.FromArgb(12, 61, 92);
+                btnGestionarClientes.BackColor = Color.Black;
+                btnGestionarPlanes.BackColor = Color.Black;
+                btnGestionarClases.BackColor = Color.Black;
+            }
         }
 
         private void btnGestionarPlanes_Click(object sender, EventArgs e)
         {
-            AbrirFormulario<FormGestionarPlanes>();
+            if (ValidarPermiso("Abrir Gestionar Planes"))
+            {
+                AbrirFormulario<FormGestionarPlanes>();
 
-            btnGestionarClientes.BackColor = Color.Black;
-            btnGestionarRutinas.BackColor = Color.Black;
-            btnGestionarPlanes.BackColor = Color.FromArgb(12, 61, 92);
-            btnGestionarClases.BackColor = Color.Black;
-
+                btnGestionarClientes.BackColor = Color.Black;
+                btnGestionarRutinas.BackColor = Color.Black;
+                btnGestionarPlanes.BackColor = Color.FromArgb(12, 61, 92);
+                btnGestionarClases.BackColor = Color.Black;
+            }
         }
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
@@ -104,12 +131,15 @@ namespace SAG___Diploma.Vista
 
         private void btnGestionarClases_Click(object sender, EventArgs e)
         {
-            AbrirFormulario<FormGestionarClases>();
+            if (ValidarPermiso("Abrir Gestionar Clases"))
+            {
+                AbrirFormulario<FormGestionarClases>();
 
-            btnGestionarClientes.BackColor = Color.Black;
-            btnGestionarRutinas.BackColor = Color.Black;
-            btnGestionarPlanes.BackColor = Color.Black;
-            btnGestionarClases.BackColor = Color.FromArgb(12, 61, 92);
+                btnGestionarClientes.BackColor = Color.Black;
+                btnGestionarRutinas.BackColor = Color.Black;
+                btnGestionarPlanes.BackColor = Color.Black;
+                btnGestionarClases.BackColor = Color.FromArgb(12, 61, 92);
+            }
         }
 
         private void pbCerrar_Click(object sender, EventArgs e)
@@ -119,7 +149,27 @@ namespace SAG___Diploma.Vista
 
         private void btnInicio_Click(object sender, EventArgs e)
         {
+            
+        }
 
+        private void btnGrupos_Click(object sender, EventArgs e)
+        {
+            if (ValidarPermiso("Abrir Gestionar Grupos"))
+            {
+                AbrirFormulario<FormGestionarGrupos>();
+            }
+        }
+
+        private void btnUsuarios_Click(object sender, EventArgs e)
+        {
+            if (ValidarPermiso("Abrir Gestionar Usuarios"))
+            {
+                AbrirFormulario<FormGestionarUsuarios>();
+
+                // Manejo visual de botones (resaltar el activo)
+                btnUsuarios.BackColor = Color.FromArgb(12, 61, 92);
+                // ... poner los otros en negro ...
+            }
         }
     }
 }

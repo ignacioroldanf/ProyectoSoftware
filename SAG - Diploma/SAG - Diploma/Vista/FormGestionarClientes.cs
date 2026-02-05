@@ -54,7 +54,7 @@ namespace SAG___Diploma.Vista
             var clientes = listaClientes.Select(c => new
             {    
                 ID = c.IdCliente,
-                DNI = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Dni : "",
+                DNI = c.IdPersonaNavigation.Dni,
                 Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
                 Apellido = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Apellido : "",
                 Suscripcion = CalcularEstado(c.Suscripciones),
@@ -153,7 +153,7 @@ namespace SAG___Diploma.Vista
                 var clientes = clientesFiltrados.Select(c => new
                 {
                     ID = c.IdCliente,
-                    DNI = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Dni : "",
+                    DNI = c.IdPersonaNavigation.Dni,
                     Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
                     Apellido = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Apellido : "",
 

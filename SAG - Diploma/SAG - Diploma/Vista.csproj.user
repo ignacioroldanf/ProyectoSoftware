@@ -7,6 +7,9 @@
     <Compile Update="Vista\FormCliente.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Vista\FormContra.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Vista\FormEjercicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -14,6 +17,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Vista\FormGestionarClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vista\FormGestionarGrupos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Vista\FormGestionarPlanes.cs">
@@ -26,6 +32,15 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Vista\FormGestionarSuscripciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vista\FormGestionarUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vista\FormUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vista\FormGrupo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Vista\FormInicio.cs">

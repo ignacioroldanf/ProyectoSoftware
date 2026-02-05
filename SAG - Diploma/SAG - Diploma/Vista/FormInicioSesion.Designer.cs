@@ -36,6 +36,7 @@
             txtContra = new TextBox();
             label1 = new Label();
             btnIniciarSesion = new Button();
+            LabelContra = new LinkLabel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbCerrar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -82,9 +83,9 @@
             txtUsuario.BorderStyle = BorderStyle.None;
             txtUsuario.Font = new Font("Segoe UI", 12F);
             txtUsuario.ForeColor = Color.DimGray;
-            txtUsuario.Location = new Point(12, 277);
+            txtUsuario.Location = new Point(47, 282);
             txtUsuario.Name = "txtUsuario";
-            txtUsuario.Size = new Size(408, 27);
+            txtUsuario.Size = new Size(339, 27);
             txtUsuario.TabIndex = 2;
             txtUsuario.Text = "USUARIO";
             txtUsuario.Enter += txtUsuario_Enter;
@@ -97,9 +98,9 @@
             txtContra.BorderStyle = BorderStyle.None;
             txtContra.Font = new Font("Segoe UI", 12F);
             txtContra.ForeColor = Color.DimGray;
-            txtContra.Location = new Point(12, 325);
+            txtContra.Location = new Point(47, 330);
             txtContra.Name = "txtContra";
-            txtContra.Size = new Size(408, 27);
+            txtContra.Size = new Size(339, 27);
             txtContra.TabIndex = 3;
             txtContra.Text = "CONTRASEÑA";
             txtContra.Enter += txtContra_Enter;
@@ -127,13 +128,25 @@
             btnIniciarSesion.FlatStyle = FlatStyle.Flat;
             btnIniciarSesion.Font = new Font("Segoe UI", 12F);
             btnIniciarSesion.ForeColor = Color.LightGray;
-            btnIniciarSesion.Location = new Point(12, 381);
+            btnIniciarSesion.Location = new Point(47, 381);
             btnIniciarSesion.Name = "btnIniciarSesion";
-            btnIniciarSesion.Size = new Size(408, 40);
+            btnIniciarSesion.Size = new Size(339, 40);
             btnIniciarSesion.TabIndex = 1;
             btnIniciarSesion.Text = "INICIAR SESIÓN";
             btnIniciarSesion.UseVisualStyleBackColor = false;
             btnIniciarSesion.Click += btnIniciarSesion_Click;
+            // 
+            // LabelContra
+            // 
+            LabelContra.AutoSize = true;
+            LabelContra.Font = new Font("Segoe UI", 10F);
+            LabelContra.Location = new Point(131, 438);
+            LabelContra.Name = "LabelContra";
+            LabelContra.Size = new Size(171, 23);
+            LabelContra.TabIndex = 4;
+            LabelContra.TabStop = true;
+            LabelContra.Text = "Restaurar contraseña";
+            LabelContra.LinkClicked += LabelContra_LinkClicked;
             // 
             // FormInicioSesion
             // 
@@ -141,6 +154,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 15, 15);
             ClientSize = new Size(433, 492);
+            Controls.Add(LabelContra);
             Controls.Add(btnIniciarSesion);
             Controls.Add(label1);
             Controls.Add(txtContra);
@@ -166,5 +180,6 @@
         private Button btnIniciarSesion;
         private PictureBox pictureBox1;
         private PictureBox pbCerrar;
+        private LinkLabel LabelContra;
     }
 }

@@ -13,7 +13,7 @@ namespace Controlador
             private static List<string> _permisos = new List<string>();
             public static bool TienePermiso(string nombreAccion)
             {
-                if (UsuarioActual == null) 
+                if (UsuarioActual == null)
                     return false;
 
                 return _permisos.Contains(nombreAccion);
@@ -39,23 +39,24 @@ namespace Controlador
 
         public Usuario? IniciarSesion(string nombreUsuario, string password)
         {
+            string passHash = Seguridad.GetSHA256(password);
+
             using (var db = new DiplomaContext())
             {
                 var usuario = db.Usuarios
                                 .Include(u => u.IdPersonaNavigation)
                                 .Include(u => u.IdEstadoUsuarioNavigation)
                                 .Include(u => u.IdGrupos)
-                                    .ThenInclude(g => g.IdAccions) // Permisos por Rol
-                                .Include(u => u.IdAccions)        // Permisos Extra
+                                    .ThenInclude(g => g.IdAccions)
+                                .Include(u => u.IdAccions)
                                 .FirstOrDefault(u => u.NombreUsuario == nombreUsuario
-                                             && u.ClaveUsuario == password
-                                             && u.IdEstadoUsuario == 1);
+                                              && u.ClaveUsuario == passHash
+                                              && u.IdEstadoUsuario == 1);
 
                 if (usuario == null) return null;
 
                 var permisosRol = usuario.IdGrupos.SelectMany(g => g.IdAccions).Select(a => a.NombreAccion);
                 var permisosExtra = usuario.IdAccions.Select(a => a.NombreAccion);
-
                 var todosLosPermisos = permisosRol.Union(permisosExtra).ToList();
 
                 Sesion.UsuarioActual = usuario;
@@ -72,6 +73,37 @@ namespace Controlador
         public void CerrarSesion()
         {
             Sesion.CerrarSesion();
+        }
+
+        public void CambiarClave(string claveActual, string nuevaClave, string confirmacion)
+        {
+            if (!Sesion.EstaLogueado())
+                throw new Exception("No hay sesión activa.");
+
+            if (nuevaClave != confirmacion)
+                throw new Exception("La nueva clave y su confirmación no coinciden.");
+
+            if (!Seguridad.ValidarClave(nuevaClave))
+            {
+                throw new Exception("La clave no es segura. Debe tener 8 caracteres, mayúscula, minúscula, número y símbolo.");
+            }
+
+            using (var db = new DiplomaContext())
+            {
+                var usuario = db.Usuarios.Find(Sesion.UsuarioActual.IdUsuario);
+
+                if (usuario == null) throw new Exception("Usuario no encontrado.");
+
+                string hashActual = Seguridad.GetSHA256(claveActual);
+                if (usuario.ClaveUsuario != hashActual)
+                {
+                    throw new Exception("La clave actual ingresada es incorrecta.");
+                }
+
+                usuario.ClaveUsuario = Seguridad.GetSHA256(nuevaClave); // <--- ENCRIPTACIÓN [cite: 183]
+
+                db.SaveChanges();
+            }
         }
     }
 }

@@ -100,7 +100,7 @@ namespace Controlador
                 .ToList();
         }
 
-        public List<Cliente> FiltrarClientesPremiumPorDNI(string dni)
+        public List<Cliente> FiltrarClientesPremiumPorDNI(int dni)
         {
             return _context.Clientes
                 .Include(c => c.IdPersonaNavigation)

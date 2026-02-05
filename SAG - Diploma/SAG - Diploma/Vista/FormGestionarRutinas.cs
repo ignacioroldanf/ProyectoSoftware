@@ -40,7 +40,7 @@ namespace SAG___Diploma.Vista
                 .Select(c => new
                 {
                     ID = c.IdCliente,
-                    DNI = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Dni : "",
+                    DNI = c.IdPersonaNavigation.Dni,
                     Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
                     Apellido = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Apellido : "",
                 })
@@ -186,9 +186,8 @@ namespace SAG___Diploma.Vista
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            string dni = txtFiltrar.Text.Trim();
-            if (!string.IsNullOrEmpty(dni))
-            {
+            int dni = Convert.ToInt32(txtFiltrar.Text.Trim());
+
                 var clientesFiltrados = _ctrlClientes.FiltrarClientesPremiumPorDNI(dni);
 
                 var listadoGrilla = clientesFiltrados.Select(c => new
@@ -208,11 +207,6 @@ namespace SAG___Diploma.Vista
                     MessageBox.Show("No se encontró ningún cliente Premium Vigente con ese DNI.");
                     dtgvClientesPremium.DataSource = null;
                 }
-            }
-            else
-            {
-                CargarClientesPremium(); // Si borran el texto, recargamos todo
-            }
 
             txtFiltrar.Text = "";
 

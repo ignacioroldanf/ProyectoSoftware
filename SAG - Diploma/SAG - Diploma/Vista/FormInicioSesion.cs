@@ -1,4 +1,5 @@
-﻿using Modelo.Modelo;
+﻿using Controlador;
+using Modelo.Modelo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,15 +14,48 @@ namespace SAG___Diploma.Vista
 {
     public partial class FormInicioSesion : Form
     {
+        private CtrlGestionarSesiones _controlador;
         public FormInicioSesion()
         {
             InitializeComponent();
+            _controlador = new CtrlGestionarSesiones();
         }
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            FormInicio frmInicio = new FormInicio();
-            frmInicio.Show();
+            if (txtUsuario.Text == "USUARIO" || txtContra.Text == "CONTRASEÑA")
+            {
+                MessageBox.Show("Por favor, ingrese su usuario y contraseña.");
+                return;
+            }
+
+            try
+            {
+
+                var usuario = _controlador.IniciarSesion(txtUsuario.Text, txtContra.Text);
+
+                if (usuario != null)
+                {
+                    FormInicio frmInicio = new FormInicio();
+
+                    this.Hide();
+
+                    frmInicio.FormClosed += (s, args) => this.Close();
+
+                    frmInicio.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o contraseña incorrectos.", "Error de Acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtUsuario.Text = "USUARIO";
+                    txtContra.Text = "CONTRASEÑA";
+                    txtContra.UseSystemPasswordChar = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error: " + ex.Message);
+            }
         }
 
         private void txtUsuario_Enter(object sender, EventArgs e)
@@ -29,7 +63,7 @@ namespace SAG___Diploma.Vista
             if (txtUsuario.Text == "USUARIO")
             {
                 txtUsuario.Text = "";
-                txtUsuario.ForeColor = Color.LightGray;
+                txtUsuario.ForeColor = Color.LightGray; 
             }
         }
 
@@ -48,6 +82,7 @@ namespace SAG___Diploma.Vista
             {
                 txtContra.Text = "";
                 txtContra.ForeColor = Color.LightGray;
+                txtContra.UseSystemPasswordChar = true;
             }
         }
 
@@ -57,12 +92,18 @@ namespace SAG___Diploma.Vista
             {
                 txtContra.Text = "CONTRASEÑA";
                 txtContra.ForeColor = Color.DimGray;
+                txtContra.UseSystemPasswordChar = false;
             }
         }
 
         private void pbCerrar_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void LabelContra_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show("Funcionalidad de recuperación de contraseña.\nEl sistema enviará una nueva clave a su email registrado.", "Recuperar Clave");
         }
     }
 }
