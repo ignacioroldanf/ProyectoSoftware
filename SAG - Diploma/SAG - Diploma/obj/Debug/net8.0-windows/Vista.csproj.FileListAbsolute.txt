@@ -318,7 +318,6 @@ C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copi
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormGrupo.resources
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormUsuario.resources
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormGestionarUsuarios.resources
-C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormContra.resources
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormGestionarReportes.resources
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\bin\Debug\net8.0-windows\HarfBuzzSharp.dll
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\bin\Debug\net8.0-windows\OpenTK.dll
@@ -361,3 +360,4 @@ C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copi
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\bin\Debug\net8.0-windows\runtimes\win-x86\native\libSkiaSharp.dll
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\bin\Debug\net8.0-windows\BouncyCastle.Cryptography.dll
 C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\bin\Debug\net8.0-windows\itextsharp.dll
+C:\Users\Nacho\OneDrive - UNIVERSIDAD ABIERTA INTERAMERICANA\Desktop\Facu - copia\2025 1er cuatri\Proyecto\Primera Iteracion\SAG - Diploma\SAG - Diploma\obj\Debug\net8.0-windows\SAG___Diploma.Vista.FormRecuperacion.resources

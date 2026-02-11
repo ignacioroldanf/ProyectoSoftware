@@ -144,28 +144,40 @@ namespace SAG___Diploma.Vista
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            string dni = txtFiltrar.Text.Trim();
-
-            if (!string.IsNullOrEmpty(dni))
+            if (string.IsNullOrWhiteSpace(txtFiltrar.Text))
             {
-                var clientesFiltrados = _ctrlCliente.FiltrarPorDNI(dni);
+                MessageBox.Show("Ingrese un número de documento para filtrar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            if (!int.TryParse(txtFiltrar.Text, out int dni))
+            {
+                MessageBox.Show("El DNI debe contener solo números.", "Formato Incorrecto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var clientesFiltrados = _ctrlCliente.FiltrarPorDNI(dni);
+
+            if (clientesFiltrados.Count > 0)
+            {
                 var clientes = clientesFiltrados.Select(c => new
                 {
                     ID = c.IdCliente,
-                    DNI = c.IdPersonaNavigation.Dni,
+                    DNI = c.IdPersonaNavigation.Dni, 
                     Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
                     Apellido = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Apellido : "",
-
+                    Suscripcion = CalcularEstado(c.Suscripciones), 
                     Fecha_Alta = c.FechaAlta
-
                 }).ToList();
+
                 dtgvClientes.DataSource = clientes;
             }
             else
             {
-                MessageBox.Show("Ingrese un número de documento para filtrar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No se encontraron clientes con ese DNI.", "Búsqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dtgvClientes.DataSource = null;
             }
+
             txtFiltrar.Clear();
         }
 

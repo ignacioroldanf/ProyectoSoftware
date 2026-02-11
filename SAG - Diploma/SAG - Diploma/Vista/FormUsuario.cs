@@ -229,62 +229,71 @@ namespace SAG___Diploma.Vista
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtUsuario.Text))
+
+                if (string.IsNullOrWhiteSpace(txtUsuario.Text) || string.IsNullOrWhiteSpace(txtEmail.Text))
                 {
-                    MessageBox.Show("Complete los datos.");
+                    MessageBox.Show("El nombre de usuario y el correo electrónico son obligatorios.", "Faltan Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (_idUsuario == null) 
                 {
-                    string clavePropuesta = Seguridad.GenerarClaveAleatoria();
-                    FormContra frmClave = new FormContra(clavePropuesta);
-
-                    if (frmClave.ShowDialog() != DialogResult.OK) return;
-
-                    string claveFinal = frmClave.ClaveFinal;
-
                     Usuario nuevo = new Usuario();
                     nuevo.NombreUsuario = txtUsuario.Text;
+
+                    nuevo.IdEstadoUsuario = (int)comboBox1.SelectedValue;
+
                     nuevo.IdPersonaNavigation = new Persona();
                     nuevo.IdPersonaNavigation.Nombre = txtNombre.Text;
                     nuevo.IdPersonaNavigation.Apellido = txtApellido.Text;
+                    nuevo.IdPersonaNavigation.Email = txtEmail.Text; 
 
                     if (int.TryParse(txtDNI.Text, out int dni))
-                        nuevo.IdPersonaNavigation.Dni = dni; 
+                        nuevo.IdPersonaNavigation.Dni = dni;
 
-                    nuevo.IdPersonaNavigation.Email = txtEmail.Text;
+                    _ctrlUsuarios.AgregarUsuario(nuevo);
 
-                    _ctrlUsuarios.AgregarUsuario(nuevo, claveFinal);
-                    _usuarioActual = nuevo;
-                    MessageBox.Show("Usuario creado correctamente.");
+                    _usuarioActual = nuevo; // Guardamos la referencia para asignarle grupos/permisos abajo
+
+                    MessageBox.Show("Usuario creado correctamente.\n\n" +
+                        "IMPORTANTE: El usuario se ha generado con una contraseña aleatoria.\n" +
+                        "Por favor, utilice la opción 'Olvidé mi contraseña' en la pantalla de login para configurar su acceso personal.",
+                        "Usuario Creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else 
+                else
                 {
                     _usuarioActual.NombreUsuario = txtUsuario.Text;
+
                     if (_usuarioActual.IdPersonaNavigation != null)
                     {
                         _usuarioActual.IdPersonaNavigation.Nombre = txtNombre.Text;
                         _usuarioActual.IdPersonaNavigation.Apellido = txtApellido.Text;
-                        _usuarioActual.IdPersonaNavigation.Dni = Convert.ToInt32(txtDNI.Text); 
+                        _usuarioActual.IdPersonaNavigation.Dni = Convert.ToInt32(txtDNI.Text);
                         _usuarioActual.IdPersonaNavigation.Email = txtEmail.Text;
-                        _usuarioActual.IdEstadoUsuario = (int)comboBox1.SelectedValue;
                     }
+
+                    _usuarioActual.IdEstadoUsuario = (int)comboBox1.SelectedValue;
+
                     _ctrlUsuarios.ModificarUsuario(_usuarioActual);
+                    MessageBox.Show("Usuario modificado correctamente.");
                 }
 
+                // 3. GUARDAR GRUPOS Y PERMISOS (Común para Nuevo y Modificar)
+
+                // A. Grupos
                 List<int> idsGrupos = new List<int>();
                 foreach (Grupo g in clbGrupos.CheckedItems) idsGrupos.Add(g.IdGrupo);
                 _ctrlUsuarios.GuardarGruposUsuario(_usuarioActual.IdUsuario, idsGrupos);
 
+                // B. Permisos Individuales (Árbol)
                 List<int> idsAcciones = new List<int>();
-
-                foreach (TreeNode nodoModulo in tvAccion.Nodes) 
+                foreach (TreeNode nodoModulo in tvAccion.Nodes)
                 {
-                    foreach (TreeNode nodoForm in nodoModulo.Nodes) 
+                    foreach (TreeNode nodoForm in nodoModulo.Nodes)
                     {
-                        foreach (TreeNode nodoAccion in nodoForm.Nodes) 
+                        foreach (TreeNode nodoAccion in nodoForm.Nodes)
                         {
+                            // Solo guardamos si está tildado Y tiene un ID (Tag)
                             if (nodoAccion.Checked && nodoAccion.Tag != null)
                             {
                                 idsAcciones.Add(Convert.ToInt32(nodoAccion.Tag));
@@ -292,18 +301,17 @@ namespace SAG___Diploma.Vista
                         }
                     }
                 }
-
                 _ctrlUsuarios.GuardarPermisosDelUsuario(_usuarioActual.IdUsuario, idsAcciones);
 
+                // 4. CERRAR
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void clbGrupos_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             this.BeginInvoke(new Action(() =>

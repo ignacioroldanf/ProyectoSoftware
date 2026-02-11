@@ -32,7 +32,6 @@ namespace SAG___Diploma.Vista
             CargarUsuarios();
         }
 
-        // 1. CONFIGURACIÓN VISUAL
 
         private void CargarCombosFiltro()
         {
@@ -172,35 +171,40 @@ namespace SAG___Diploma.Vista
         {
             if (dtgvUsuarios.CurrentRow == null)
             {
-                MessageBox.Show("Seleccione un usuario para resetear su clave.");
+                MessageBox.Show("Seleccione un usuario para resetear su clave.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             int id = (int)dtgvUsuarios.CurrentRow.Cells["Id"].Value;
             string nombre = dtgvUsuarios.CurrentRow.Cells["Usuario"].Value.ToString();
 
-            if (MessageBox.Show($"¿Desea restablecer la contraseña del usuario '{nombre}'?", "Resetear Clave", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            var confirmacion = MessageBox.Show(
+                $"¿Está seguro de que desea blanquear la contraseña del usuario '{nombre}'?\n\n" +
+                "La contraseña actual dejará de funcionar y se generará una interna aleatoria desconocida.",
+                "Confirmar Reseteo",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (confirmacion == DialogResult.Yes)
             {
                 try
                 {
-                    string claveSugerida = Seguridad.GenerarClaveAleatoria();
+                    _controlador.ResetearClave(id);
 
-                    FormContra frm = new FormContra(claveSugerida);
-
-                    if (frm.ShowDialog() == DialogResult.OK)
-                    {
-                        string claveFinal = frm.ClaveFinal;
-                        _controlador.GuardarNuevaClave(id, claveFinal);
-
-                        MessageBox.Show("La contraseña ha sido actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    MessageBox.Show(
+                        "La contraseña se ha reseteado correctamente.\n\n" +
+                        "IMPORTANTE: El sistema ha asignado una clave interna de seguridad.\n" +
+                        "Por favor, comuníquele al usuario que debe utilizar la opción 'Olvidé mi contraseña' en la pantalla de inicio de sesión para configurar su nuevo acceso.",
+                        "Reseteo Exitoso",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al resetear clave: " + ex.Message);
+                    MessageBox.Show("Error al resetear clave: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
-
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
             FiltrarGrilla();

@@ -11,7 +11,7 @@ public partial class Persona
 
     public string Apellido { get; set; } = null!;
 
-    public int Dni { get; set; }
+    public int? Dni { get; set; }
 
     public string? Email { get; set; }
 

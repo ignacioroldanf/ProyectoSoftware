@@ -184,7 +184,9 @@
             Controls.Add(txtNombre);
             Controls.Add(txtApellido);
             Controls.Add(txtDocumento);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FormCliente";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Cliente";
             panelSuperior.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

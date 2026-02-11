@@ -348,6 +348,8 @@ public partial class DiplomaContext : DbContext
         {
             entity.HasKey(e => e.IdPersona).HasName("PK__Personas__C95634AF2C88017D");
 
+            entity.HasIndex(e => e.Email, "UQ__Personas__A9D10534AADDB3EB").IsUnique();
+
             entity.Property(e => e.IdPersona).HasColumnName("Id_Persona");
             entity.Property(e => e.Apellido).HasMaxLength(50);
             entity.Property(e => e.Dni).HasColumnName("DNI");
@@ -555,12 +557,19 @@ public partial class DiplomaContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("Clave_Usuario");
+            entity.Property(e => e.ExpiracionToken)
+                .HasColumnType("datetime")
+                .HasColumnName("Expiracion_Token");
             entity.Property(e => e.IdEstadoUsuario).HasColumnName("Id_EstadoUsuario");
             entity.Property(e => e.IdPersona).HasColumnName("Id_Persona");
             entity.Property(e => e.NombreUsuario)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Nombre_Usuario");
+            entity.Property(e => e.TokenRecuperacion)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Token_Recuperacion");
 
             entity.HasOne(d => d.IdEstadoUsuarioNavigation).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.IdEstadoUsuario)

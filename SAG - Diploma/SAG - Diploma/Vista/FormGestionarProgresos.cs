@@ -39,7 +39,7 @@ namespace SAG___Diploma.Vista
             if (_rutinaSeleccionada == null)
             {
                 MessageBox.Show("El cliente no tiene una rutina asignada.");
-                Close();
+                this.Enabled = false; 
                 return;
             }
             

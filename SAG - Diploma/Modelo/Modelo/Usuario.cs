@@ -15,6 +15,10 @@ public partial class Usuario
 
     public int? IdPersona { get; set; }
 
+    public string? TokenRecuperacion { get; set; }
+
+    public DateTime? ExpiracionToken { get; set; }
+
     public virtual EstadoUsuario IdEstadoUsuarioNavigation { get; set; } = null!;
 
     public virtual Persona? IdPersonaNavigation { get; set; }

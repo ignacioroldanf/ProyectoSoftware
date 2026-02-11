@@ -103,7 +103,54 @@ namespace SAG___Diploma.Vista
 
         private void LabelContra_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            MessageBox.Show("Funcionalidad de recuperación de contraseña.\nEl sistema enviará una nueva clave a su email registrado.", "Recuperar Clave");
+            string emailIngresado = MostrarDialogoInput("Recuperación de Cuenta", "Por favor, ingresa tu email asociado:");
+
+            if (string.IsNullOrWhiteSpace(emailIngresado)) return;
+
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                _controlador.SolicitarRecuperacion(emailIngresado);
+
+                Cursor.Current = Cursors.Default;
+
+                MessageBox.Show("Se ha enviado un código de recuperación a tu correo electrónico.\n\nRevisa tu bandeja de entrada (y spam).",
+                                "Correo Enviado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                FormRecuperacion frmRecuperacion = new FormRecuperacion();
+                frmRecuperacion.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Cursor.Current = Cursors.Default;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private string MostrarDialogoInput(string titulo, string texto)
+        {
+            Form prompt = new Form()
+            {
+                Width = 400,
+                Height = 180,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = titulo,
+                StartPosition = FormStartPosition.CenterScreen,
+                MaximizeBox = false,
+                MinimizeBox = false
+            };
+
+            Label textLabel = new Label() { Left = 20, Top = 20, Text = texto, AutoSize = true };
+            TextBox textBox = new TextBox() { Left = 20, Top = 50, Width = 340 };
+            Button confirmation = new Button() { Text = "Enviar", Left = 250, Width = 100, Top = 90, DialogResult = DialogResult.OK };
+
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
         }
     }
 }

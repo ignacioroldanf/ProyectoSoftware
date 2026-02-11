@@ -136,6 +136,13 @@ namespace SAG___Diploma.Vista
 
             int idCliente = Convert.ToInt32(dtgvClientesPremium.CurrentRow.Cells["ID"].Value);
 
+            var rutina = _controlador.ConsultarRutinaActual(idCliente);
+            if (rutina == null)
+            {
+                MessageBox.Show("El cliente seleccionado no tiene una rutina asignada.\nNo se pueden registrar progresos.", "Sin Rutina", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // Modo edición
             FormGestionarProgresos formProgresos = new FormGestionarProgresos(_controlador, idCliente, false);
 
@@ -152,6 +159,13 @@ namespace SAG___Diploma.Vista
             }
 
             int idCliente = Convert.ToInt32(dtgvClientesPremium.CurrentRow.Cells["ID"].Value);
+
+            var rutina = _controlador.ConsultarRutinaActual(idCliente);
+            if (rutina == null)
+            {
+                MessageBox.Show("El cliente seleccionado no tiene historial de rutinas activas.", "Sin Rutina", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return; 
+            }
 
             // Modo lectura
             FormGestionarProgresos formProgresos = new FormGestionarProgresos(_controlador, idCliente, true);

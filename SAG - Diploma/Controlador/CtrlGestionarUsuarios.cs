@@ -31,14 +31,16 @@ namespace Controlador
             return _context.EstadoUsuarios.ToList();
         }
 
-        public void AgregarUsuario(Usuario nuevoUsuario, string passwordPlana)
+        public void AgregarUsuario(Usuario nuevoUsuario)
         {
             if (_context.Usuarios.Any(u => u.NombreUsuario == nuevoUsuario.NombreUsuario))
             {
                 throw new Exception("El nombre de usuario ya existe.");
             }
 
-            nuevoUsuario.ClaveUsuario = Seguridad.GetSHA256(passwordPlana); 
+            string claveAleatoria = Seguridad.GenerarClaveAleatoria();
+
+            nuevoUsuario.ClaveUsuario = Seguridad.GetSHA256(claveAleatoria); 
 
             nuevoUsuario.IdEstadoUsuario = 1; 
 
@@ -92,18 +94,23 @@ namespace Controlador
             }
         }
 
-        public string ResetearClave(int idUsuario)
+        public void ResetearClave(int idUsuario)
         {
             var usuario = _context.Usuarios.Find(idUsuario);
+
             if (usuario == null)
             {
                 throw new Exception("Usuario no encontrado.");
             }
-            string nuevaClave = Seguridad.GenerarClaveAleatoria();
-            usuario.ClaveUsuario = Seguridad.GetSHA256(nuevaClave);
-            _context.SaveChanges();
 
-            return nuevaClave;
+            string claveAleatoria = Seguridad.GenerarClaveAleatoria();
+
+            usuario.ClaveUsuario = Seguridad.GetSHA256(claveAleatoria);
+
+            usuario.TokenRecuperacion = null;
+            usuario.ExpiracionToken = null;
+
+            _context.SaveChanges();
         }
 
         public void GuardarNuevaClave(int idUsuario, string nuevaClavePlana)

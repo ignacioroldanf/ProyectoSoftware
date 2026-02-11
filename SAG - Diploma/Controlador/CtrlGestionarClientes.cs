@@ -88,7 +88,7 @@ namespace Controlador
                             .FirstOrDefault(c => c.IdCliente == clienteID);
         }
 
-        public List<Cliente> FiltrarPorDNI(string dni)
+        public List<Cliente> FiltrarPorDNI(int dni)
         {
             return _context.Clientes
                 .Include(c => c.IdPersonaNavigation)
@@ -96,7 +96,7 @@ namespace Controlador
                     .ThenInclude(s => s.IdEstadoSuscripcionNavigation)
                 .Include(c => c.Suscripciones)
                     .ThenInclude(s => s.IdPlanNavigation)
-                .Where(c => c.IdPersonaNavigation.Dni.ToString() == dni) // Convertimos dni de la persona a string para comparar con dni
+                .Where(c => c.IdPersonaNavigation.Dni == dni)
                 .ToList();
         }
 

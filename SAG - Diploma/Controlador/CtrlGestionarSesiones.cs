@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modelo;
 using Modelo.Modelo;
-
+using System.Net.Mime;
+using System.IO;
+using System.Net;
+using System.Net.Mail;
 
 namespace Controlador
 {
@@ -13,7 +16,6 @@ namespace Controlador
 
             using (var db = new DiplomaContext())
             {
-                // 1. Traemos TODO (Incluyendo la navegación al Formulario)
                 var usuario = db.Usuarios
                                 .Include(u => u.IdEstadoUsuarioNavigation)
                                 .Include(u => u.IdGrupos)
@@ -27,30 +29,23 @@ namespace Controlador
 
                 if (usuario == null) return null;
 
-                // 2. Recolectar Acciones (Strings)
                 var accionesGrupo = usuario.IdGrupos.Where(g => g.IdEstadoGrupo == 1)
                                            .SelectMany(g => g.IdAccions);
                 var accionesDirectas = usuario.IdAccions;
 
-                // Unimos todas las acciones (objetos completos)
                 var todasLasAccionesObj = accionesGrupo.Concat(accionesDirectas).ToList();
 
-                // Lista de nombres de permisos (para los botones internos)
                 var nombresPermisos = todasLasAccionesObj.Select(a => a.NombreAccion).Distinct().ToList();
 
-                // 3. Recolectar Nombres de Formularios (para el Menú Principal)
-                // Aquí decimos: "Si tiene la acción 'Agregar Cliente', guardamos el formulario 'FormGestionarClientes'"
                 var nombresFormularios = todasLasAccionesObj
                                             .Where(a => a.IdFormularioNavigation != null)
                                             .Select(a => a.IdFormularioNavigation.NombreFormulario)
                                             .Distinct()
                                             .ToList();
 
-                // 4. Cargar Sesión
                 Sesion.Instancia.UsuarioActual = usuario;
                 Sesion.Instancia.NombreRol = usuario.IdGrupos.FirstOrDefault()?.NombreGrupo ?? "Sin Grupo";
 
-                // Pasamos AMBAS listas
                 Sesion.Instancia.CargarPermisos(nombresPermisos, nombresFormularios);
 
                 return usuario;
@@ -92,6 +87,109 @@ namespace Controlador
                 usuario.ClaveUsuario = Seguridad.GetSHA256(nuevaClave);
 
                 db.SaveChanges();
+            }
+        }
+
+        public void SolicitarRecuperacion(string emailIngresado)
+        {
+            using (var db = new DiplomaContext())
+            {
+                var usuario = db.Usuarios
+                                .Include(u => u.IdPersonaNavigation)
+                                .FirstOrDefault(u => u.IdPersonaNavigation.Email == emailIngresado);
+                if (usuario == null)
+                    throw new Exception("No se encontró un usuario asociado a ese email.");
+
+                string token = new Random().Next(100000, 999999).ToString();
+
+                usuario.TokenRecuperacion = token;
+                usuario.ExpiracionToken = DateTime.Now.AddMinutes(30);
+
+                db.SaveChanges();
+
+                try
+                {
+                    EnviarEmail(usuario.IdPersonaNavigation.Email, "Código de Recuperación",
+                        $"Hola {usuario.NombreUsuario}, tu código de recuperación es: {token}");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al enviar el correo: " + ex.Message);
+                }
+            }
+        }
+
+        public void ValidarToken(string token)
+        {
+            using (var db = new DiplomaContext())
+            {
+                var usuario = db.Usuarios.FirstOrDefault(u => u.TokenRecuperacion == token);
+
+                if (usuario == null)
+                    throw new Exception("El código ingresado es incorrecto.");
+
+                if (usuario.ExpiracionToken < DateTime.Now)
+                    throw new Exception("El código ha expirado. Por favor solicite uno nuevo.");
+            }
+        }
+
+        public void RestablecerContrasena(string token, string nuevaClave, string confirmacion)
+        {
+            if (nuevaClave != confirmacion)
+                throw new Exception("Las contraseñas no coinciden.");
+
+            if (!Seguridad.ValidarClave(nuevaClave))
+                throw new Exception("La clave no cumple con los requisitos de seguridad.");
+
+            using (var db = new DiplomaContext())
+            {
+                var usuario = db.Usuarios.FirstOrDefault(u => u.TokenRecuperacion == token);
+
+                if (usuario == null)
+                    throw new Exception("El código ingresado es inválido.");
+
+                if (usuario.ExpiracionToken < DateTime.Now)
+                    throw new Exception("El código ha expirado. Por favor solicite uno nuevo.");
+
+                usuario.ClaveUsuario = Seguridad.GetSHA256(nuevaClave);
+
+                usuario.TokenRecuperacion = null;
+                usuario.ExpiracionToken = null;
+
+                db.SaveChanges();
+            }
+        }
+
+        private void EnviarEmail(string destinatario, string asunto, string cuerpo)
+        {
+
+            string remitente = "saggym.contacto@gmail.com";
+            string passwordSmtp = "uwcgvnizougacqtq";
+            string host = "smtp.gmail.com";
+            int puerto = 587;
+
+            using (MailMessage mm = new MailMessage(remitente, destinatario))
+            {
+                mm.Subject = asunto;
+                mm.Body = cuerpo;
+                mm.IsBodyHtml = false;
+
+                using (SmtpClient smtp = new SmtpClient(host, puerto))
+                {
+
+                    smtp.UseDefaultCredentials = false;
+                    smtp.Credentials = new NetworkCredential(remitente, passwordSmtp);
+                    smtp.EnableSsl = true;
+
+                    try
+                    {
+                        smtp.Send(mm);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error SMTP: " + ex.Message);
+                    }
+                }
             }
         }
     }
