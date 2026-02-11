@@ -1,13 +1,8 @@
-﻿
-using Controlador;
+﻿using Controlador;
+using Modelo; // Para acceder a Sesion
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SAG___Diploma.Vista
@@ -19,127 +14,95 @@ namespace SAG___Diploma.Vista
             InitializeComponent();
         }
 
-        #region métodos para poner los forms en el panel
-
-        public void AbrirFormulario<MiForm>() where MiForm : Form, new()
-        {
-            Form formulario;
-            formulario = panelForm.Controls.OfType<MiForm>().FirstOrDefault();
-            if (formulario == null)
-            {
-                formulario = new MiForm();
-                formulario.TopLevel = false;
-                formulario.FormBorderStyle = FormBorderStyle.None;
-                formulario.Dock = DockStyle.Fill;
-                panelForm.Controls.Add(formulario);
-                panelForm.Tag = formulario;
-                formulario.Show();
-                formulario.BringToFront();
-            }
-            formulario.BringToFront();
-            lblTitulo.Text = formulario.Text;
-        }
-
-        public void AbrirFormularioPanel(Form formularioHijo)
-        {
-            if (panelForm.Controls.Count > 0)
-            {
-                panelForm.Controls.RemoveAt(0);
-            }
-
-            formularioHijo.TopLevel = false;
-            formularioHijo.FormBorderStyle = FormBorderStyle.None;
-            formularioHijo.Dock = DockStyle.Fill;
-
-            panelForm.Controls.Add(formularioHijo);
-            panelForm.Tag = formularioHijo;
-
-            formularioHijo.Show();
-            formularioHijo.BringToFront();
-
-            lblTitulo.Text = formularioHijo.Text;
-        }
-
-        #endregion
-
-
-        private bool ValidarPermiso(string nombreAccion)
-        {
-
-            if (CtrlGestionarSesiones.Sesion.NombreRol == "Administrador" ||
-                CtrlGestionarSesiones.Sesion.NombreRol == "Admin")
-            {
-                return true;
-            }
-
-            if (CtrlGestionarSesiones.Sesion.TienePermiso(nombreAccion))
-            {
-                return true;
-            }
-            else
-            {
-                MessageBox.Show("No tiene permisos para acceder a esta función.",
-                                "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-        }
-        private void btnGestionarClientes_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario<FormGestionarClientes>();
-            btnGestionarClientes.BackColor = Color.FromArgb(12, 61, 92);
-            btnGestionarRutinas.BackColor = Color.Black;
-            btnGestionarPlanes.BackColor = Color.Black;
-            btnGestionarClases.BackColor = Color.Black;
-        }
-
         private void FormInicio_Load(object sender, EventArgs e)
         {
+            // 1. Ocultar botones según permisos al cargar
+            AplicarSeguridad();
             panelForm.Visible = true;
+        }
+
+        private void AplicarSeguridad()
+        {
+
+            btnGestionarClientes.Visible = Sesion.Instancia.PuedeAccederFormulario("FormGestionarClientes");
+            btnGestionarPlanes.Visible = Sesion.Instancia.PuedeAccederFormulario("FormGestionarPlanes");
+            btnGestionarClases.Visible = Sesion.Instancia.PuedeAccederFormulario("FormGestionarClases");
+            btnGestionarRutinas.Visible = Sesion.Instancia.PuedeAccederFormulario("FormGestionarRutinas");
+            btnUsuarios.Visible = Sesion.Instancia.PuedeAccederFormulario("FormGestionarUsuarios");
+            btnGrupos.Visible = Sesion.Instancia.PuedeAccederFormulario("FormGestionarGrupos");
+        }
+
+        #region Clicks dependientes de los permisos
+
+        private void btnGestionarClientes_Click(object sender, EventArgs e)
+        {
+            if (Sesion.Instancia.PuedeAccederFormulario("FormGestionarClientes"))
+            {
+                AbrirFormulario<FormGestionarClientes>();
+                ResaltarBoton(btnGestionarClientes);
+            }
         }
 
         private void btnGestionarRutinas_Click(object sender, EventArgs e)
         {
-            if(ValidarPermiso("Abrir Gestionar Rutinas"))
+            if (Sesion.Instancia.PuedeAccederFormulario("FormGestionarRutinas"))
             {
                 AbrirFormulario<FormGestionarRutinas>();
-
-                btnGestionarRutinas.BackColor = Color.FromArgb(12, 61, 92);
-                btnGestionarClientes.BackColor = Color.Black;
-                btnGestionarPlanes.BackColor = Color.Black;
-                btnGestionarClases.BackColor = Color.Black;
+                ResaltarBoton(btnGestionarRutinas);
             }
         }
 
         private void btnGestionarPlanes_Click(object sender, EventArgs e)
         {
-            if (ValidarPermiso("Abrir Gestionar Planes"))
+            if (Sesion.Instancia.PuedeAccederFormulario("FormGestionarPlanes"))
             {
                 AbrirFormulario<FormGestionarPlanes>();
-
-                btnGestionarClientes.BackColor = Color.Black;
-                btnGestionarRutinas.BackColor = Color.Black;
-                btnGestionarPlanes.BackColor = Color.FromArgb(12, 61, 92);
-                btnGestionarClases.BackColor = Color.Black;
+                ResaltarBoton(btnGestionarPlanes);
             }
-        }
-
-        private void btnCerrarSesion_Click(object sender, EventArgs e)
-        {
-            this.Close();
-
         }
 
         private void btnGestionarClases_Click(object sender, EventArgs e)
         {
-            if (ValidarPermiso("Abrir Gestionar Clases"))
+            if (Sesion.Instancia.PuedeAccederFormulario("FormGestionarClases"))
             {
                 AbrirFormulario<FormGestionarClases>();
-
-                btnGestionarClientes.BackColor = Color.Black;
-                btnGestionarRutinas.BackColor = Color.Black;
-                btnGestionarPlanes.BackColor = Color.Black;
-                btnGestionarClases.BackColor = Color.FromArgb(12, 61, 92);
+                ResaltarBoton(btnGestionarClases);
             }
+        }
+
+        private void btnGrupos_Click(object sender, EventArgs e)
+        {
+            if (Sesion.Instancia.PuedeAccederFormulario("FormGestionarGrupos"))
+            {
+                AbrirFormulario<FormGestionarGrupos>();
+                ResaltarBoton(btnGrupos);
+            }
+        }
+
+        private void btnUsuarios_Click(object sender, EventArgs e)
+        {
+            if (Sesion.Instancia.PuedeAccederFormulario("FormGestionarUsuarios"))
+            {
+                AbrirFormulario<FormGestionarUsuarios>();
+                ResaltarBoton(btnUsuarios);
+            }
+        }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            if (Sesion.Instancia.PuedeAccederFormulario("FormGestionarReportes"))
+            {
+                AbrirFormulario<FormGestionarReportes>();
+                ResaltarBoton(btnReportes);
+            }
+        }
+
+        #endregion
+
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Sesion.Instancia.Logout();
+            this.Close();
         }
 
         private void pbCerrar_Click(object sender, EventArgs e)
@@ -149,27 +112,64 @@ namespace SAG___Diploma.Vista
 
         private void btnInicio_Click(object sender, EventArgs e)
         {
-            
+            // Lógica para volver al home si tienes un dashboard
         }
 
-        private void btnGrupos_Click(object sender, EventArgs e)
+        #region Métodos Auxiliares y Diseño
+
+        // Método centralizado para manejar colores (más prolijo)
+        private void ResaltarBoton(Button botonActivo)
         {
-            if (ValidarPermiso("Abrir Gestionar Grupos"))
+            btnGestionarClientes.BackColor = Color.Black;
+            btnGestionarRutinas.BackColor = Color.Black;
+            btnGestionarPlanes.BackColor = Color.Black;
+            btnGestionarClases.BackColor = Color.Black;
+            btnGrupos.BackColor = Color.Black;
+            btnUsuarios.BackColor = Color.Black;
+
+            if (botonActivo != null)
             {
-                AbrirFormulario<FormGestionarGrupos>();
+                botonActivo.BackColor = Color.FromArgb(12, 61, 92);
             }
         }
 
-        private void btnUsuarios_Click(object sender, EventArgs e)
+        public void AbrirFormulario<MiForm>() where MiForm : Form, new()
         {
-            if (ValidarPermiso("Abrir Gestionar Usuarios"))
+            Form formulario = panelForm.Controls.OfType<MiForm>().FirstOrDefault();
+            if (formulario == null)
             {
-                AbrirFormulario<FormGestionarUsuarios>();
-
-                // Manejo visual de botones (resaltar el activo)
-                btnUsuarios.BackColor = Color.FromArgb(12, 61, 92);
-                // ... poner los otros en negro ...
+                formulario = new MiForm();
+                formulario.TopLevel = false;
+                formulario.FormBorderStyle = FormBorderStyle.None;
+                formulario.Dock = DockStyle.Fill;
+                panelForm.Controls.Add(formulario);
+                panelForm.Tag = formulario;
+                formulario.Show();
             }
+            formulario.BringToFront();
+
+            if (lblTitulo != null) lblTitulo.Text = formulario.Text;
         }
+
+        public void AbrirFormularioPanel(Form formularioHijo)
+        {
+            if (panelForm.Controls.Count > 0)
+                panelForm.Controls.RemoveAt(0);
+
+            formularioHijo.TopLevel = false;
+            formularioHijo.FormBorderStyle = FormBorderStyle.None;
+            formularioHijo.Dock = DockStyle.Fill;
+            panelForm.Controls.Add(formularioHijo);
+            panelForm.Tag = formularioHijo;
+            formularioHijo.Show();
+            formularioHijo.BringToFront();
+
+            if (lblTitulo != null) lblTitulo.Text = formularioHijo.Text;
+        }
+
+        #endregion
+
+
+
     }
 }

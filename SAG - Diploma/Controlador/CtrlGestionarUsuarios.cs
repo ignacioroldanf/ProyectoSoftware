@@ -20,6 +20,7 @@ namespace Controlador
         public List<Usuario> ListarUsuarios()
         {
             return _context.Usuarios
+                .AsNoTracking()
                 .Include(u => u.IdEstadoUsuarioNavigation)
                 .Include(u => u.IdPersonaNavigation)
                 .Include(u => u.IdGrupos)
@@ -62,6 +63,7 @@ namespace Controlador
                     usuarioExistente.IdPersonaNavigation.Apellido = usuarioModificado.IdPersonaNavigation.Apellido;
                     usuarioExistente.IdPersonaNavigation.Dni = usuarioModificado.IdPersonaNavigation.Dni;
                     usuarioExistente.IdPersonaNavigation.Email = usuarioModificado.IdPersonaNavigation.Email;
+                    usuarioExistente.IdEstadoUsuario = usuarioModificado.IdEstadoUsuario;
                 }
 
                 _context.SaveChanges();
@@ -102,6 +104,19 @@ namespace Controlador
             _context.SaveChanges();
 
             return nuevaClave;
+        }
+
+        public void GuardarNuevaClave(int idUsuario, string nuevaClavePlana)
+        {
+            var usuario = _context.Usuarios.Find(idUsuario);
+            if (usuario == null)
+            {
+                throw new Exception("Usuario no encontrado.");
+            }
+
+            usuario.ClaveUsuario = Seguridad.GetSHA256(nuevaClavePlana);
+
+            _context.SaveChanges();
         }
 
         public List<Accione> ObtenerAccionesDelUsuario(int idUsuario)

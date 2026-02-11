@@ -36,36 +36,28 @@ namespace SAG___Diploma.Vista
 
         private void CargarCombosFiltro()
         {
-            // 1. Traer la lista real de la base de datos (0=Baja, 1=Activo, 2=Suspendido)
             var listaEstados = _controlador.ListarEstados();
 
-            // 2. Crear el ítem ficticio para "Todos" con ID -1
             EstadoUsuario opcionTodos = new EstadoUsuario
             {
-                IdEstadoUsuario = -1, // Usamos -1 para que no choque con el 0 (Baja)
+                IdEstadoUsuario = -1,
                 Descripcion = "Todos"
             };
 
-            // 3. Insertarlo al principio de la lista
             listaEstados.Insert(0, opcionTodos);
 
-            // 4. Enlazar
             cmbEstado.DataSource = listaEstados;
             cmbEstado.DisplayMember = "Descripcion";
             cmbEstado.ValueMember = "IdEstadoUsuario";
 
-            // Seleccionar "Todos" por defecto
             cmbEstado.SelectedValue = -1;
         }
         private void CargarUsuarios()
         {
             try
             {
-                // 1. Traemos los datos crudos
                 _listaOriginal = _controlador.ListarUsuarios();
 
-                // 2. CREAMOS UNA LISTA LIMPIA (Anónima)
-                // La grilla va a crear SOLO las columnas que definas acá abajo (u.IdUsuario, u.Usuario, etc.)
                 var listaVisual = _listaOriginal.Select(u => new
                 {
                     Id = u.IdUsuario,                
@@ -138,7 +130,9 @@ namespace SAG___Diploma.Vista
 
             if(frm.ShowDialog() == DialogResult.OK)
             {
-                CargarUsuarios();
+                _listaOriginal = _controlador.ListarUsuarios();
+
+                FiltrarGrilla();
             }
         }
 
@@ -181,21 +175,28 @@ namespace SAG___Diploma.Vista
                 MessageBox.Show("Seleccione un usuario para resetear su clave.");
                 return;
             }
+            int id = (int)dtgvUsuarios.CurrentRow.Cells["Id"].Value;
+            string nombre = dtgvUsuarios.CurrentRow.Cells["Usuario"].Value.ToString();
 
-            int id = (int)dtgvUsuarios.CurrentRow.Cells["IdUsuario"].Value;
-            string nombre = dtgvUsuarios.CurrentRow.Cells["NombreUsuario"].Value.ToString();
-
-            if (MessageBox.Show($"¿Generar una nueva contraseña aleatoria para '{nombre}'?", "Resetear Clave", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show($"¿Desea restablecer la contraseña del usuario '{nombre}'?", "Resetear Clave", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 try
                 {
-                    string nuevaClave = _controlador.ResetearClave(id);
+                    string claveSugerida = Seguridad.GenerarClaveAleatoria();
 
-                    MessageBox.Show($"Clave reseteada con éxito.\n\nNueva Clave: {nuevaClave}\n\n(Copie esta clave y entréguesela al usuario)", "Clave Generada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FormContra frm = new FormContra(claveSugerida);
+
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        string claveFinal = frm.ClaveFinal;
+                        _controlador.GuardarNuevaClave(id, claveFinal);
+
+                        MessageBox.Show("La contraseña ha sido actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    MessageBox.Show("Error al resetear clave: " + ex.Message);
                 }
             }
         }

@@ -31,11 +31,12 @@
             btnCopiar = new Button();
             btnAceptar = new Button();
             txtContra = new TextBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // btnCopiar
             // 
-            btnCopiar.Location = new Point(137, 224);
+            btnCopiar.Location = new Point(25, 77);
             btnCopiar.Name = "btnCopiar";
             btnCopiar.Size = new Size(94, 29);
             btnCopiar.TabIndex = 0;
@@ -45,7 +46,7 @@
             // 
             // btnAceptar
             // 
-            btnAceptar.Location = new Point(253, 224);
+            btnAceptar.Location = new Point(125, 77);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(94, 29);
             btnAceptar.TabIndex = 1;
@@ -55,20 +56,32 @@
             // 
             // txtContra
             // 
-            txtContra.Location = new Point(137, 176);
+            txtContra.Location = new Point(25, 44);
             txtContra.Name = "txtContra";
-            txtContra.Size = new Size(125, 27);
+            txtContra.Size = new Size(194, 27);
             txtContra.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 21);
+            label1.Name = "label1";
+            label1.Size = new Size(226, 20);
+            label1.TabIndex = 3;
+            label1.Text = "Contraseña aleatoria establecida";
             // 
             // FormContra
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(250, 126);
+            Controls.Add(label1);
             Controls.Add(txtContra);
             Controls.Add(btnAceptar);
             Controls.Add(btnCopiar);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "FormContra";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormContra";
             ResumeLayout(false);
             PerformLayout();
@@ -79,5 +92,6 @@
         private Button btnCopiar;
         private Button btnAceptar;
         private TextBox txtContra;
+        private Label label1;
     }
 }

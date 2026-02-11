@@ -3,12 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Modelo.Modelo;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SAG___Diploma.Vista
@@ -32,9 +29,13 @@ namespace SAG___Diploma.Vista
         {
         }
 
-
         private void FormUsuario_Load(object sender, EventArgs e)
         {
+            var listaEstados = _ctrlUsuarios.ListarEstados();
+            comboBox1.DataSource = listaEstados;
+            comboBox1.DisplayMember = "Descripcion";
+            comboBox1.ValueMember = "IdEstadoUsuario";
+
             CargarListaGrupos();
             CargarArbolAcciones();
 
@@ -48,6 +49,7 @@ namespace SAG___Diploma.Vista
             {
                 this.Text = "Nuevo Usuario";
             }
+            clbGrupos.ItemCheck += new ItemCheckEventHandler(clbGrupos_ItemCheck);
         }
 
         private void CargarListaGrupos()
@@ -63,7 +65,6 @@ namespace SAG___Diploma.Vista
             tvAccion.Nodes.Clear();
             var todasLasAcciones = _ctrlGrupos.ListarAcciones();
 
-            // DEBUG: Si esto salta, es que la base de datos está vacía
             if (todasLasAcciones.Count == 0) return;
 
             // 1. Agrupar por MÓDULO (Nivel 1)
@@ -89,9 +90,6 @@ namespace SAG___Diploma.Vista
                     {
                         TreeNode nodoAccion = new TreeNode(accion.NombreAccion);
                         nodoAccion.Tag = accion.IdAccion; // <--- VITAL PARA GUARDAR
-
-                        // Si quieres que el checkbox aparezca marcado por defecto en algún caso, va aquí.
-
                         nodoFormulario.Nodes.Add(nodoAccion);
                     }
                     nodoModulo.Nodes.Add(nodoFormulario);
@@ -99,8 +97,8 @@ namespace SAG___Diploma.Vista
                 tvAccion.Nodes.Add(nodoModulo);
             }
 
-            // Expandir todo para ver si cargó
             tvAccion.ExpandAll();
+            if (tvAccion.Nodes.Count > 0) tvAccion.Nodes[0].EnsureVisible();
         }
 
         private void CargarDatosUsuario(int id)
@@ -108,7 +106,7 @@ namespace SAG___Diploma.Vista
             using (var db = new DiplomaContext())
             {
                 _usuarioActual = db.Usuarios
-                                   .Include(u => u.IdPersonaNavigation) 
+                                   .Include(u => u.IdPersonaNavigation)
                                    .FirstOrDefault(u => u.IdUsuario == id);
             }
 
@@ -122,6 +120,7 @@ namespace SAG___Diploma.Vista
                     txtApellido.Text = _usuarioActual.IdPersonaNavigation.Apellido;
                     txtDNI.Text = _usuarioActual.IdPersonaNavigation.Dni.ToString();
                     txtEmail.Text = _usuarioActual.IdPersonaNavigation.Email;
+                    comboBox1.SelectedValue = _usuarioActual.IdEstadoUsuario;
                 }
 
                 var gruposDelUser = _ctrlUsuarios.ObtenerGruposDelUsuario(id);
@@ -139,23 +138,88 @@ namespace SAG___Diploma.Vista
                 MarcarArbolUsuario(id);
             }
         }
+
         private void MarcarArbolUsuario(int idUsuario)
         {
-            var accionesUser = _ctrlUsuarios.ObtenerAccionesDelUsuario(idUsuario);
-            var idsQueTiene = accionesUser.Select(a => a.IdAccion).ToList();
+            // ---------------------------------------------------------
+            // PASO 1: LIMPIEZA (Resetear todo a desmarcado y negro)
+            // ---------------------------------------------------------
+            foreach (TreeNode n1 in tvAccion.Nodes)
+            {
+                n1.Checked = false;
+                foreach (TreeNode n2 in n1.Nodes)
+                {
+                    n2.Checked = false;
+                    foreach (TreeNode n3 in n2.Nodes)
+                    {
+                        n3.Checked = false;
+                        n3.ForeColor = Color.Black; // Todo negro
+                        n3.NodeFont = new Font(tvAccion.Font, FontStyle.Regular); // Letra normal
+                    }
+                }
+            }
 
+            // ---------------------------------------------------------
+            // PASO 2: OBTENER TODOS LOS PERMISOS (Directos + Heredados)
+            // ---------------------------------------------------------
+
+            // A. Permisos DIRECTOS (BD)
+            var accionesDirectas = _ctrlUsuarios.ObtenerAccionesDelUsuario(idUsuario);
+            var idsDirectos = accionesDirectas.Select(a => a.IdAccion).ToList();
+
+            // B. Permisos HEREDADOS (De los grupos visualmente tildados)
+            List<int> idsHeredados = new List<int>();
+            foreach (var item in clbGrupos.CheckedItems)
+            {
+                Grupo g = (Grupo)item;
+                var accionesDelGrupo = _ctrlGrupos.ListarAccionesPorGrupo(g.IdGrupo);
+                idsHeredados.AddRange(accionesDelGrupo.Select(a => a.IdAccion));
+            }
+
+            // ---------------------------------------------------------
+            // PASO 3: MARCAR EL ÁRBOL
+            // ---------------------------------------------------------
             foreach (TreeNode nodoModulo in tvAccion.Nodes)
             {
                 foreach (TreeNode nodoFormulario in nodoModulo.Nodes)
                 {
+
+                    bool estanTodosLosHijosTildados = true;
+
+                    bool tieneHijos = nodoFormulario.Nodes.Count > 0;
+
                     foreach (TreeNode nodoAccion in nodoFormulario.Nodes)
                     {
-                        if (nodoAccion.Tag != null && idsQueTiene.Contains((int)nodoAccion.Tag))
+                        if (nodoAccion.Tag != null)
                         {
-                            nodoAccion.Checked = true;
-                            nodoFormulario.Expand();
-                            nodoModulo.Expand();
+                            int idAccion = Convert.ToInt32(nodoAccion.Tag);
+                            bool tienePermiso = false;
+
+                            if (idsDirectos.Contains(idAccion) || idsHeredados.Contains(idAccion))
+                            {
+                                tienePermiso = true;
+                            }
+
+                            if (tienePermiso)
+                            {
+                                nodoAccion.Checked = true;
+                            }
+                            else
+                            {
+                                estanTodosLosHijosTildados = false;
+                            }
                         }
+                    }
+
+                    // APLICAMOS AL PADRE (Formulario)
+                    if (tieneHijos && estanTodosLosHijosTildados)
+                    {
+                        nodoFormulario.Checked = true;
+
+                    }
+                    else
+                    {
+                        nodoFormulario.Checked = false;
                     }
                 }
             }
@@ -171,59 +235,64 @@ namespace SAG___Diploma.Vista
                     return;
                 }
 
-                // --- CASO 1: USUARIO NUEVO ---
-                if (_idUsuario == null)
+                if (_idUsuario == null) 
                 {
-                    // 1. Generamos la aleatoria primero
                     string clavePropuesta = Seguridad.GenerarClaveAleatoria();
-
-                    // 2. Abrimos el Dialogo para que el usuario la vea/copie/cambie
                     FormContra frmClave = new FormContra(clavePropuesta);
 
-                    if (frmClave.ShowDialog() != DialogResult.OK)
-                    {
-                        return; // Si cancela, no guardamos nada
-                    }
+                    if (frmClave.ShowDialog() != DialogResult.OK) return;
 
-                    // 3. Obtenemos la clave final (sea la aleatoria o la manual)
                     string claveFinal = frmClave.ClaveFinal;
 
-                    // 4. Creamos el objeto
                     Usuario nuevo = new Usuario();
                     nuevo.NombreUsuario = txtUsuario.Text;
-
                     nuevo.IdPersonaNavigation = new Persona();
                     nuevo.IdPersonaNavigation.Nombre = txtNombre.Text;
                     nuevo.IdPersonaNavigation.Apellido = txtApellido.Text;
-                    nuevo.IdPersonaNavigation.Dni = Convert.ToInt32(txtDNI.Text);
+
+                    if (int.TryParse(txtDNI.Text, out int dni))
+                        nuevo.IdPersonaNavigation.Dni = dni; 
+
                     nuevo.IdPersonaNavigation.Email = txtEmail.Text;
 
-                    // 5. Guardamos pasando la clave final
                     _ctrlUsuarios.AgregarUsuario(nuevo, claveFinal);
-
                     _usuarioActual = nuevo;
-
-                    // Ya no hace falta mostrar el MessageBox con la clave aquí 
-                    // porque el usuario ya la copió en el paso 2.
                     MessageBox.Show("Usuario creado correctamente.");
                 }
-                // --- CASO 2: MODIFICAR ---
-                else
+                else 
                 {
-                    // (El código de modificar queda IGUAL que antes, no toca la clave)
                     _usuarioActual.NombreUsuario = txtUsuario.Text;
-                    // ... actualizar persona ...
+                    if (_usuarioActual.IdPersonaNavigation != null)
+                    {
+                        _usuarioActual.IdPersonaNavigation.Nombre = txtNombre.Text;
+                        _usuarioActual.IdPersonaNavigation.Apellido = txtApellido.Text;
+                        _usuarioActual.IdPersonaNavigation.Dni = Convert.ToInt32(txtDNI.Text); 
+                        _usuarioActual.IdPersonaNavigation.Email = txtEmail.Text;
+                        _usuarioActual.IdEstadoUsuario = (int)comboBox1.SelectedValue;
+                    }
                     _ctrlUsuarios.ModificarUsuario(_usuarioActual);
                 }
 
-                // --- GUARDADO DE GRUPOS Y PERMISOS (Igual que antes) ---
                 List<int> idsGrupos = new List<int>();
                 foreach (Grupo g in clbGrupos.CheckedItems) idsGrupos.Add(g.IdGrupo);
                 _ctrlUsuarios.GuardarGruposUsuario(_usuarioActual.IdUsuario, idsGrupos);
 
                 List<int> idsAcciones = new List<int>();
-                // ... (tu lógica de recorrer treeview) ...
-                // ... (llenar idsAcciones) ...
+
+                foreach (TreeNode nodoModulo in tvAccion.Nodes) 
+                {
+                    foreach (TreeNode nodoForm in nodoModulo.Nodes) 
+                    {
+                        foreach (TreeNode nodoAccion in nodoForm.Nodes) 
+                        {
+                            if (nodoAccion.Checked && nodoAccion.Tag != null)
+                            {
+                                idsAcciones.Add(Convert.ToInt32(nodoAccion.Tag));
+                            }
+                        }
+                    }
+                }
+
                 _ctrlUsuarios.GuardarPermisosDelUsuario(_usuarioActual.IdUsuario, idsAcciones);
 
                 this.DialogResult = DialogResult.OK;
@@ -234,5 +303,74 @@ namespace SAG___Diploma.Vista
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
+        private void clbGrupos_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            this.BeginInvoke(new Action(() =>
+            {
+                if (_idUsuario.HasValue)
+                {
+                    MarcarArbolUsuario(_idUsuario.Value);
+                }
+            }));
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        #region Lógica de selección de nodos (Marcar padres e hijos)
+        private bool _validando = false;
+        private void tvAccion_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+
+            if (_validando) return;
+
+            try
+            {
+                _validando = true; 
+
+                ActualizarHijos(e.Node, e.Node.Checked);
+
+                ActualizarPadre(e.Node);
+            }
+            finally
+            {
+                _validando = false; 
+            }
+        }
+
+        private void ActualizarHijos(TreeNode nodoPadre, bool estado)
+        {
+            foreach (TreeNode nodoHijo in nodoPadre.Nodes)
+            {
+                nodoHijo.Checked = estado;
+                ActualizarHijos(nodoHijo, estado);
+            }
+        }
+
+        private void ActualizarPadre(TreeNode nodoHijo)
+        {
+            if (nodoHijo.Parent == null) return;
+
+            TreeNode padre = nodoHijo.Parent;
+            bool todosLosHermanosMarcados = true;
+
+            foreach (TreeNode hermano in padre.Nodes)
+            {
+                if (!hermano.Checked)
+                {
+                    todosLosHermanosMarcados = false;
+                    break;
+                }
+            }
+
+            padre.Checked = todosLosHermanosMarcados;
+
+            ActualizarPadre(padre);
+        }
+
+        #endregion
     }
 }

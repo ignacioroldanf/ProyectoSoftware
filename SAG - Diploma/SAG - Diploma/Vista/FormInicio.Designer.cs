@@ -90,6 +90,7 @@
             btnReportes.TabIndex = 10;
             btnReportes.Text = "REPORTES";
             btnReportes.UseVisualStyleBackColor = false;
+            btnReportes.Click += btnReportes_Click;
             // 
             // btnUsuarios
             // 

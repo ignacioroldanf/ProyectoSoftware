@@ -48,6 +48,8 @@
             clbGrupos = new CheckedListBox();
             tabPageAcciones = new TabPage();
             tvAccion = new TreeView();
+            label6 = new Label();
+            comboBox1 = new ComboBox();
             panelSuperior.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPageDatos.SuspendLayout();
@@ -90,15 +92,16 @@
             btnCancelar.TabIndex = 21;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // tvAcciones
             // 
             tvAcciones.CheckBoxes = true;
             tvAcciones.Dock = DockStyle.Fill;
             tvAcciones.LineColor = Color.Empty;
-            tvAcciones.Location = new Point(3, 3);
+            tvAcciones.Location = new Point(10, 10);
             tvAcciones.Name = "tvAcciones";
-            tvAcciones.Size = new Size(1266, 633);
+            tvAcciones.Size = new Size(10, 10);
             tvAcciones.TabIndex = 0;
             // 
             // tabControl1
@@ -115,6 +118,8 @@
             // 
             // tabPageDatos
             // 
+            tabPageDatos.Controls.Add(comboBox1);
+            tabPageDatos.Controls.Add(label6);
             tabPageDatos.Controls.Add(txtUsuario);
             tabPageDatos.Controls.Add(label5);
             tabPageDatos.Controls.Add(txtEmail);
@@ -227,11 +232,13 @@
             // 
             // clbGrupos
             // 
+            clbGrupos.Dock = DockStyle.Fill;
             clbGrupos.FormattingEnabled = true;
-            clbGrupos.Location = new Point(39, 55);
+            clbGrupos.Location = new Point(3, 3);
             clbGrupos.Name = "clbGrupos";
-            clbGrupos.Size = new Size(404, 356);
+            clbGrupos.Size = new Size(631, 525);
             clbGrupos.TabIndex = 0;
+            clbGrupos.ItemCheck += clbGrupos_ItemCheck;
             // 
             // tabPageAcciones
             // 
@@ -247,10 +254,29 @@
             // tvAccion
             // 
             tvAccion.CheckBoxes = true;
-            tvAccion.Location = new Point(44, 45);
+            tvAccion.Dock = DockStyle.Fill;
+            tvAccion.Location = new Point(3, 3);
             tvAccion.Name = "tvAccion";
-            tvAccion.Size = new Size(515, 439);
+            tvAccion.Size = new Size(631, 525);
             tvAccion.TabIndex = 0;
+            tvAccion.AfterCheck += tvAccion_AfterCheck;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(48, 350);
+            label6.Name = "label6";
+            label6.Size = new Size(54, 20);
+            label6.TabIndex = 19;
+            label6.Text = "Estado";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(181, 342);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(167, 28);
+            comboBox1.TabIndex = 20;
             // 
             // FormUsuario
             // 
@@ -297,5 +323,7 @@
         private TreeView tvAccion;
         private Label label5;
         private TextBox txtUsuario;
+        private ComboBox comboBox1;
+        private Label label6;
     }
 }

@@ -28,6 +28,9 @@
     <Compile Update="Vista\FormGestionarProgresos.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Vista\FormGestionarReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Vista\FormGestionarRutinas.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Modelo;
 using Modelo.Modelo;
 
 
@@ -6,65 +7,51 @@ namespace Controlador
 {
     public class CtrlGestionarSesiones
     {
-        public static class Sesion
-        {
-            public static Usuario? UsuarioActual { get; set; }
-            public static string NombreRol { get; set; } = "Sin Rol";
-            private static List<string> _permisos = new List<string>();
-            public static bool TienePermiso(string nombreAccion)
-            {
-                if (UsuarioActual == null)
-                    return false;
-
-                return _permisos.Contains(nombreAccion);
-            }
-
-            public static void CargarPermisos(List<string> listaPermisos)
-            {
-                _permisos = new List<string>(listaPermisos);
-            }
-
-            public static void CerrarSesion()
-            {
-                UsuarioActual = null;
-                NombreRol = "Sin Rol";
-                _permisos.Clear();
-            }
-
-            public static bool EstaLogueado()
-            {
-                return UsuarioActual != null;
-            }
-        }
-
-        public Usuario? IniciarSesion(string nombreUsuario, string password)
+        public Usuario IniciarSesion(string nombreUsuario, string password)
         {
             string passHash = Seguridad.GetSHA256(password);
 
             using (var db = new DiplomaContext())
             {
+                // 1. Traemos TODO (Incluyendo la navegación al Formulario)
                 var usuario = db.Usuarios
-                                .Include(u => u.IdPersonaNavigation)
                                 .Include(u => u.IdEstadoUsuarioNavigation)
                                 .Include(u => u.IdGrupos)
                                     .ThenInclude(g => g.IdAccions)
+                                        .ThenInclude(a => a.IdFormularioNavigation)
                                 .Include(u => u.IdAccions)
+                                    .ThenInclude(a => a.IdFormularioNavigation)
                                 .FirstOrDefault(u => u.NombreUsuario == nombreUsuario
                                               && u.ClaveUsuario == passHash
                                               && u.IdEstadoUsuario == 1);
 
                 if (usuario == null) return null;
 
-                var permisosRol = usuario.IdGrupos.SelectMany(g => g.IdAccions).Select(a => a.NombreAccion);
-                var permisosExtra = usuario.IdAccions.Select(a => a.NombreAccion);
-                var todosLosPermisos = permisosRol.Union(permisosExtra).ToList();
+                // 2. Recolectar Acciones (Strings)
+                var accionesGrupo = usuario.IdGrupos.Where(g => g.IdEstadoGrupo == 1)
+                                           .SelectMany(g => g.IdAccions);
+                var accionesDirectas = usuario.IdAccions;
 
-                Sesion.UsuarioActual = usuario;
+                // Unimos todas las acciones (objetos completos)
+                var todasLasAccionesObj = accionesGrupo.Concat(accionesDirectas).ToList();
 
-                var grupo = usuario.IdGrupos.FirstOrDefault();
-                Sesion.NombreRol = (grupo != null) ? grupo.NombreGrupo : "Acceso Especial";
+                // Lista de nombres de permisos (para los botones internos)
+                var nombresPermisos = todasLasAccionesObj.Select(a => a.NombreAccion).Distinct().ToList();
 
-                Sesion.CargarPermisos(todosLosPermisos);
+                // 3. Recolectar Nombres de Formularios (para el Menú Principal)
+                // Aquí decimos: "Si tiene la acción 'Agregar Cliente', guardamos el formulario 'FormGestionarClientes'"
+                var nombresFormularios = todasLasAccionesObj
+                                            .Where(a => a.IdFormularioNavigation != null)
+                                            .Select(a => a.IdFormularioNavigation.NombreFormulario)
+                                            .Distinct()
+                                            .ToList();
+
+                // 4. Cargar Sesión
+                Sesion.Instancia.UsuarioActual = usuario;
+                Sesion.Instancia.NombreRol = usuario.IdGrupos.FirstOrDefault()?.NombreGrupo ?? "Sin Grupo";
+
+                // Pasamos AMBAS listas
+                Sesion.Instancia.CargarPermisos(nombresPermisos, nombresFormularios);
 
                 return usuario;
             }
@@ -72,14 +59,15 @@ namespace Controlador
 
         public void CerrarSesion()
         {
-            Sesion.CerrarSesion();
+            Sesion.Instancia.Logout();
+        }
+        public static Sesion SesionActual
+        {
+            get { return Sesion.Instancia; }
         }
 
         public void CambiarClave(string claveActual, string nuevaClave, string confirmacion)
         {
-            if (!Sesion.EstaLogueado())
-                throw new Exception("No hay sesión activa.");
-
             if (nuevaClave != confirmacion)
                 throw new Exception("La nueva clave y su confirmación no coinciden.");
 
@@ -90,17 +78,18 @@ namespace Controlador
 
             using (var db = new DiplomaContext())
             {
-                var usuario = db.Usuarios.Find(Sesion.UsuarioActual.IdUsuario);
+                var usuario = db.Usuarios.Find(Sesion.Instancia.UsuarioActual.IdUsuario);
 
                 if (usuario == null) throw new Exception("Usuario no encontrado.");
 
                 string hashActual = Seguridad.GetSHA256(claveActual);
+
                 if (usuario.ClaveUsuario != hashActual)
                 {
                     throw new Exception("La clave actual ingresada es incorrecta.");
                 }
 
-                usuario.ClaveUsuario = Seguridad.GetSHA256(nuevaClave); // <--- ENCRIPTACIÓN [cite: 183]
+                usuario.ClaveUsuario = Seguridad.GetSHA256(nuevaClave);
 
                 db.SaveChanges();
             }

@@ -145,7 +145,7 @@
             // 
             btnAgregar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnAgregar.BackColor = SystemColors.GradientActiveCaption;
-            btnAgregar.Location = new Point(153, 915);
+            btnAgregar.Location = new Point(153, 348);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(105, 49);
             btnAgregar.TabIndex = 20;
@@ -181,8 +181,7 @@
             // 
             // grupoNuevaSuscripcion
             // 
-            grupoNuevaSuscripcion.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            grupoNuevaSuscripcion.AutoSize = true;
+            grupoNuevaSuscripcion.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             grupoNuevaSuscripcion.BackColor = SystemColors.ControlLightLight;
             grupoNuevaSuscripcion.Controls.Add(dtpFin);
             grupoNuevaSuscripcion.Controls.Add(dtpInicio);
@@ -194,7 +193,7 @@
             grupoNuevaSuscripcion.Font = new Font("Segoe UI", 12F);
             grupoNuevaSuscripcion.Location = new Point(1131, 140);
             grupoNuevaSuscripcion.Name = "grupoNuevaSuscripcion";
-            grupoNuevaSuscripcion.Size = new Size(284, 997);
+            grupoNuevaSuscripcion.Size = new Size(284, 430);
             grupoNuevaSuscripcion.TabIndex = 37;
             grupoNuevaSuscripcion.TabStop = false;
             grupoNuevaSuscripcion.Text = "Asignar Nueva Suscripcion";
@@ -270,7 +269,6 @@
             grupoNuevaSuscripcion.ResumeLayout(false);
             grupoNuevaSuscripcion.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

@@ -33,15 +33,14 @@
             btnCancelar = new Button();
             tabControl = new TabControl();
             tpDatos = new TabPage();
+            cmbEstadoGrupo = new ComboBox();
             label4 = new Label();
-            txtDNI = new TextBox();
+            txtDescripcion = new TextBox();
             label3 = new Label();
             txtNombre = new TextBox();
             label2 = new Label();
-            label1 = new Label();
             tpAcciones = new TabPage();
             tvAcciones = new TreeView();
-            txtMail = new TextBox();
             panelSuperior.SuspendLayout();
             tabControl.SuspendLayout();
             tpDatos.SuspendLayout();
@@ -83,6 +82,7 @@
             btnCancelar.TabIndex = 21;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += btnCancelar_Click_1;
             // 
             // tabControl
             // 
@@ -97,13 +97,12 @@
             // 
             // tpDatos
             // 
-            tpDatos.Controls.Add(txtMail);
+            tpDatos.Controls.Add(cmbEstadoGrupo);
             tpDatos.Controls.Add(label4);
-            tpDatos.Controls.Add(txtDNI);
+            tpDatos.Controls.Add(txtDescripcion);
             tpDatos.Controls.Add(label3);
             tpDatos.Controls.Add(txtNombre);
             tpDatos.Controls.Add(label2);
-            tpDatos.Controls.Add(label1);
             tpDatos.Font = new Font("Segoe UI", 12F);
             tpDatos.Location = new Point(4, 29);
             tpDatos.Name = "tpDatos";
@@ -113,35 +112,43 @@
             tpDatos.Text = "Datos";
             tpDatos.UseVisualStyleBackColor = true;
             // 
+            // cmbEstadoGrupo
+            // 
+            cmbEstadoGrupo.FormattingEnabled = true;
+            cmbEstadoGrupo.Location = new Point(166, 236);
+            cmbEstadoGrupo.Name = "cmbEstadoGrupo";
+            cmbEstadoGrupo.Size = new Size(176, 36);
+            cmbEstadoGrupo.TabIndex = 7;
+            // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(30, 240);
+            label4.Location = new Point(30, 244);
             label4.Name = "label4";
-            label4.Size = new Size(50, 28);
+            label4.Size = new Size(71, 28);
             label4.TabIndex = 6;
-            label4.Text = "Mail";
+            label4.Text = "Estado";
             // 
-            // txtDNI
+            // txtDescripcion
             // 
-            txtDNI.Location = new Point(166, 174);
-            txtDNI.Multiline = true;
-            txtDNI.Name = "txtDNI";
-            txtDNI.Size = new Size(176, 34);
-            txtDNI.TabIndex = 5;
+            txtDescripcion.Location = new Point(166, 124);
+            txtDescripcion.Multiline = true;
+            txtDescripcion.Name = "txtDescripcion";
+            txtDescripcion.Size = new Size(176, 91);
+            txtDescripcion.TabIndex = 5;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(30, 180);
+            label3.Location = new Point(30, 130);
             label3.Name = "label3";
-            label3.Size = new Size(46, 28);
+            label3.Size = new Size(114, 28);
             label3.TabIndex = 4;
-            label3.Text = "DNI";
+            label3.Text = "Descripción";
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(166, 63);
+            txtNombre.Location = new Point(166, 64);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(176, 34);
             txtNombre.TabIndex = 3;
@@ -149,22 +156,11 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(30, 69);
+            label2.Location = new Point(30, 70);
             label2.Name = "label2";
             label2.Size = new Size(85, 28);
             label2.TabIndex = 2;
             label2.Text = "Nombre";
-            // 
-
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(30, 120);
-            label1.Name = "label1";
-            label1.Size = new Size(86, 28);
-            label1.TabIndex = 0;
-            label1.Text = "Apellido";
             // 
             // tpAcciones
             // 
@@ -186,14 +182,7 @@
             tvAcciones.Name = "tvAcciones";
             tvAcciones.Size = new Size(1266, 633);
             tvAcciones.TabIndex = 0;
-            // 
-            // txtMail
-            // 
-            txtMail.Location = new Point(166, 234);
-            txtMail.Multiline = true;
-            txtMail.Name = "txtMail";
-            txtMail.Size = new Size(176, 34);
-            txtMail.TabIndex = 7;
+            tvAcciones.AfterCheck += tvAcciones_AfterCheck;
             // 
             // FormGrupo
             // 
@@ -226,12 +215,13 @@
         private TabPage tpAcciones;
         private ComboBox cmbEstado;
         private Label label4;
-        private TextBox txtDNI;
+        private TextBox txtDescripcion;
         private Label label3;
         private TextBox txtNombre;
         private Label label2;
         private TreeView tvAcciones;
         private Button btnGuardar;
         private TextBox txtMail;
+        private ComboBox cmbEstadoGrupo;
     }
 }
