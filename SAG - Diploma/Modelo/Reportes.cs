@@ -24,5 +24,11 @@ namespace Modelo
             public string Porcentaje { get; set; }
 
         }
+
+        public class ReporteEjerciciosPopulares
+        {
+            public string NombreEjercicio { get; set; }
+            public int CantidadUsos { get; set; }
+        }
     }
 }

@@ -39,7 +39,6 @@ namespace Controlador
         }
 
         // --- REPORTE 2: ESTADO REAL DE CLIENTES ---
-        // (Este método ya estaba bien en tu código, lo copio igual para que tengas el archivo completo)
         public List<Reportes.ReporteEstadoUsuarios> ObtenerEstadoUsuarios()
         {
             var hoy = DateOnly.FromDateTime(DateTime.Now);
@@ -99,6 +98,26 @@ namespace Controlador
             }
 
             return listaResultado;
+        }
+
+        public List<Reportes.ReporteEjerciciosPopulares> ObtenerEjerciciosMasPopulares()
+        {
+            var ranking = _context.EjerciciosAsignados
+                .Include(ea => ea.IdEjercicioNavigation)
+                .Where(ea => ea.IdEjercicioNavigation != null)
+                .GroupBy(ea => ea.IdEjercicioNavigation.NombreEjercicio)
+                .Select(grupo => new Reportes.ReporteEjerciciosPopulares
+                {
+                    NombreEjercicio = grupo.Key,
+                    CantidadUsos = grupo.Count()
+                })
+                .OrderByDescending(dto => dto.CantidadUsos)
+                .Take(10)
+                .ToList();
+
+            ranking.Reverse();
+
+            return ranking;
         }
     }
 }

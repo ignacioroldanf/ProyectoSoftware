@@ -1,6 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
-using Modelo; // Para acceder a tus DTOs
+using Modelo;
+using Controlador; // Necesario para acceder a ReporteEjercicioDTO
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,9 +17,14 @@ namespace Controlador
 
         public static void ExportarReporteCompleto(
             string rutaArchivo,
+            // 1. Estados
             byte[] imgEstados, List<Reportes.ReporteEstadoUsuarios> datosEstados,
+            // 2. Ingresos Detalle
             byte[] imgIngresosDetalle, List<Reportes.ReporteIngresos> datosIngresosDetalle,
-            byte[] imgIngresosGrupo, dynamic datosIngresosGrupo
+            // 3. Ingresos Grupo
+            byte[] imgIngresosGrupo, dynamic datosIngresosGrupo,
+            // 4. NUEVO: Ejercicios
+            byte[] imgEjercicios, List<Reportes.ReporteEjerciciosPopulares> datosEjercicios
             )
         {
             Document doc = new Document(PageSize.A4.Rotate(), 20, 20, 20, 20);
@@ -34,15 +40,20 @@ namespace Controlador
 
                 // --- SECCIÓN 1: ESTADOS ---
                 AgregarSeccion(doc, "1. Estado de la Cartera de Clientes", imgEstados, CrearTablaEstados(datosEstados));
-                doc.Add(new Paragraph("\n")); // Espacio
+                doc.Add(new Paragraph("\n"));
 
                 // --- SECCIÓN 2: INGRESOS POR PLAN (DETALLE) ---
                 AgregarSeccion(doc, "2. Ingresos Detallados por Plan", imgIngresosDetalle, CrearTablaIngresos(datosIngresosDetalle));
                 doc.Add(new Paragraph("\n"));
 
                 // --- SECCIÓN 3: INGRESOS AGRUPADOS (PREMIUM VS BÁSICO) ---
-                // Nota: Para la tabla agrupada, convertimos el dynamic a una lista simple para la tabla
                 AgregarSeccion(doc, "3. Resumen: Premium vs Básico", imgIngresosGrupo, CrearTablaAgrupada(datosIngresosGrupo));
+                doc.Add(new Paragraph("\n"));
+
+                // --- SECCIÓN 4: TOP EJERCICIOS (NUEVO) ---
+                // Agregamos un salto de página si es necesario, o dejamos que fluya
+                // doc.NewPage(); // Descomentar si quieres que esto empiece en hoja nueva
+                AgregarSeccion(doc, "4. Top Ejercicios Más Solicitados", imgEjercicios, CrearTablaEjercicios(datosEjercicios));
 
                 doc.Close();
             }
@@ -62,16 +73,23 @@ namespace Controlador
             // Tabla Contenedora (Layout)
             PdfPTable layout = new PdfPTable(2);
             layout.WidthPercentage = 100;
-            layout.SetWidths(new float[] { 55f, 45f }); // 55% Gráfico, 45% Tabla
+            layout.SetWidths(new float[] { 60f, 40f }); // Ajusté un poco: 60% Gráfico, 40% Tabla (mejor para barras horizontales)
 
             // COLUMNA 1: IMAGEN
-            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(imagenBytes);
-            img.ScaleToFit(380f, 250f); // Ajustar tamaño
-            PdfPCell celdaImg = new PdfPCell(img);
-            celdaImg.Border = Rectangle.NO_BORDER;
-            celdaImg.HorizontalAlignment = Element.ALIGN_CENTER;
-            celdaImg.VerticalAlignment = Element.ALIGN_MIDDLE;
-            layout.AddCell(celdaImg);
+            if (imagenBytes != null && imagenBytes.Length > 0)
+            {
+                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(imagenBytes);
+                img.ScaleToFit(450f, 280f); // Aumenté un poco el tamaño permitido para el gráfico de barras
+                PdfPCell celdaImg = new PdfPCell(img);
+                celdaImg.Border = Rectangle.NO_BORDER;
+                celdaImg.HorizontalAlignment = Element.ALIGN_CENTER;
+                celdaImg.VerticalAlignment = Element.ALIGN_MIDDLE;
+                layout.AddCell(celdaImg);
+            }
+            else
+            {
+                layout.AddCell(new PdfPCell(new Phrase("Sin Gráfico")) { Border = Rectangle.NO_BORDER });
+            }
 
             // COLUMNA 2: TABLA DE DATOS
             PdfPCell celdaTabla = new PdfPCell(tablaDatos);
@@ -82,13 +100,14 @@ namespace Controlador
             doc.Add(layout);
         }
 
-        // Helpers para crear las tablas de datos
+        // ----------------------------------------------------------------------
+        // HELPERS PARA CREAR TABLAS
+        // ----------------------------------------------------------------------
+
         private static PdfPTable CrearTablaEstados(List<Reportes.ReporteEstadoUsuarios> datos)
         {
-            PdfPTable t = new PdfPTable(3); // Estado, Cantidad, %
+            PdfPTable t = new PdfPTable(3);
             t.WidthPercentage = 100;
-
-            // Headers
             AgregarHeader(t, "Estado");
             AgregarHeader(t, "Clientes");
             AgregarHeader(t, "%");
@@ -104,9 +123,8 @@ namespace Controlador
 
         private static PdfPTable CrearTablaIngresos(List<Reportes.ReporteIngresos> datos)
         {
-            PdfPTable t = new PdfPTable(3); // Plan, Socios, Ingresos
+            PdfPTable t = new PdfPTable(3);
             t.WidthPercentage = 100;
-
             AgregarHeader(t, "Plan");
             AgregarHeader(t, "Socios");
             AgregarHeader(t, "Ingresos");
@@ -120,20 +138,46 @@ namespace Controlador
             return t;
         }
 
-        private static PdfPTable CrearTablaAgrupada(dynamic datos)
+        // NUEVO MÉTODO PARA EJERCICIOS
+        private static PdfPTable CrearTablaEjercicios(List<Reportes.ReporteEjerciciosPopulares> datos)
         {
-            // Como viene como dynamic (Lista anónima), lo iteramos con foreach
-            PdfPTable t = new PdfPTable(2);
+            PdfPTable t = new PdfPTable(2); // Nombre, Cantidad
             t.WidthPercentage = 100;
 
+            // Definir anchos relativos (Nombre más ancho que cantidad)
+            t.SetWidths(new float[] { 70f, 30f });
+
+            AgregarHeader(t, "Ejercicio");
+            AgregarHeader(t, "Veces Asignado");
+
+            foreach (var d in datos)
+            {
+                AgregarCelda(t, d.NombreEjercicio);
+                AgregarCelda(t, d.CantidadUsos.ToString());
+            }
+            return t;
+        }
+
+        private static PdfPTable CrearTablaAgrupada(dynamic datos)
+        {
+            PdfPTable t = new PdfPTable(2);
+            t.WidthPercentage = 100;
             AgregarHeader(t, "Categoría");
             AgregarHeader(t, "Total");
 
             foreach (var d in datos)
             {
-                // Reflection simple para acceder a propiedades anónimas
-                string cat = d.GetType().GetProperty("Categoria").GetValue(d, null);
-                decimal tot = d.GetType().GetProperty("Total").GetValue(d, null);
+                // Reflection para dynamic
+                var props = d.GetType().GetProperties();
+                string cat = "";
+                decimal tot = 0;
+
+                // Forma segura de leer propiedades anónimas
+                foreach (var prop in props)
+                {
+                    if (prop.Name == "Categoria") cat = prop.GetValue(d, null).ToString();
+                    if (prop.Name == "Total") tot = Convert.ToDecimal(prop.GetValue(d, null));
+                }
 
                 AgregarCelda(t, cat);
                 AgregarCelda(t, $"${tot:N0}");
@@ -141,10 +185,11 @@ namespace Controlador
             return t;
         }
 
+        // Estilos comunes
         private static void AgregarHeader(PdfPTable t, string texto)
         {
             PdfPCell c = new PdfPCell(new Phrase(texto, _fontHeader));
-            c.BackgroundColor = new BaseColor(50, 50, 50); // Gris oscuro
+            c.BackgroundColor = new BaseColor(50, 50, 50);
             c.HorizontalAlignment = Element.ALIGN_CENTER;
             c.Padding = 5;
             t.AddCell(c);

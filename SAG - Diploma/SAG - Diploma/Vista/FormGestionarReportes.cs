@@ -17,6 +17,7 @@ namespace SAG___Diploma.Vista
 
         private FormsPlot _plotIngresos;
         private FormsPlot _plotEstados;
+        private FormsPlot _plotEjercicios;
 
         private List<Reportes.ReporteIngresos> _cacheIngresos;
 
@@ -35,6 +36,9 @@ namespace SAG___Diploma.Vista
 
             _plotEstados = new FormsPlot() { Dock = DockStyle.Fill };
             panelEstados.Controls.Add(_plotEstados);
+
+            _plotEjercicios = new FormsPlot() { Dock = DockStyle.Fill };
+            panelEjercicios.Controls.Add(_plotEjercicios);
         }
 
         private void FormGestionarReportes_Load(object sender, EventArgs e)
@@ -51,6 +55,7 @@ namespace SAG___Diploma.Vista
             {
                 GenerarReporteEstados();
                 GenerarReporteIngresos();
+                GenerarReporteEjercicios();
             }
             catch (Exception ex)
             {
@@ -117,13 +122,58 @@ namespace SAG___Diploma.Vista
 
         private void GenerarReporteIngresos()
         {
-            // 1. Traer datos de la BD
             _cacheIngresos = _controlador.ObtenerIngresosPorPlan();
             dtgvIngresos.DataSource = _cacheIngresos;
 
             DibujarGraficoIngresos();
         }
 
+        // REPORTE 3: EJERCICIOS POPULARES
+
+        private void GenerarReporteEjercicios()
+        {
+            var datos = _controlador.ObtenerEjerciciosMasPopulares();
+
+            dtgvEjercicios.DataSource = datos;
+
+            if (datos.Count == 0) return;
+
+            datos.Reverse();
+
+            List<Bar> barras = new List<Bar>();
+            double[] posiciones = new double[datos.Count];
+            string[] tags = new string[datos.Count];
+
+            int i = 0;
+            foreach (var item in datos) 
+            {
+                var barra = new Bar
+                {
+                    Position = i,
+                    Value = (double)item.CantidadUsos,
+                    FillColor = ScottPlot.Color.FromHex("#20B2AA"),
+                    Label = item.CantidadUsos.ToString()
+                };
+
+                barras.Add(barra);
+                posiciones[i] = i;
+                tags[i] = $"{item.NombreEjercicio}\n{item.CantidadUsos} usos";
+                i++;
+            }
+
+            var barPlot = _plotEjercicios.Plot.Add.Bars(barras);
+            barPlot.Horizontal = true;
+
+            _plotEjercicios.Plot.Axes.Left.TickGenerator = new ScottPlot.TickGenerators.NumericManual(posiciones, tags);
+            _plotEjercicios.Plot.Grid.MajorLineColor = ScottPlot.Colors.Transparent;
+            _plotEjercicios.Plot.Title("Ejercicios Más Populares");
+            _plotEjercicios.Plot.Axes.AutoScale();
+
+            double maxVal = datos.Max(x => x.CantidadUsos);
+            _plotEjercicios.Plot.Axes.SetLimitsX(0, maxVal * 1.1);
+
+            _plotEjercicios.Refresh();
+        }
         private void cmbIngresos_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_cacheIngresos != null && _cacheIngresos.Count > 0)
@@ -211,6 +261,7 @@ namespace SAG___Diploma.Vista
                     // 1. OBTENER DATOS (Recuperamos todo fresco)
                     var datosEstados = _controlador.ObtenerEstadoUsuarios();
                     var datosIngresos = _controlador.ObtenerIngresosPorPlan();
+                    var datosEjercicios = _controlador.ObtenerEjerciciosMasPopulares();
 
                     // Datos agrupados (LINQ)
                     var datosAgrupados = datosIngresos
@@ -223,13 +274,15 @@ namespace SAG___Diploma.Vista
                     byte[] imgEstados = GenerarImagenEstados(datosEstados);
                     byte[] imgIngresosDetalle = GenerarImagenIngresos(datosIngresos, true); // true = detallado
                     byte[] imgIngresosGrupo = GenerarImagenIngresos(datosIngresos, false); // false = agrupado
+                    byte[] imgEjercicios = GenerarImagenEjercicios(datosEjercicios);
 
                     // 3. GENERAR PDF
                     PDFGenerator.ExportarReporteCompleto(
                         save.FileName,
                         imgEstados, datosEstados,
                         imgIngresosDetalle, datosIngresos,
-                        imgIngresosGrupo, datosAgrupados
+                        imgIngresosGrupo, datosAgrupados,
+                        imgEjercicios, datosEjercicios
                     );
 
                     MessageBox.Show("Reporte exportado exitosamente.");
@@ -243,13 +296,10 @@ namespace SAG___Diploma.Vista
                 }
             }
         }
-
+        #region Generadores de imagen para PDF
         private byte[] GenerarImagenEstados(List<Reportes.ReporteEstadoUsuarios> datos)
         {
             ScottPlot.Plot plot = new ScottPlot.Plot(); // Plot en memoria
-
-            // ... (Lógica idéntica a tu GenerarReporteEstados, pero sobre 'plot') ...
-            // Copia aquí la lógica de barras que ya hicimos
 
             List<Bar> barras = new List<Bar>();
             double[] posiciones = new double[datos.Count];
@@ -285,7 +335,6 @@ namespace SAG___Diploma.Vista
             ScottPlot.Plot plot = new ScottPlot.Plot(); // Plot en memoria
             List<PieSlice> porciones = new List<PieSlice>();
 
-            // Paletas (Mismas que usas en el form)
             ScottPlot.Color[] paletaPremium = { ScottPlot.Color.FromHex("#FFD700"), ScottPlot.Color.FromHex("#FFA500") };
             ScottPlot.Color[] paletaBasico = { ScottPlot.Color.FromHex("#2196F3"), ScottPlot.Color.FromHex("#03A9F4") };
 
@@ -321,5 +370,48 @@ namespace SAG___Diploma.Vista
 
             return plot.GetImage(600, 400).GetImageBytes();
         }
+
+        private byte[] GenerarImagenEjercicios(List<Reportes.ReporteEjerciciosPopulares> datos)
+        {
+            ScottPlot.Plot plot = new ScottPlot.Plot();
+
+            if (datos.Count == 0) return plot.GetImage(600, 400).GetImageBytes();
+
+            var datosDibujo = new List<Reportes.ReporteEjerciciosPopulares>(datos);
+            datosDibujo.Reverse();
+
+            List<Bar> barras = new List<Bar>();
+            double[] posiciones = new double[datosDibujo.Count];
+            string[] etiquetas = new string[datosDibujo.Count];
+
+            int i = 0;
+            foreach (var item in datosDibujo)
+            {
+                barras.Add(new Bar
+                {
+                    Position = i,
+                    Value = item.CantidadUsos,
+                    FillColor = ScottPlot.Color.FromHex("#20B2AA"),
+                    Label = item.CantidadUsos.ToString()
+                });
+
+                posiciones[i] = i;
+                etiquetas[i] = item.NombreEjercicio;
+                i++;
+            }
+
+            var barPlot = plot.Add.Bars(barras);
+            barPlot.Horizontal = true; // Horizontal
+
+            plot.Axes.Left.TickGenerator = new ScottPlot.TickGenerators.NumericManual(posiciones, etiquetas);
+            plot.Grid.MajorLineColor = ScottPlot.Colors.Transparent;
+            plot.Title("Top Ejercicios");
+            plot.Axes.AutoScale();
+            double maxVal = datosDibujo.Max(x => x.CantidadUsos);
+            plot.Axes.SetLimitsX(0, maxVal * 1.2);
+
+            return plot.GetImage(600, 400).GetImageBytes();
+        }
+        #endregion
     }
 }

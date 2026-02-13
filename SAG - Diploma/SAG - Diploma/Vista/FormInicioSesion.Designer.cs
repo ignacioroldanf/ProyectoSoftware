@@ -86,7 +86,7 @@
             txtUsuario.Location = new Point(47, 282);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(339, 27);
-            txtUsuario.TabIndex = 2;
+            txtUsuario.TabIndex = 1;
             txtUsuario.Text = "USUARIO";
             txtUsuario.Enter += txtUsuario_Enter;
             txtUsuario.Leave += txtUsuario_Leave;
@@ -101,7 +101,7 @@
             txtContra.Location = new Point(47, 330);
             txtContra.Name = "txtContra";
             txtContra.Size = new Size(339, 27);
-            txtContra.TabIndex = 3;
+            txtContra.TabIndex = 2;
             txtContra.Text = "CONTRASEÑA";
             txtContra.Enter += txtContra_Enter;
             txtContra.Leave += txtContra_Leave;
@@ -131,7 +131,7 @@
             btnIniciarSesion.Location = new Point(47, 381);
             btnIniciarSesion.Name = "btnIniciarSesion";
             btnIniciarSesion.Size = new Size(339, 40);
-            btnIniciarSesion.TabIndex = 1;
+            btnIniciarSesion.TabIndex = 3;
             btnIniciarSesion.Text = "INICIAR SESIÓN";
             btnIniciarSesion.UseVisualStyleBackColor = false;
             btnIniciarSesion.Click += btnIniciarSesion_Click;
