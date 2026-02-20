@@ -146,7 +146,7 @@
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FormRecuperacion";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Restablecer Contraseña";
+            Text = "RESTABLECER CONTRASEÑA";
             gbClave.ResumeLayout(false);
             gbClave.PerformLayout();
             ResumeLayout(false);

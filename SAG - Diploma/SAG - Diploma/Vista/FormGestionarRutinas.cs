@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SAG___Diploma.Vista.Theme;
 
 namespace SAG___Diploma.Vista
 {
@@ -60,6 +61,9 @@ namespace SAG___Diploma.Vista
             dtgvClientesPremium.MultiSelect = false;
 
             CargarClientesPremium();
+
+            // Aplicar tema futurista
+            FuturisticTheme.ApplyToForm(this);
         }
 
         private void btnCrearRutina_Click(object sender, EventArgs e)

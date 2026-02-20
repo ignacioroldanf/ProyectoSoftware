@@ -48,7 +48,7 @@
             dtgvPlanes.Location = new Point(12, 140);
             dtgvPlanes.Name = "dtgvPlanes";
             dtgvPlanes.RowHeadersWidth = 51;
-            dtgvPlanes.Size = new Size(1256, 479);
+            dtgvPlanes.Size = new Size(1403, 507);
             dtgvPlanes.TabIndex = 14;
             // 
             // panelSuperior
@@ -60,7 +60,7 @@
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(1280, 82);
+            panelSuperior.Size = new Size(1427, 82);
             panelSuperior.TabIndex = 33;
             // 
             // btnAgregar
@@ -107,7 +107,7 @@
             btnSalir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalir.BackColor = SystemColors.GradientActiveCaption;
             btnSalir.Font = new Font("Segoe UI", 12F);
-            btnSalir.Location = new Point(1148, 674);
+            btnSalir.Location = new Point(1295, 704);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(120, 68);
             btnSalir.TabIndex = 1;
@@ -120,7 +120,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientActiveCaption;
-            ClientSize = new Size(1280, 754);
+            ClientSize = new Size(1427, 782);
             Controls.Add(panelSuperior);
             Controls.Add(btnSalir);
             Controls.Add(dtgvPlanes);

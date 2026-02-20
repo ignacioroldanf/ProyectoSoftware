@@ -33,6 +33,7 @@
             txtFiltrar = new TextBox();
             lblFiltrar = new Label();
             panelSuperior = new Panel();
+            btnGestionarReservas = new Button();
             btnCargar = new Button();
             btnFiltrar = new Button();
             btnAgregar = new Button();
@@ -90,6 +91,7 @@
             // panelSuperior
             // 
             panelSuperior.BackColor = Color.White;
+            panelSuperior.Controls.Add(btnGestionarReservas);
             panelSuperior.Controls.Add(btnCargar);
             panelSuperior.Controls.Add(lblFiltrar);
             panelSuperior.Controls.Add(btnFiltrar);
@@ -103,6 +105,17 @@
             panelSuperior.Name = "panelSuperior";
             panelSuperior.Size = new Size(1427, 82);
             panelSuperior.TabIndex = 34;
+            // 
+            // btnGestionarReservas
+            // 
+            btnGestionarReservas.Font = new Font("Segoe UI", 12F);
+            btnGestionarReservas.Location = new Point(516, 3);
+            btnGestionarReservas.Name = "btnGestionarReservas";
+            btnGestionarReservas.Size = new Size(120, 68);
+            btnGestionarReservas.TabIndex = 24;
+            btnGestionarReservas.Text = "Gestionar Reservas";
+            btnGestionarReservas.UseVisualStyleBackColor = true;
+            btnGestionarReservas.Click += btnGestionarReservas_Click;
             // 
             // btnCargar
             // 
@@ -211,5 +224,6 @@
         private Button btnModificar;
         private Button btnSalir;
         private Button btnCargar;
+        private Button btnGestionarReservas;
     }
 }

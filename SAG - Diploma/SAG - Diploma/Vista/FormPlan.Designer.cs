@@ -198,7 +198,7 @@
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FormPlan";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "PLAN";
+            Text = "GESTIONAR PLAN";
             Load += FormPlan_Load;
             panelSuperior.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

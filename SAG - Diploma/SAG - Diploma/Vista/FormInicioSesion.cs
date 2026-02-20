@@ -21,6 +21,18 @@ namespace SAG___Diploma.Vista
             _controlador = new CtrlGestionarSesiones();
         }
 
+        // Método público para limpiar los campos de usuario/contraseña desde otro formulario
+        public void ClearCredentials()
+        {
+            try
+            {
+                txtUsuario.Text = string.Empty;
+                txtContra.Text = string.Empty;
+                txtContra.UseSystemPasswordChar = false;
+            }
+            catch { }
+        }
+
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
             if (txtUsuario.Text == "USUARIO" || txtContra.Text == "CONTRASEÑA")
@@ -40,7 +52,15 @@ namespace SAG___Diploma.Vista
 
                     this.Hide();
 
-                    frmInicio.FormClosed += (s, args) => this.Close();
+                    // Cuando el formulario principal se cierre, mostrar nuevamente el login para permitir reingresar
+                    frmInicio.FormClosed += (s, args) =>
+                    {
+                        // Limpiar credenciales cuando se muestre el formulario de login nuevamente
+                        txtUsuario.Text = string.Empty;
+                        txtContra.Text = string.Empty;
+                        txtContra.UseSystemPasswordChar = false;
+                        this.Show();
+                    };
 
                     frmInicio.Show();
                 }

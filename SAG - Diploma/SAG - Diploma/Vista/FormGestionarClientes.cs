@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SAG___Diploma.Vista.Theme;
+using Modelo;
 
 namespace SAG___Diploma.Vista
 {
@@ -52,7 +54,7 @@ namespace SAG___Diploma.Vista
             var listaClientes = _ctrlCliente.Listar();
 
             var clientes = listaClientes.Select(c => new
-            {    
+            {
                 ID = c.IdCliente,
                 DNI = c.IdPersonaNavigation.Dni,
                 Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
@@ -80,6 +82,11 @@ namespace SAG___Diploma.Vista
             dtgvClientes.MultiSelect = false;
 
             CargarClientes();
+
+            // Aplicar tema futurista
+            FuturisticTheme.ApplyToForm(this);
+
+            btnGestionarReservas.Enabled = Sesion.Instancia.TienePermiso("ConsultarReservas");
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -163,10 +170,10 @@ namespace SAG___Diploma.Vista
                 var clientes = clientesFiltrados.Select(c => new
                 {
                     ID = c.IdCliente,
-                    DNI = c.IdPersonaNavigation.Dni, 
+                    DNI = c.IdPersonaNavigation.Dni,
                     Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
                     Apellido = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Apellido : "",
-                    Suscripcion = CalcularEstado(c.Suscripciones), 
+                    Suscripcion = CalcularEstado(c.Suscripciones),
                     Fecha_Alta = c.FechaAlta
                 }).ToList();
 
@@ -184,6 +191,24 @@ namespace SAG___Diploma.Vista
         private void btnCargar_Click(object sender, EventArgs e)
         {
             CargarClientes();
+        }
+
+        private void btnGestionarReservas_Click(object sender, EventArgs e)
+        {
+            if (dtgvClientes.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona un cliente primero.");
+                return;
+            }
+            int idCliente = (int)dtgvClientes.CurrentRow.Cells["ID"].Value;
+
+            string nombre = dtgvClientes.CurrentRow.Cells["Nombre"].Value.ToString() + " " +
+                            dtgvClientes.CurrentRow.Cells["Apellido"].Value.ToString();
+
+            FormReservasCliente frmHistorial = new FormReservasCliente(idCliente, nombre);
+
+            FormInicio formPrincipal = (FormInicio)this.TopLevelControl;
+            formPrincipal.AbrirFormularioPanel(frmHistorial);
         }
     }
 }

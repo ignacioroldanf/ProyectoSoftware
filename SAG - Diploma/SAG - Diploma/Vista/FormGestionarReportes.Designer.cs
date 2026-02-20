@@ -154,7 +154,7 @@
             Controls.Add(dtgvIngresos);
             Controls.Add(panelSuperior);
             Name = "FormGestionarReportes";
-            Text = "FormGestionarReportes";
+            Text = "GESTIONAR REPORTES";
             Load += FormGestionarReportes_Load;
             panelSuperior.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgvIngresos).EndInit();

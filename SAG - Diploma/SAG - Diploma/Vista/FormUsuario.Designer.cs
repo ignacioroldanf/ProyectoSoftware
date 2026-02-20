@@ -34,6 +34,8 @@
             tvAcciones = new TreeView();
             tabControl1 = new TabControl();
             tabPageDatos = new TabPage();
+            comboBox1 = new ComboBox();
+            label6 = new Label();
             txtUsuario = new TextBox();
             label5 = new Label();
             txtEmail = new TextBox();
@@ -48,8 +50,6 @@
             clbGrupos = new CheckedListBox();
             tabPageAcciones = new TabPage();
             tvAccion = new TreeView();
-            label6 = new Label();
-            comboBox1 = new ComboBox();
             panelSuperior.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPageDatos.SuspendLayout();
@@ -137,6 +137,23 @@
             tabPageDatos.TabIndex = 0;
             tabPageDatos.Text = "Datos";
             tabPageDatos.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(181, 342);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(167, 28);
+            comboBox1.TabIndex = 20;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(48, 350);
+            label6.Name = "label6";
+            label6.Size = new Size(54, 20);
+            label6.TabIndex = 19;
+            label6.Text = "Estado";
             // 
             // txtUsuario
             // 
@@ -261,23 +278,6 @@
             tvAccion.TabIndex = 0;
             tvAccion.AfterCheck += tvAccion_AfterCheck;
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(48, 350);
-            label6.Name = "label6";
-            label6.Size = new Size(54, 20);
-            label6.TabIndex = 19;
-            label6.Text = "Estado";
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(181, 342);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(167, 28);
-            comboBox1.TabIndex = 20;
-            // 
             // FormUsuario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -287,7 +287,7 @@
             Controls.Add(panelSuperior);
             Name = "FormUsuario";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormUsuario";
+            Text = "GESTIONAR USUARIO";
             Load += FormUsuario_Load;
             panelSuperior.ResumeLayout(false);
             tabControl1.ResumeLayout(false);

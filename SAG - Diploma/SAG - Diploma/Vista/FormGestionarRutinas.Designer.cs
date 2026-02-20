@@ -49,7 +49,7 @@
             btnSalir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalir.BackColor = SystemColors.GradientActiveCaption;
             btnSalir.Font = new Font("Segoe UI", 12F);
-            btnSalir.Location = new Point(1295, 713);
+            btnSalir.Location = new Point(1295, 704);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(120, 68);
             btnSalir.TabIndex = 1;

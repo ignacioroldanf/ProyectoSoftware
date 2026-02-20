@@ -68,7 +68,7 @@
             // 
             pictureBox1.BackColor = Color.FromArgb(15, 15, 15);
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.bodybuilding_emblem_and_gym_logo_design_template_vector;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(433, 178);

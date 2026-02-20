@@ -192,7 +192,8 @@
             Controls.Add(tabControl);
             Controls.Add(panelSuperior);
             Name = "FormGrupo";
-            Text = "FormGrupo";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "GESTIONAR GRUPO";
             Load += FormGrupo_Load;
             panelSuperior.ResumeLayout(false);
             tabControl.ResumeLayout(false);

@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using SAG___Diploma.Vista.Theme;
 
 namespace SAG___Diploma.Vista
 {
@@ -19,6 +20,19 @@ namespace SAG___Diploma.Vista
             // 1. Ocultar botones según permisos al cargar
             AplicarSeguridad();
             panelForm.Visible = true;
+
+            // Aplicar tema futurista
+            FuturisticTheme.ApplyToForm(this);
+
+            // Asegurar que el título empiece en blanco al iniciar sesión
+            if (lblTitulo != null) lblTitulo.ForeColor = Color.White;
+
+            // Mostrar el FormHome dentro del panel y pasar saludo
+            AbrirFormulario<FormHome>();
+            var homeOnLoad = panelForm.Controls.OfType<FormHome>().FirstOrDefault();
+            if (homeOnLoad != null)
+                homeOnLoad.SetWelcomeText($"Bienvenido, {GetNombreUsuarioParaSaludo()}");
+            ResaltarBoton(btnInicio);
         }
 
         private void AplicarSeguridad()
@@ -30,6 +44,8 @@ namespace SAG___Diploma.Vista
             btnGestionarRutinas.Visible = Sesion.Instancia.PuedeAccederFormulario("FormGestionarRutinas");
             btnUsuarios.Visible = Sesion.Instancia.PuedeAccederFormulario("FormGestionarUsuarios");
             btnGrupos.Visible = Sesion.Instancia.PuedeAccederFormulario("FormGestionarGrupos");
+            btnGestionarClases.Visible = Sesion.Instancia.PuedeAccederFormulario("FormGestionarClases");
+            btnReportes.Visible = Sesion.Instancia.PuedeAccederFormulario("FormGestionarReportes");
         }
 
         #region Clicks dependientes de los permisos
@@ -101,7 +117,35 @@ namespace SAG___Diploma.Vista
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
-            Sesion.Instancia.Logout();
+            try
+            {
+                Sesion.Instancia.Logout();
+            }
+            catch { }
+
+            // Intentar mostrar el formulario de login existente antes de cerrar el main
+            try
+            {
+                var login = Application.OpenForms.OfType<FormInicioSesion>().FirstOrDefault();
+                if (login != null)
+                {
+                    // Limpiar credenciales y mostrar
+                    login.Invoke((Action)(() => {
+                        login.ClearCredentials();
+                        login.Show();
+                        login.BringToFront();
+                    }));
+                }
+                else
+                {
+                    // Si no existe, crear uno nuevo
+                    var nuevo = new FormInicioSesion();
+                    nuevo.Show();
+                }
+            }
+            catch { }
+
+            // Cerrar el formulario principal
             this.Close();
         }
 
@@ -112,7 +156,34 @@ namespace SAG___Diploma.Vista
 
         private void btnInicio_Click(object sender, EventArgs e)
         {
-            // Lógica para volver al home si tienes un dashboard
+            AbrirFormulario<FormHome>();
+            ResaltarBoton(btnInicio);
+        }
+
+        private string GetNombreUsuarioParaSaludo()
+        {
+            try
+            {
+                var usuario = Sesion.Instancia.UsuarioActual;
+                if (usuario != null)
+                {
+                    var persona = usuario.IdPersonaNavigation;
+                    if (persona != null)
+                    {
+                        var nom = string.IsNullOrWhiteSpace(persona.Nombre) ? usuario.NombreUsuario : persona.Nombre;
+                        var ape = string.IsNullOrWhiteSpace(persona.Apellido) ? string.Empty : " " + persona.Apellido;
+                        return (nom + ape).Trim();
+                    }
+
+                    return usuario.NombreUsuario ?? "Usuario";
+                }
+
+                return "Usuario";
+            }
+            catch
+            {
+                return "Usuario";
+            }
         }
 
         #region Métodos Auxiliares y Diseño
@@ -129,7 +200,8 @@ namespace SAG___Diploma.Vista
 
             if (botonActivo != null)
             {
-                botonActivo.BackColor = Color.FromArgb(12, 61, 92);
+                botonActivo.BackColor = FuturisticTheme.Accent;
+                botonActivo.ForeColor = Color.Black;
             }
         }
 
@@ -149,6 +221,7 @@ namespace SAG___Diploma.Vista
             formulario.BringToFront();
 
             if (lblTitulo != null) lblTitulo.Text = formulario.Text;
+            if (lblTitulo != null) { lblTitulo.Text = formulario.Text; lblTitulo.ForeColor = Color.White; }
         }
 
         public void AbrirFormularioPanel(Form formularioHijo)

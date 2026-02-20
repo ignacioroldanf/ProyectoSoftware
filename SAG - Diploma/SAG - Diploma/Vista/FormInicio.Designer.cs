@@ -43,8 +43,8 @@
             pcLogo = new PictureBox();
             panelApp = new Panel();
             panelForm = new Panel();
-            panelBarra = new Panel();
-            panel1 = new Panel();
+            panelTitulo = new Panel();
+            panelTituloCerrar = new Panel();
             pbCerrar = new PictureBox();
             lblTitulo = new Label();
             lblBienvenido = new Label();
@@ -52,8 +52,8 @@
             panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pcLogo).BeginInit();
             panelApp.SuspendLayout();
-            panelBarra.SuspendLayout();
-            panel1.SuspendLayout();
+            panelTitulo.SuspendLayout();
+            panelTituloCerrar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbCerrar).BeginInit();
             SuspendLayout();
             // 
@@ -233,7 +233,7 @@
             // 
             // pcLogo
             // 
-            pcLogo.BackColor = Color.White;
+            pcLogo.BackColor = Color.Transparent;
             pcLogo.Dock = DockStyle.Fill;
             pcLogo.Image = (Image)resources.GetObject("pcLogo.Image");
             pcLogo.Location = new Point(0, 0);
@@ -248,7 +248,7 @@
             panelApp.AutoSize = true;
             panelApp.BackColor = SystemColors.GradientActiveCaption;
             panelApp.Controls.Add(panelForm);
-            panelApp.Controls.Add(panelBarra);
+            panelApp.Controls.Add(panelTitulo);
             panelApp.Controls.Add(lblBienvenido);
             panelApp.Controls.Add(panelMenu);
             panelApp.Cursor = Cursors.Cross;
@@ -260,33 +260,33 @@
             // 
             // panelForm
             // 
-            panelForm.BackColor = SystemColors.ActiveCaption;
+            panelForm.BackColor = SystemColors.ActiveBorder;
             panelForm.Dock = DockStyle.Fill;
             panelForm.Location = new Point(321, 60);
             panelForm.Name = "panelForm";
             panelForm.Size = new Size(928, 940);
             panelForm.TabIndex = 4;
             // 
-            // panelBarra
+            // panelTitulo
             // 
-            panelBarra.BackColor = Color.FromArgb(13, 93, 142);
-            panelBarra.Controls.Add(panel1);
-            panelBarra.Controls.Add(lblTitulo);
-            panelBarra.Dock = DockStyle.Top;
-            panelBarra.Location = new Point(321, 0);
-            panelBarra.Name = "panelBarra";
-            panelBarra.Size = new Size(928, 60);
-            panelBarra.TabIndex = 3;
+            panelTitulo.BackColor = Color.FromArgb(13, 93, 142);
+            panelTitulo.Controls.Add(panelTituloCerrar);
+            panelTitulo.Controls.Add(lblTitulo);
+            panelTitulo.Dock = DockStyle.Top;
+            panelTitulo.Location = new Point(321, 0);
+            panelTitulo.Name = "panelTitulo";
+            panelTitulo.Size = new Size(928, 60);
+            panelTitulo.TabIndex = 3;
             // 
-            // panel1
+            // panelTituloCerrar
             // 
-            panel1.BackColor = Color.FromArgb(13, 93, 142);
-            panel1.Controls.Add(pbCerrar);
-            panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(887, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(41, 60);
-            panel1.TabIndex = 0;
+            panelTituloCerrar.BackColor = Color.FromArgb(13, 93, 142);
+            panelTituloCerrar.Controls.Add(pbCerrar);
+            panelTituloCerrar.Dock = DockStyle.Right;
+            panelTituloCerrar.Location = new Point(887, 0);
+            panelTituloCerrar.Name = "panelTituloCerrar";
+            panelTituloCerrar.Size = new Size(41, 60);
+            panelTituloCerrar.TabIndex = 0;
             // 
             // pbCerrar
             // 
@@ -301,7 +301,8 @@
             // lblTitulo
             // 
             lblTitulo.Dock = DockStyle.Fill;
-            lblTitulo.Font = new Font("Segoe UI Semibold", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.Font = new Font("Segoe UI Semibold", 30F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.ForeColor = Color.Blue;
             lblTitulo.ImageAlign = ContentAlignment.MiddleLeft;
             lblTitulo.Location = new Point(0, 0);
             lblTitulo.Name = "lblTitulo";
@@ -339,8 +340,8 @@
             ((System.ComponentModel.ISupportInitialize)pcLogo).EndInit();
             panelApp.ResumeLayout(false);
             panelApp.PerformLayout();
-            panelBarra.ResumeLayout(false);
-            panel1.ResumeLayout(false);
+            panelTitulo.ResumeLayout(false);
+            panelTituloCerrar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pbCerrar).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -359,10 +360,10 @@
         private Button btnGestionarClientes;
         private Label lblBienvenido;
         private Button btnGestionarClases;
-        private Panel panelBarra;
+        private Panel panelTitulo;
         private Panel panelForm;
         private PictureBox pbCerrar;
-        private Panel panel1;
+        private Panel panelTituloCerrar;
         private Label lblTitulo;
         private Button button2;
         private Button btnGrupos;

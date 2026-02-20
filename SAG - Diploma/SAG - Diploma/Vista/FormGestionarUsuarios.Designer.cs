@@ -189,7 +189,7 @@
             Controls.Add(btnCancelar);
             Controls.Add(panelSuperior);
             Name = "FormGestionarUsuarios";
-            Text = "FormGestionarUsuarios";
+            Text = "GESTIONAR USUARIOS";
             Load += FormGestionarUsuarios_Load;
             panelSuperior.ResumeLayout(false);
             panelSuperior.PerformLayout();

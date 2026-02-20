@@ -437,6 +437,7 @@ public partial class DiplomaContext : DbContext
                 .HasColumnName("Fecha_Alta");
             entity.Property(e => e.IdCliente).HasColumnName("Id_Cliente");
             entity.Property(e => e.IdEstadoReserva).HasColumnName("Id_EstadoReserva");
+            entity.Property(e => e.IdReservaPadre).HasColumnName("Id_ReservaPadre");
 
             entity.HasOne(d => d.IdClienteNavigation).WithMany(p => p.Reservas)
                 .HasForeignKey(d => d.IdCliente)
@@ -447,6 +448,10 @@ public partial class DiplomaContext : DbContext
                 .HasForeignKey(d => d.IdEstadoReserva)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Reservas__Id_Est__2CF2ADDF");
+
+            entity.HasOne(d => d.IdReservaPadreNavigation).WithMany(p => p.InverseIdReservaPadreNavigation)
+                .HasForeignKey(d => d.IdReservaPadre)
+                .HasConstraintName("FK_Reservas_Reservas_Padre");
         });
 
         modelBuilder.Entity<ReservaIndividual>(entity =>

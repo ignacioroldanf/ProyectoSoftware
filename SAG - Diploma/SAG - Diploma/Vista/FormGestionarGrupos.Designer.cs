@@ -125,7 +125,7 @@
             Controls.Add(dtgvGrupos);
             Controls.Add(panelSuperior);
             Name = "FormGestionarGrupos";
-            Text = "FormGestionarGrupos";
+            Text = "GESTIONAR GRUPOS";
             Load += FormGestionarGrupos_Load;
             panelSuperior.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgvGrupos).EndInit();
