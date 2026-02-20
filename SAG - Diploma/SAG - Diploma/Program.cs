@@ -1,4 +1,5 @@
 using SAG___Diploma.Vista;
+using SAG___Diploma.Vista.Theme;
 
 namespace SAG___Diploma
 {
@@ -13,7 +14,9 @@ namespace SAG___Diploma
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FormInicio());
+            // Inicializar tema global para que se aplique a todos los formularios
+            FuturisticTheme.Initialize();
+            Application.Run(new FormInicioSesion());
         }
     }
 }

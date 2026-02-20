@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SAG___Diploma.Vista.Theme;
 
 namespace SAG___Diploma.Vista
 {
@@ -18,17 +19,20 @@ namespace SAG___Diploma.Vista
     {
         private readonly DiplomaContext _context;
         private readonly CtrlGestionarRutinasyProgresos _controlador;
+        private readonly CtrlGestionarClientes _ctrlClientes;
 
         public FormGestionarRutinas()
         {
             InitializeComponent();
             _context = new DiplomaContext();
             _controlador = new CtrlGestionarRutinasyProgresos(_context);
+            _ctrlClientes = new CtrlGestionarClientes(_context);
         }
 
-        public void CargarClientesPremium()
+        private void CargarClientesPremium()
         {
             var clientesPremium = _context.Clientes
+                .Include(c => c.IdPersonaNavigation)
                 .Include(c => c.Suscripciones)
                     .ThenInclude(s => s.IdEstadoSuscripcionNavigation)
                 .Include(c => c.Suscripciones)
@@ -37,9 +41,9 @@ namespace SAG___Diploma.Vista
                 .Select(c => new
                 {
                     ID = c.IdCliente,
-                    DNI = c.DniCliente,
-                    Nombre = c.NombreCliente,
-                    Apellido = c.ApellidoCliente
+                    DNI = c.IdPersonaNavigation.Dni,
+                    Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
+                    Apellido = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Apellido : "",
                 })
                 .ToList();
             dtgvClientesPremium.DataSource = clientesPremium;
@@ -57,6 +61,9 @@ namespace SAG___Diploma.Vista
             dtgvClientesPremium.MultiSelect = false;
 
             CargarClientesPremium();
+
+            // Aplicar tema futurista
+            FuturisticTheme.ApplyToForm(this);
         }
 
         private void btnCrearRutina_Click(object sender, EventArgs e)
@@ -82,20 +89,22 @@ namespace SAG___Diploma.Vista
             }
 
             using FormCantDias formDias = new FormCantDias();
-            if(formDias.ShowDialog() != DialogResult.OK) return;
+            if (formDias.ShowDialog() != DialogResult.OK) return;
 
             int dias = formDias.CantDiasSeleccionada;
-            
+
             var rutina = _controlador.CrearRutina(idCliente, dias);
 
-            if(rutina == null)
+            if (rutina == null)
             {
-                MessageBox.Show("No se pudo crear la rutina.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show("No se pudo crear la rutina.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             FormRutinas formRutina = new FormRutinas(rutina, _controlador, false);
-            formRutina.ShowDialog();
+
+            FormInicio principal = (FormInicio)this.TopLevelControl;
+            principal.AbrirFormularioPanel(formRutina);
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -116,7 +125,9 @@ namespace SAG___Diploma.Vista
             }
 
             FormRutinas frmRutinas = new FormRutinas(rutina, _controlador, false);
-            frmRutinas.ShowDialog();
+
+            FormInicio principal = (FormInicio)this.TopLevelControl;
+            principal.AbrirFormularioPanel(frmRutinas);
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
@@ -129,9 +140,18 @@ namespace SAG___Diploma.Vista
 
             int idCliente = Convert.ToInt32(dtgvClientesPremium.CurrentRow.Cells["ID"].Value);
 
+            var rutina = _controlador.ConsultarRutinaActual(idCliente);
+            if (rutina == null)
+            {
+                MessageBox.Show("El cliente seleccionado no tiene una rutina asignada.\nNo se pueden registrar progresos.", "Sin Rutina", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // Modo edición
             FormGestionarProgresos formProgresos = new FormGestionarProgresos(_controlador, idCliente, false);
-            formProgresos.ShowDialog();
+
+            FormInicio principal = (FormInicio)this.TopLevelControl;
+            principal.AbrirFormularioPanel(formProgresos);
         }
 
         private void btnConsultarHistorial_Click(object sender, EventArgs e)
@@ -144,9 +164,18 @@ namespace SAG___Diploma.Vista
 
             int idCliente = Convert.ToInt32(dtgvClientesPremium.CurrentRow.Cells["ID"].Value);
 
+            var rutina = _controlador.ConsultarRutinaActual(idCliente);
+            if (rutina == null)
+            {
+                MessageBox.Show("El cliente seleccionado no tiene historial de rutinas activas.", "Sin Rutina", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return; 
+            }
+
             // Modo lectura
             FormGestionarProgresos formProgresos = new FormGestionarProgresos(_controlador, idCliente, true);
-            formProgresos.ShowDialog();
+
+            FormInicio principal = (FormInicio)this.TopLevelControl;
+            principal.AbrirFormularioPanel(formProgresos);
         }
 
         private void btnConsultarRutina_Click(object sender, EventArgs e)
@@ -168,12 +197,43 @@ namespace SAG___Diploma.Vista
 
             // Modo lectura
             FormRutinas frmRutinas = new FormRutinas(rutina, _controlador, true);
-            frmRutinas.ShowDialog();
+
+            FormInicio principal = (FormInicio)this.TopLevelControl;
+            principal.AbrirFormularioPanel(frmRutinas);
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
+            int dni = Convert.ToInt32(txtFiltrar.Text.Trim());
 
+                var clientesFiltrados = _ctrlClientes.FiltrarClientesPremiumPorDNI(dni);
+
+                var listadoGrilla = clientesFiltrados.Select(c => new
+                {
+                    ID = c.IdCliente,
+                    DNI = c.IdPersonaNavigation.Dni,
+                    Nombre = c.IdPersonaNavigation.Nombre,
+                    Apellido = c.IdPersonaNavigation.Apellido,
+                }).ToList();
+
+                if (listadoGrilla.Count > 0)
+                {
+                    dtgvClientesPremium.DataSource = listadoGrilla;
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró ningún cliente Premium Vigente con ese DNI.");
+                    dtgvClientesPremium.DataSource = null;
+                }
+
+            txtFiltrar.Text = "";
+
+        }
+
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
+            CargarClientesPremium();
+            txtFiltrar.Text = "";
         }
     }
 }

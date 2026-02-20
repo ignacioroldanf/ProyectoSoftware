@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SAG___Diploma.Vista.Theme;
+using Modelo;
 
 namespace SAG___Diploma.Vista
 {
@@ -29,22 +31,38 @@ namespace SAG___Diploma.Vista
 
         }
 
+
+        private string CalcularEstado(ICollection<Suscripcione> suscripciones)
+        {
+            if (suscripciones.Any(s => s.IdEstadoSuscripcionNavigation.Descripcion == "Vigente"))
+                return "Vigente";
+
+            var ultimaSuscripcion = suscripciones.OrderByDescending(s => s.Fin).FirstOrDefault();
+
+            if (ultimaSuscripcion != null && ultimaSuscripcion.IdEstadoSuscripcionNavigation != null)
+            {
+                return ultimaSuscripcion.IdEstadoSuscripcionNavigation.Descripcion;
+
+            }
+
+            return "Sin suscripción";
+        }
+
+
         public void CargarClientes()
         {
-            var clientes = context.Clientes
-                .Include(c => c.Suscripciones)
-                    .ThenInclude(s => s.IdEstadoSuscripcionNavigation)
-                .Include(c => c.Suscripciones)
-                    .ThenInclude(s => s.IdPlanNavigation)
-                .Select(c => new
-                {
-                    ID = c.IdCliente,
-                    DNI = c.DniCliente,
-                    Nombre = c.NombreCliente,
-                    Apellido = c.ApellidoCliente,
-                    Fecha_Alta = c.FechaAlta
-                })
-                .ToList();
+            var listaClientes = _ctrlCliente.Listar();
+
+            var clientes = listaClientes.Select(c => new
+            {
+                ID = c.IdCliente,
+                DNI = c.IdPersonaNavigation.Dni,
+                Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
+                Apellido = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Apellido : "",
+                Suscripcion = CalcularEstado(c.Suscripciones),
+                Fecha_Alta = c.FechaAlta
+
+            }).ToList();
             dtgvClientes.DataSource = clientes;
         }
 
@@ -64,6 +82,11 @@ namespace SAG___Diploma.Vista
             dtgvClientes.MultiSelect = false;
 
             CargarClientes();
+
+            // Aplicar tema futurista
+            FuturisticTheme.ApplyToForm(this);
+
+            btnGestionarReservas.Enabled = Sesion.Instancia.TienePermiso("ConsultarReservas");
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -118,41 +141,74 @@ namespace SAG___Diploma.Vista
 
             int idCliente = Convert.ToInt32(dtgvClientes.SelectedRows[0].Cells["ID"].Value);
 
-            using (FormGestionarSuscripciones vistaSuscripciones = new FormGestionarSuscripciones(idCliente))
-            {
-                vistaSuscripciones.ShowDialog();
-            }
+            FormGestionarSuscripciones formSusc = new FormGestionarSuscripciones(idCliente);
+
+            FormInicio formPrincipal = (FormInicio)this.TopLevelControl;
+            formPrincipal.AbrirFormularioPanel(formSusc);
+
+            CargarClientes();
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            string dni = txtFiltrar.Text.Trim();
-
-            if (!string.IsNullOrEmpty(dni))
+            if (string.IsNullOrWhiteSpace(txtFiltrar.Text))
             {
-                var clientesFiltrados = _ctrlCliente.FiltrarPorDNI(dni)
-                    .Select(c => new
-                    {
-                        ID = c.IdCliente,
-                        DNI = c.DniCliente,
-                        Nombre = c.NombreCliente,
-                        Apellido = c.ApellidoCliente,
-                        Fecha_Alta = c.FechaAlta
-                    })
-                    .ToList();
+                MessageBox.Show("Ingrese un número de documento para filtrar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                dtgvClientes.DataSource = clientesFiltrados;
+            if (!int.TryParse(txtFiltrar.Text, out int dni))
+            {
+                MessageBox.Show("El DNI debe contener solo números.", "Formato Incorrecto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var clientesFiltrados = _ctrlCliente.FiltrarPorDNI(dni);
+
+            if (clientesFiltrados.Count > 0)
+            {
+                var clientes = clientesFiltrados.Select(c => new
+                {
+                    ID = c.IdCliente,
+                    DNI = c.IdPersonaNavigation.Dni,
+                    Nombre = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Nombre : "",
+                    Apellido = c.IdPersonaNavigation != null ? c.IdPersonaNavigation.Apellido : "",
+                    Suscripcion = CalcularEstado(c.Suscripciones),
+                    Fecha_Alta = c.FechaAlta
+                }).ToList();
+
+                dtgvClientes.DataSource = clientes;
             }
             else
             {
-                MessageBox.Show("Ingrese un número de documento para filtrar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No se encontraron clientes con ese DNI.", "Búsqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dtgvClientes.DataSource = null;
             }
+
             txtFiltrar.Clear();
         }
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
             CargarClientes();
+        }
+
+        private void btnGestionarReservas_Click(object sender, EventArgs e)
+        {
+            if (dtgvClientes.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona un cliente primero.");
+                return;
+            }
+            int idCliente = (int)dtgvClientes.CurrentRow.Cells["ID"].Value;
+
+            string nombre = dtgvClientes.CurrentRow.Cells["Nombre"].Value.ToString() + " " +
+                            dtgvClientes.CurrentRow.Cells["Apellido"].Value.ToString();
+
+            FormReservasCliente frmHistorial = new FormReservasCliente(idCliente, nombre);
+
+            FormInicio formPrincipal = (FormInicio)this.TopLevelControl;
+            formPrincipal.AbrirFormularioPanel(frmHistorial);
         }
     }
 }

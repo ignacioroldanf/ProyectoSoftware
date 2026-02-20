@@ -18,7 +18,7 @@ namespace Controlador
                 .Include(s => s.IdClienteNavigation)
                 .Include(s => s.IdPlanNavigation)
                 .Include(s => s.IdEstadoSuscripcionNavigation)
-                .ToList();
+                .OrderByDescending(s => s.Fin).ToList();
         }
 
         public List<Suscripcione> ListarPorCliente(int idCliente)
@@ -133,7 +133,9 @@ namespace Controlador
 
         public Cliente? ObtenerCliente(int idCliente)
         {
-            return _context.Clientes.FirstOrDefault(c => c.IdCliente == idCliente);
+            return _context.Clientes
+                .Include(c => c.IdPersonaNavigation)
+                .FirstOrDefault(c => c.IdCliente == idCliente);
         }
 
         public List<Plane> ObtenerPlanes()

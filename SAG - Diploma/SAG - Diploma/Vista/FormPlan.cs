@@ -52,8 +52,11 @@ namespace SAG___Diploma.Vista
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            if (MessageBox.Show("¿Está seguro que desea salir? Los datos no guardados serán eliminados", "Confirmar salida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+            }
         }
 
         private void FormPlan_Load(object sender, EventArgs e)

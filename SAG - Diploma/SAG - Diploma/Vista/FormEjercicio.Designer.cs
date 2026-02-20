@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormEjercicio));
             panelSuperior = new Panel();
             pictureBox1 = new PictureBox();
             btnCancelar = new Button();
@@ -64,8 +65,8 @@
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = Properties.Resources.bodybuilding_emblem_and_gym_logo_design_template_vector;
-            pictureBox1.Location = new Point(-20, -6);
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(3, -1);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(125, 62);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -211,7 +212,7 @@
             Controls.Add(lblSeries);
             Controls.Add(lblEjercicio);
             Name = "FormEjercicio";
-            Text = "Gestionar Ejercicio";
+            Text = "GESTIONAR EJERCICIO";
             Load += FormEjercicio_Load;
             panelSuperior.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

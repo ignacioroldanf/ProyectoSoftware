@@ -67,7 +67,14 @@ namespace SAG___Diploma.Vista
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            this.Close();
+
+            if (MessageBox.Show("¿Está seguro que desea salir? Los datos no guardados serán eliminados", "Confirmar salida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                FormInicio principal = (FormInicio)this.TopLevelControl;
+                principal.AbrirFormulario<FormGestionarRutinas>();
+                this.Close();
+            }
+
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -151,7 +158,6 @@ namespace SAG___Diploma.Vista
             {
                 using (var context = new DiplomaContext())
                 {
-                    // Cargar la rutina actualizada desde la BD
                     var rutinaDb = context.Rutinas
                         .Include(r => r.DiasRutinas)
                             .ThenInclude(d => d.EjerciciosAsignados)
@@ -171,10 +177,8 @@ namespace SAG___Diploma.Vista
                     }
 
 
-                    // Actualizamos la fecha de asignación, por si se desea marcar modificación
                     rutinaDb.FechaAsignacion = DateOnly.FromDateTime(DateTime.Now);
 
-                    // Guardamos los cambios de los ejercicios que puedan haberse hecho
                     context.SaveChanges();
 
                     MessageBox.Show("Rutina guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -30,118 +30,111 @@
         {
             dtgvPlanes = new DataGridView();
             panelSuperior = new Panel();
-            pictureBox1 = new PictureBox();
             btnAgregar = new Button();
-            btnSalir = new Button();
-            btnEliminar = new Button();
             btnModificar = new Button();
+            btnEliminar = new Button();
+            btnSalir = new Button();
             ((System.ComponentModel.ISupportInitialize)dtgvPlanes).BeginInit();
             panelSuperior.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // dtgvPlanes
             // 
+            dtgvPlanes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgvPlanes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgvPlanes.BackgroundColor = SystemColors.GradientActiveCaption;
             dtgvPlanes.BorderStyle = BorderStyle.None;
             dtgvPlanes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtgvPlanes.Location = new Point(0, 77);
+            dtgvPlanes.Location = new Point(12, 140);
             dtgvPlanes.Name = "dtgvPlanes";
             dtgvPlanes.RowHeadersWidth = 51;
-            dtgvPlanes.Size = new Size(1110, 479);
+            dtgvPlanes.Size = new Size(1403, 507);
             dtgvPlanes.TabIndex = 14;
             // 
             // panelSuperior
             // 
             panelSuperior.BackColor = Color.White;
-            panelSuperior.Controls.Add(pictureBox1);
             panelSuperior.Controls.Add(btnAgregar);
-            panelSuperior.Controls.Add(btnSalir);
-            panelSuperior.Controls.Add(btnEliminar);
             panelSuperior.Controls.Add(btnModificar);
+            panelSuperior.Controls.Add(btnEliminar);
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(1139, 61);
+            panelSuperior.Size = new Size(1427, 82);
             panelSuperior.TabIndex = 33;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = Properties.Resources.bodybuilding_emblem_and_gym_logo_design_template_vector;
-            pictureBox1.Location = new Point(-20, -6);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(125, 62);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
             // 
             // btnAgregar
             // 
+            btnAgregar.Anchor = AnchorStyles.Left;
             btnAgregar.BackColor = SystemColors.GradientActiveCaption;
-            btnAgregar.Location = new Point(111, 3);
+            btnAgregar.Font = new Font("Segoe UI", 12F);
+            btnAgregar.Location = new Point(12, 3);
             btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(105, 49);
+            btnAgregar.Size = new Size(120, 68);
             btnAgregar.TabIndex = 20;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = false;
             btnAgregar.Click += btnAgregar_Click;
             // 
-            // btnSalir
+            // btnModificar
             // 
-            btnSalir.BackColor = SystemColors.GradientActiveCaption;
-            btnSalir.Location = new Point(1026, 8);
-            btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(101, 44);
-            btnSalir.TabIndex = 1;
-            btnSalir.Text = "Salir";
-            btnSalir.UseVisualStyleBackColor = false;
-            btnSalir.Click += btnSalir_Click;
+            btnModificar.Anchor = AnchorStyles.Left;
+            btnModificar.BackColor = SystemColors.GradientActiveCaption;
+            btnModificar.Font = new Font("Segoe UI", 12F);
+            btnModificar.Location = new Point(138, 3);
+            btnModificar.Name = "btnModificar";
+            btnModificar.Size = new Size(120, 68);
+            btnModificar.TabIndex = 21;
+            btnModificar.Text = "Modificar Precio";
+            btnModificar.UseVisualStyleBackColor = false;
+            btnModificar.Click += btnModificar_Click;
             // 
             // btnEliminar
             // 
+            btnEliminar.Anchor = AnchorStyles.Left;
             btnEliminar.BackColor = SystemColors.GradientActiveCaption;
-            btnEliminar.Location = new Point(333, 3);
+            btnEliminar.Font = new Font("Segoe UI", 12F);
+            btnEliminar.Location = new Point(264, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(105, 49);
+            btnEliminar.Size = new Size(120, 68);
             btnEliminar.TabIndex = 22;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
             btnEliminar.Click += btnEliminar_Click;
             // 
-            // btnModificar
+            // btnSalir
             // 
-            btnModificar.BackColor = SystemColors.GradientActiveCaption;
-            btnModificar.Location = new Point(222, 3);
-            btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(105, 49);
-            btnModificar.TabIndex = 21;
-            btnModificar.Text = "Modificar Precio";
-            btnModificar.UseVisualStyleBackColor = false;
-            btnModificar.Click += btnModificar_Click;
+            btnSalir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSalir.BackColor = SystemColors.GradientActiveCaption;
+            btnSalir.Font = new Font("Segoe UI", 12F);
+            btnSalir.Location = new Point(1295, 704);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(120, 68);
+            btnSalir.TabIndex = 1;
+            btnSalir.Text = "Salir";
+            btnSalir.UseVisualStyleBackColor = false;
+            btnSalir.Click += btnSalir_Click;
             // 
             // FormGestionarPlanes
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientActiveCaption;
-            ClientSize = new Size(1139, 630);
+            ClientSize = new Size(1427, 782);
             Controls.Add(panelSuperior);
+            Controls.Add(btnSalir);
             Controls.Add(dtgvPlanes);
             Name = "FormGestionarPlanes";
-            Text = "Gestionar Planes";
+            Text = "GESTIONAR PLANES";
             Load += FormGestionarPlanes_Load;
             ((System.ComponentModel.ISupportInitialize)dtgvPlanes).EndInit();
             panelSuperior.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
         private DataGridView dtgvPlanes;
         private Panel panelSuperior;
-        private PictureBox pictureBox1;
         private Button btnSalir;
         private Button btnAgregar;
         private Button btnEliminar;
