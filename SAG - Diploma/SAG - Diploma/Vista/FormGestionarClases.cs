@@ -57,7 +57,7 @@ namespace SAG___Diploma.Vista
                 var listaHorarios = clase.HorarioClases.Select(h => new
                 {
                     Id = h.IdHorarioClase,
-                    Dia = ((DayOfWeek)h.IdDiaSemana).ToString(),
+                    Dia = h.IdDiaSemanaNavigation != null ? h.IdDiaSemanaNavigation.NombreDia : h.IdDiaSemana.ToString(),
                     Inicio = h.HoraInicio,
                     Fin = h.HoraFin
                 }).ToList();
