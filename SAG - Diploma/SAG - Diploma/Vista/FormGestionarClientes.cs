@@ -31,7 +31,6 @@ namespace SAG___Diploma.Vista
 
         }
 
-
         private string CalcularEstado(ICollection<Suscripcione> suscripciones)
         {
             if (suscripciones.Any(s => s.IdEstadoSuscripcionNavigation.Descripcion == "Vigente"))
@@ -76,6 +75,15 @@ namespace SAG___Diploma.Vista
             }
         }
 
+        private void AplicarSeguridad()
+        {
+            btnAgregar.Visible = Sesion.Instancia.TienePermiso("AgregarCliente");
+            btnModificar.Visible = Sesion.Instancia.TienePermiso("ModificarCliente");
+            btnEliminar.Visible = Sesion.Instancia.TienePermiso("EliminarCliente");
+            btnGestionarSuscripcion.Visible = Sesion.Instancia.TienePermiso("GestionarSuscripcion");
+            btnGestionarReservas.Visible = Sesion.Instancia.TienePermiso("ConsultarReservas");
+        }
+
         private void FormGestionarClientes_Load(object sender, EventArgs e)
         {
             dtgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -83,10 +91,9 @@ namespace SAG___Diploma.Vista
 
             CargarClientes();
 
-            // Aplicar tema futurista
             FuturisticTheme.ApplyToForm(this);
-
-            btnGestionarReservas.Enabled = Sesion.Instancia.TienePermiso("ConsultarReservas");
+            
+            AplicarSeguridad();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)

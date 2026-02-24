@@ -20,6 +20,7 @@ namespace SAG___Diploma.Vista
         private string _nombreCliente;
         private CtrlGestionarReservas _controlador;
         private List<dynamic> _listaOriginal = new List<dynamic>();
+
         public FormReservasCliente(int idCliente, string nombreCompleto)
         {
             InitializeComponent();
@@ -30,32 +31,25 @@ namespace SAG___Diploma.Vista
             _ctrlClases = new CtrlGestionarClases(new DiplomaContext());
         }
 
-        private static DateOnly GetMemberDate(object item, string memberName)
+        private void FormReservasCliente_Load(object sender, EventArgs e)
         {
-            try
-            {
-                var type = item.GetType();
-                var prop = type.GetProperty(memberName);
-                if (prop != null)
-                {
-                    var val = prop.GetValue(item);
-                    if (val is DateOnly d) return d;
-                    if (val is DateTime dt) return DateOnly.FromDateTime(dt);
-                    if (DateOnly.TryParse(val?.ToString(), out var parsed)) return parsed;
-                }
+            ActualizarGrilla();
+            CargarComboEstado();
+            SAG___Diploma.Vista.Theme.FuturisticTheme.ApplyToForm(this);
+            CargarComboClase();
 
-                // If it's an IDictionary-like dynamic (ExpandoObject) try that
-                if (item is System.Collections.IDictionary dict && dict.Contains(memberName))
-                {
-                    var v = dict[memberName];
-                    if (v is DateOnly dd) return dd;
-                    if (v is DateTime dtt) return DateOnly.FromDateTime(dtt);
-                    if (DateOnly.TryParse(v?.ToString(), out var parsed2)) return parsed2;
-                }
-            }
-            catch { }
-            return DateOnly.FromDateTime(DateTime.MaxValue);
+            // Seguridad: Oculta los botones si el usuario no tiene los permisos
+            AplicarSeguridad();
         }
+
+        private void AplicarSeguridad()
+        {
+            btnNuevaReserva.Visible = Sesion.Instancia.TienePermiso("NuevaReserva");
+            btnCancelarClase.Visible = Sesion.Instancia.TienePermiso("CancelarClaseIndividual");
+            btnCancelarSuscripcion.Visible = Sesion.Instancia.TienePermiso("CancelarSuscripcionCompleta");
+        }
+
+        #region Carga de Datos y Grilla
 
         private void CargarComboClase()
         {
@@ -76,67 +70,6 @@ namespace SAG___Diploma.Vista
             }
         }
 
-        private void FormReservasCliente_Load(object sender, EventArgs e)
-        {
-            ActualizarGrilla();
-            CargarComboEstado();
-            SAG___Diploma.Vista.Theme.FuturisticTheme.ApplyToForm(this);
-            // Cargar clases para filtro (filtrado se aplicará al presionar 'Filtrar')
-            CargarComboClase();
-
-            btnNuevaReserva.Enabled= Sesion.Instancia.TienePermiso("NuevaReserva");
-        }
-
-        private void ActualizarGrilla()
-        {
-            _listaOriginal = _controlador.ObtenerReservasPorCliente(_idCliente);
-
-            FiltrarGrilla();
-        }
-        private void FiltrarGrilla()
-        {
-            // Si la lista no cargó todavía, salimos
-            if (_listaOriginal == null) return;
-
-            var listaFiltrada = _listaOriginal;
-
-            if (cmbEstado.SelectedItem != null && cmbEstado.SelectedIndex != -1)
-            {
-                // Use GetItemText to respect DisplayMember or simple string items
-                string estadoSeleccionado = cmbEstado.GetItemText(cmbEstado.SelectedItem);
-
-                listaFiltrada = _listaOriginal
-                                .Where(x => string.Equals(GetMemberString(x, "Estado"), estadoSeleccionado, StringComparison.OrdinalIgnoreCase))
-                                .ToList();
-            }
-
-            // Filtrar por clase si se seleccionó una
-            if (cmbClase.SelectedItem != null && cmbClase.SelectedIndex != -1)
-            {
-                var claseTexto = cmbClase.GetItemText(cmbClase.SelectedItem);
-                listaFiltrada = listaFiltrada
-                    .Where(x => string.Equals(GetMemberString(x, "Clase"), claseTexto, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-            }
-
-            // Order from closest to farthest relative to today
-            try
-            {
-                var hoy = DateOnly.FromDateTime(DateTime.Today);
-                listaFiltrada = listaFiltrada
-                    .OrderBy(x => Math.Abs((GetMemberDate(x, "Fecha") - hoy).Days))
-                    .ToList();
-            }
-            catch { /* ignore ordering errors, keep original order */ }
-
-            dtgvReservas.DataSource = null; 
-            dtgvReservas.DataSource = listaFiltrada;
-
-            // Ocultar columnas internas
-            if (dtgvReservas.Columns["IdReserva"] != null) dtgvReservas.Columns["IdReserva"].Visible = false;
-            if (dtgvReservas.Columns["IdReservaPadre"] != null) dtgvReservas.Columns["IdReservaPadre"].Visible = false;
-            dtgvReservas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        }
         private void CargarComboEstado()
         {
             try
@@ -158,37 +91,108 @@ namespace SAG___Diploma.Vista
             }
         }
 
-        // Helper: obtiene una propiedad por nombre desde un objeto dinámico de forma segura y la devuelve como string
-        private static string GetMemberString(object item, string memberName)
+        private void ActualizarGrilla()
         {
-            if (item == null) return string.Empty;
+            _listaOriginal = _controlador.ObtenerReservasPorCliente(_idCliente);
+            FiltrarGrilla();
+        }
+
+        private void FiltrarGrilla()
+        {
+            if (_listaOriginal == null) return;
+
+            var listaFiltrada = _listaOriginal;
+
+            // Filtro por Estado
+            if (cmbEstado.SelectedItem != null && cmbEstado.SelectedIndex != -1)
+            {
+                string estadoSeleccionado = cmbEstado.GetItemText(cmbEstado.SelectedItem);
+                listaFiltrada = _listaOriginal
+                                .Where(x => string.Equals(ObtenerCadenaPropiedad(x, "Estado"), estadoSeleccionado, StringComparison.OrdinalIgnoreCase))
+                                .ToList();
+            }
+
+            // Filtro por Clase
+            if (cmbClase.SelectedItem != null && cmbClase.SelectedIndex != -1)
+            {
+                var claseTexto = cmbClase.GetItemText(cmbClase.SelectedItem);
+                listaFiltrada = listaFiltrada
+                    .Where(x => string.Equals(ObtenerCadenaPropiedad(x, "Clase"), claseTexto, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            // Ordenar por cercanía a la fecha de hoy
+            try
+            {
+                var hoy = DateOnly.FromDateTime(DateTime.Today);
+                listaFiltrada = listaFiltrada
+                    .OrderBy(x => Math.Abs((ObtenerFechaPropiedad(x, "Fecha") - hoy).Days))
+                    .ToList();
+            }
+            catch { /* Si falla el ordenamiento, mantiene el original */ }
+
+            dtgvReservas.DataSource = null;
+            dtgvReservas.DataSource = listaFiltrada;
+
+            // Ocultar columnas internas
+            if (dtgvReservas.Columns["IdReserva"] != null) dtgvReservas.Columns["IdReserva"].Visible = false;
+            if (dtgvReservas.Columns["IdReservaPadre"] != null) dtgvReservas.Columns["IdReservaPadre"].Visible = false;
+            dtgvReservas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        #endregion
+
+        #region Métodos de Ayuda (Reflexión)
+
+        // Traducción y limpieza del GetMemberDate
+        private static DateOnly ObtenerFechaPropiedad(object objeto, string nombrePropiedad)
+        {
+            try
+            {
+                var tipo = objeto.GetType();
+                var propiedad = tipo.GetProperty(nombrePropiedad);
+
+                if (propiedad != null)
+                {
+                    var valor = propiedad.GetValue(objeto);
+                    if (valor is DateOnly d) return d;
+                    if (valor is DateTime dt) return DateOnly.FromDateTime(dt);
+                    if (DateOnly.TryParse(valor?.ToString(), out var fechaParseada)) return fechaParseada;
+                }
+
+                if (objeto is System.Collections.IDictionary diccionario && diccionario.Contains(nombrePropiedad))
+                {
+                    var valor = diccionario[nombrePropiedad];
+                    if (valor is DateOnly dd) return dd;
+                    if (valor is DateTime dtt) return DateOnly.FromDateTime(dtt);
+                    if (DateOnly.TryParse(valor?.ToString(), out var fechaParseada2)) return fechaParseada2;
+                }
+            }
+            catch { }
+            return DateOnly.FromDateTime(DateTime.MaxValue);
+        }
+
+        // Traducción y limpieza del GetMemberString (se eliminó código basura)
+        private static string ObtenerCadenaPropiedad(object objeto, string nombrePropiedad)
+        {
+            if (objeto == null) return string.Empty;
 
             try
             {
-                var type = item.GetType();
-                var prop = type.GetProperty(memberName);
-                if (prop != null)
+                var tipo = objeto.GetType();
+                var propiedad = tipo.GetProperty(nombrePropiedad);
+
+                if (propiedad != null)
                 {
-                    var val = prop.GetValue(item);
-                    return val?.ToString() ?? string.Empty;
+                    var valor = propiedad.GetValue(objeto);
+                    return valor?.ToString() ?? string.Empty;
                 }
 
-                // If it's an IDictionary-like dynamic (ExpandoObject) try that
-                if (item is System.Collections.IDictionary dict && dict.Contains(memberName))
+                if (objeto is System.Collections.IDictionary diccionario && diccionario.Contains(nombrePropiedad))
                 {
-                    var v = dict[memberName];
-                    return v?.ToString() ?? string.Empty;
+                    var valor = diccionario[nombrePropiedad];
+                    return valor?.ToString() ?? string.Empty;
                 }
-
-                // As a last resort, try to use dynamic binder safely
-                try
-                {
-                    var dyn = item as dynamic;
-                    object? maybe = null;
-                    try { maybe = dyn.Estado; } catch { }
-                    if (maybe != null) return maybe.ToString();
-                }
-                catch { }
 
                 return string.Empty;
             }
@@ -198,14 +202,19 @@ namespace SAG___Diploma.Vista
             }
         }
 
+        #endregion
+
+        #region Eventos de Botones y Grilla
+
         private void dtgvReservas_SelectionChanged(object sender, EventArgs e)
         {
             if (dtgvReservas.CurrentRow == null) return;
 
             var celdaPadre = dtgvReservas.CurrentRow.Cells["IdReservaPadre"].Value;
-
             string estado = dtgvReservas.CurrentRow.Cells["Estado"].Value.ToString();
 
+            // Lógica de habilitación de botones (Seguro porque si el usuario no tiene permisos, 
+            // el botón directamente está INVISIBLE gracias a AplicarSeguridad)
             if (estado == "Cancelada")
             {
                 btnCancelarClase.Enabled = false;
@@ -287,6 +296,19 @@ namespace SAG___Diploma.Vista
             }
         }
 
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            FiltrarGrilla();
+        }
+
+        private void btnBorrarFiltros_Click(object sender, EventArgs e)
+        {
+            if (cmbEstado.Items.Count > 0) cmbEstado.SelectedValue = -1;
+            if (cmbClase.Items.Count > 0) cmbClase.SelectedIndex = -1;
+
+            FiltrarGrilla();
+        }
+
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             FormInicio principal = (FormInicio)this.TopLevelControl;
@@ -294,23 +316,6 @@ namespace SAG___Diploma.Vista
             this.Close();
         }
 
-        private void btnFiltrar_Click(object sender, EventArgs e)
-        {
-            FiltrarGrilla();
-
-        }
-
-        private void btnBorrarFiltros_Click(object sender, EventArgs e)
-        {
-            if (cmbEstado.Items.Count > 0)
-            {
-                cmbEstado.SelectedValue = -1;
-            }
-            if (cmbClase.Items.Count > 0)
-            {
-                cmbClase.SelectedIndex = -1;
-            }
-            FiltrarGrilla();
-        }
+        #endregion
     }
 }

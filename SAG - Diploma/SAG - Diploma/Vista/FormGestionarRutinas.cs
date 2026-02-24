@@ -1,7 +1,9 @@
 ﻿using Controlador;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using Modelo;
 using Modelo.Modelo;
+using SAG___Diploma.Vista.Theme;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +13,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SAG___Diploma.Vista.Theme;
 
 namespace SAG___Diploma.Vista
 {
@@ -54,6 +55,15 @@ namespace SAG___Diploma.Vista
             this.Close();
 
         }
+        private void AplicarSeguridad()
+        {
+            btnConsultarRutina.Visible = Sesion.Instancia.TienePermiso("ConsultarRutina");
+            btnCrearRutina.Visible = Sesion.Instancia.TienePermiso("CrearRutina");
+            btnModificar.Visible = Sesion.Instancia.TienePermiso("ModificarRutina");
+
+            btnRegistrar.Visible = Sesion.Instancia.TienePermiso("RegistrarProgreso");
+            btnConsultarHistorial.Visible = Sesion.Instancia.TienePermiso("ConsultarHistorial");
+        }
 
         private void FormGestionarRutinas_Load(object sender, EventArgs e)
         {
@@ -62,8 +72,8 @@ namespace SAG___Diploma.Vista
 
             CargarClientesPremium();
 
-            // Aplicar tema futurista
             FuturisticTheme.ApplyToForm(this);
+            AplicarSeguridad();
         }
 
         private void btnCrearRutina_Click(object sender, EventArgs e)

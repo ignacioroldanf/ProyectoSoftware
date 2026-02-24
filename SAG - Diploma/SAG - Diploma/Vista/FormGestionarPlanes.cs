@@ -1,4 +1,5 @@
 ﻿using Controlador;
+using Modelo;
 using Modelo.Modelo;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace SAG___Diploma.Vista
         private void FormGestionarPlanes_Load(object sender, EventArgs e)
         {
             CargarPlanes();
+            AplicarSeguridad();
         }
 
         private void CargarPlanes()
@@ -51,6 +53,12 @@ namespace SAG___Diploma.Vista
                 .ToList();
 
             dtgvPlanes.DataSource = planes;
+        }
+        private void AplicarSeguridad()
+        {
+            btnAgregar.Visible = Sesion.Instancia.TienePermiso("AgregarPlan");
+            btnModificar.Visible = Sesion.Instancia.TienePermiso("ModificarPrecio");
+            btnEliminar.Visible = Sesion.Instancia.TienePermiso("EliminarPlan");
         }
 
 

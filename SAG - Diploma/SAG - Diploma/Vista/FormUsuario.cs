@@ -141,90 +141,95 @@ namespace SAG___Diploma.Vista
 
         private void MarcarArbolUsuario(int idUsuario)
         {
-            // ---------------------------------------------------------
-            // PASO 1: LIMPIEZA (Resetear todo a desmarcado y negro)
-            // ---------------------------------------------------------
-            foreach (TreeNode n1 in tvAccion.Nodes)
+            _validando = true;
+
+            try
             {
-                n1.Checked = false;
-                foreach (TreeNode n2 in n1.Nodes)
+
+                foreach (TreeNode n1 in tvAccion.Nodes)
                 {
-                    n2.Checked = false;
-                    foreach (TreeNode n3 in n2.Nodes)
+                    n1.Checked = false;
+                    foreach (TreeNode n2 in n1.Nodes)
                     {
-                        n3.Checked = false;
-                        n3.ForeColor = Color.Black; // Todo negro
-                        n3.NodeFont = new Font(tvAccion.Font, FontStyle.Regular); // Letra normal
+                        n2.Checked = false;
+                        foreach (TreeNode n3 in n2.Nodes)
+                        {
+                            n3.Checked = false;
+                            n3.ForeColor = Color.Black;
+                            n3.NodeFont = new Font(tvAccion.Font, FontStyle.Regular);
+                        }
                     }
                 }
-            }
 
-            // ---------------------------------------------------------
-            // PASO 2: OBTENER TODOS LOS PERMISOS (Directos + Heredados)
-            // ---------------------------------------------------------
 
-            // A. Permisos DIRECTOS (BD)
-            var accionesDirectas = _ctrlUsuarios.ObtenerAccionesDelUsuario(idUsuario);
-            var idsDirectos = accionesDirectas.Select(a => a.IdAccion).ToList();
+                var accionesDirectas = _ctrlUsuarios.ObtenerAccionesDelUsuario(idUsuario);
+                var idsDirectos = accionesDirectas.Select(a => a.IdAccion).ToList();
 
-            // B. Permisos HEREDADOS (De los grupos visualmente tildados)
-            List<int> idsHeredados = new List<int>();
-            foreach (var item in clbGrupos.CheckedItems)
-            {
-                Grupo g = (Grupo)item;
-                var accionesDelGrupo = _ctrlGrupos.ListarAccionesPorGrupo(g.IdGrupo);
-                idsHeredados.AddRange(accionesDelGrupo.Select(a => a.IdAccion));
-            }
-
-            // ---------------------------------------------------------
-            // PASO 3: MARCAR EL ÁRBOL
-            // ---------------------------------------------------------
-            foreach (TreeNode nodoModulo in tvAccion.Nodes)
-            {
-                foreach (TreeNode nodoFormulario in nodoModulo.Nodes)
+                List<int> idsHeredados = new List<int>();
+                foreach (var item in clbGrupos.CheckedItems)
                 {
+                    Grupo g = (Grupo)item;
+                    var accionesDelGrupo = _ctrlGrupos.ListarAccionesPorGrupo(g.IdGrupo);
+                    idsHeredados.AddRange(accionesDelGrupo.Select(a => a.IdAccion));
+                }
 
-                    bool estanTodosLosHijosTildados = true;
-
-                    bool tieneHijos = nodoFormulario.Nodes.Count > 0;
-
-                    foreach (TreeNode nodoAccion in nodoFormulario.Nodes)
+                foreach (TreeNode nodoModulo in tvAccion.Nodes)
+                {
+                    foreach (TreeNode nodoFormulario in nodoModulo.Nodes)
                     {
-                        if (nodoAccion.Tag != null)
+                        bool estanTodosLosHijosTildados = true;
+                        bool tieneHijos = nodoFormulario.Nodes.Count > 0;
+
+                        foreach (TreeNode nodoAccion in nodoFormulario.Nodes)
                         {
-                            int idAccion = Convert.ToInt32(nodoAccion.Tag);
-                            bool tienePermiso = false;
+                            if (nodoAccion.Tag != null)
+                            {
+                                int idAccion = Convert.ToInt32(nodoAccion.Tag);
+                                bool tienePermiso = false;
 
-                            if (idsDirectos.Contains(idAccion) || idsHeredados.Contains(idAccion))
-                            {
-                                tienePermiso = true;
-                            }
+                                if (idsDirectos.Contains(idAccion) || idsHeredados.Contains(idAccion))
+                                {
+                                    tienePermiso = true;
+                                }
 
-                            if (tienePermiso)
-                            {
-                                nodoAccion.Checked = true;
+                                if (tienePermiso)
+                                {
+                                    nodoAccion.Checked = true;
+                                }
+                                else
+                                {
+                                    estanTodosLosHijosTildados = false;
+                                }
                             }
-                            else
-                            {
-                                estanTodosLosHijosTildados = false;
-                            }
+                        }
+
+                        if (tieneHijos && estanTodosLosHijosTildados)
+                        {
+                            nodoFormulario.Checked = true;
+                        }
+                        else
+                        {
+                            nodoFormulario.Checked = false;
                         }
                     }
 
-                    // APLICAMOS AL PADRE (Formulario)
-                    if (tieneHijos && estanTodosLosHijosTildados)
+                    bool todosLosFormsTildados = true;
+                    foreach (TreeNode nodoFormulario in nodoModulo.Nodes)
                     {
-                        nodoFormulario.Checked = true;
-
+                        if (!nodoFormulario.Checked)
+                        {
+                            todosLosFormsTildados = false;
+                            break;
+                        }
                     }
-                    else
-                    {
-                        nodoFormulario.Checked = false;
-                    }
+                    nodoModulo.Checked = nodoModulo.Nodes.Count > 0 && todosLosFormsTildados;
                 }
             }
+            finally
+            {
+                _validando = false;
+            }
         }
-
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
@@ -278,14 +283,11 @@ namespace SAG___Diploma.Vista
                     MessageBox.Show("Usuario modificado correctamente.");
                 }
 
-                // 3. GUARDAR GRUPOS Y PERMISOS (Común para Nuevo y Modificar)
 
-                // A. Grupos
                 List<int> idsGrupos = new List<int>();
                 foreach (Grupo g in clbGrupos.CheckedItems) idsGrupos.Add(g.IdGrupo);
                 _ctrlUsuarios.GuardarGruposUsuario(_usuarioActual.IdUsuario, idsGrupos);
 
-                // B. Permisos Individuales (Árbol)
                 List<int> idsAcciones = new List<int>();
                 foreach (TreeNode nodoModulo in tvAccion.Nodes)
                 {
@@ -293,7 +295,6 @@ namespace SAG___Diploma.Vista
                     {
                         foreach (TreeNode nodoAccion in nodoForm.Nodes)
                         {
-                            // Solo guardamos si está tildado Y tiene un ID (Tag)
                             if (nodoAccion.Checked && nodoAccion.Tag != null)
                             {
                                 idsAcciones.Add(Convert.ToInt32(nodoAccion.Tag));
@@ -303,7 +304,6 @@ namespace SAG___Diploma.Vista
                 }
                 _ctrlUsuarios.GuardarPermisosDelUsuario(_usuarioActual.IdUsuario, idsAcciones);
 
-                // 4. CERRAR
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

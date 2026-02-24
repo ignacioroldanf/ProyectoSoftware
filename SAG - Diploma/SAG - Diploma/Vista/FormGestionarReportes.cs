@@ -47,6 +47,16 @@ namespace SAG___Diploma.Vista
             cmbIngresos.Items.Add("Detallado por Plan");
             cmbIngresos.Items.Add("Agrupado (Premium vs Básico)");
             cmbIngresos.SelectedIndex = 0;
+            AplicarSeguridad();
+        }
+
+        private void AplicarSeguridad()
+        {
+            if (btnGenerar != null)
+                btnGenerar.Visible = Sesion.Instancia.TienePermiso("GenerarReportes");
+
+            if (btnExportar != null)
+                btnExportar.Visible = Sesion.Instancia.TienePermiso("ExportarReportes");
         }
 
         private void btnGenerar_Click(object sender, EventArgs e)

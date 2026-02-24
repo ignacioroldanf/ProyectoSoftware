@@ -17,17 +17,13 @@ namespace SAG___Diploma.Vista
 
         private void FormInicio_Load(object sender, EventArgs e)
         {
-            // 1. Ocultar botones según permisos al cargar
             AplicarSeguridad();
             panelForm.Visible = true;
 
-            // Aplicar tema futurista
             FuturisticTheme.ApplyToForm(this);
 
-            // Asegurar que el título empiece en blanco al iniciar sesión
             if (lblTitulo != null) lblTitulo.ForeColor = Color.White;
 
-            // Mostrar el FormHome dentro del panel y pasar saludo
             AbrirFormulario<FormHome>();
             var homeOnLoad = panelForm.Controls.OfType<FormHome>().FirstOrDefault();
             if (homeOnLoad != null)
@@ -123,29 +119,25 @@ namespace SAG___Diploma.Vista
             }
             catch { }
 
-            // Intentar mostrar el formulario de login existente antes de cerrar el main
             try
             {
                 var login = Application.OpenForms.OfType<FormInicioSesion>().FirstOrDefault();
                 if (login != null)
                 {
-                    // Limpiar credenciales y mostrar
                     login.Invoke((Action)(() => {
-                        login.ClearCredentials();
+                        login.LimpiarCredenciales();
                         login.Show();
                         login.BringToFront();
                     }));
                 }
                 else
                 {
-                    // Si no existe, crear uno nuevo
                     var nuevo = new FormInicioSesion();
                     nuevo.Show();
                 }
             }
             catch { }
 
-            // Cerrar el formulario principal
             this.Close();
         }
 

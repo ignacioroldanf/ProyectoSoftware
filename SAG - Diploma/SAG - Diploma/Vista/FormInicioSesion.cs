@@ -22,13 +22,18 @@ namespace SAG___Diploma.Vista
         }
 
         // Método público para limpiar los campos de usuario/contraseña desde otro formulario
-        public void ClearCredentials()
+        public void LimpiarCredenciales()
         {
             try
             {
-                txtUsuario.Text = string.Empty;
-                txtContra.Text = string.Empty;
+                txtUsuario.Text = "USUARIO";
+                txtUsuario.ForeColor = Color.DimGray;
+
+                txtContra.Text = "CONTRASEÑA";
+                txtContra.ForeColor = Color.DimGray;
                 txtContra.UseSystemPasswordChar = false;
+
+                this.ActiveControl = null;
             }
             catch { }
         }
@@ -56,9 +61,7 @@ namespace SAG___Diploma.Vista
                     frmInicio.FormClosed += (s, args) =>
                     {
                         // Limpiar credenciales cuando se muestre el formulario de login nuevamente
-                        txtUsuario.Text = string.Empty;
-                        txtContra.Text = string.Empty;
-                        txtContra.UseSystemPasswordChar = false;
+                        this.LimpiarCredenciales();
                         this.Show();
                     };
 

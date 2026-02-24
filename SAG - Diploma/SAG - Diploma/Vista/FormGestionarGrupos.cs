@@ -1,4 +1,5 @@
 ﻿using Controlador;
+using Modelo;
 using Modelo.Modelo;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace SAG___Diploma.Vista
         private void FormGestionarGrupos_Load(object sender, EventArgs e)
         {
             CargarGrupos();
+            AplicarSeguridad();
         }
 
         private void CargarGrupos()
@@ -40,7 +42,15 @@ namespace SAG___Diploma.Vista
 
             dtgvGrupos.DataSource = lista;
         }
+        private void AplicarSeguridad()
+        {
+            bool puedeGestionar = Sesion.Instancia.TienePermiso("GestionarRoles");
 
+            btnAgregar.Visible = puedeGestionar;
+            btnModificar.Visible = puedeGestionar;
+            btnEliminar.Visible = puedeGestionar;
+
+         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             FormGrupo formGrupo = new FormGrupo(null);

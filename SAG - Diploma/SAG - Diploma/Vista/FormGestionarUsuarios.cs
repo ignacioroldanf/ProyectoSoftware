@@ -1,4 +1,5 @@
 ﻿using Controlador;
+using Modelo;
 using Modelo.Modelo;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace SAG___Diploma.Vista
         {
             CargarCombosFiltro();
             CargarUsuarios();
+            AplicarSeguridad();
         }
 
 
@@ -75,6 +77,15 @@ namespace SAG___Diploma.Vista
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+        }
+        private void AplicarSeguridad()
+        {
+            btnAgregar.Visible = Sesion.Instancia.TienePermiso("AgregarUsuario");
+            btnModificar.Visible = Sesion.Instancia.TienePermiso("ModificarUsuario");
+            btnEliminar.Visible = Sesion.Instancia.TienePermiso("EliminarUsuario");
+
+            if (btnResetear != null)
+                btnResetear.Visible = Sesion.Instancia.TienePermiso("ModificarUsuario");
         }
 
         private void FiltrarGrilla()

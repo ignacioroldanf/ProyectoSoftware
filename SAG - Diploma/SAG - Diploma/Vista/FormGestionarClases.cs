@@ -27,13 +27,16 @@ namespace SAG___Diploma.Vista
             CargarGrillaClases();
             dtgvHorarios.DataSource = null;
             ConfigurarControlesHorario();
-
-            btnAgregar.Enabled = Sesion.Instancia.TienePermiso("AgregarClase");
-            btnEliminar.Enabled = Sesion.Instancia.TienePermiso("EliminarClase");
-            btnAgregarHorario.Enabled = Sesion.Instancia.TienePermiso("AgregarHorario");
-            btnEliminarHorario.Enabled = Sesion.Instancia.TienePermiso("EliminarHorario");
+            AplicarSeguridad();
         }
-
+        private void AplicarSeguridad()
+        {
+            btnAgregar.Visible = Sesion.Instancia.TienePermiso("AgregarClase");
+            btnModificar.Visible = Sesion.Instancia.TienePermiso("ModificarClase");
+            btnEliminar.Visible = Sesion.Instancia.TienePermiso("EliminarClase");
+            btnAgregarHorario.Visible = Sesion.Instancia.TienePermiso("AgregarHorario");
+            btnEliminarHorario.Visible = Sesion.Instancia.TienePermiso("EliminarHorario");
+        }
         #region Cargas
         private void CargarGrillaClases()
         {
