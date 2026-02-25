@@ -78,7 +78,7 @@ namespace SAG___Diploma.Vista
         {
             _plotEstados.Plot.Clear();
 
-            var datos = _controlador.ObtenerEstadoUsuarios();
+            var datos = _controlador.ObtenerEstadoClientes();
             dtgvEstados.DataSource = datos;
 
             if (datos.Count == 0) return;
@@ -104,9 +104,9 @@ namespace SAG___Diploma.Vista
                 var barra = new Bar
                 {
                     Position = i,
-                    Value = (double)item.CantidadUsuarios,
+                    Value = (double)item.CantidadClientes,
                     FillColor = colorBarra,
-                    Label = item.CantidadUsuarios.ToString()
+                    Label = item.CantidadClientes.ToString()
                 };
                 barras.Add(barra);
 
@@ -120,11 +120,11 @@ namespace SAG___Diploma.Vista
             _plotEstados.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(posiciones, etiquetas);
 
             _plotEstados.Plot.Grid.MajorLineColor = ScottPlot.Colors.Transparent;
-            _plotEstados.Plot.Title("Estado de la Cartera");
+            _plotEstados.Plot.Title("Estado de Cartera de Clientes");
 
             _plotEstados.Plot.Axes.AutoScale();
 
-            _plotEstados.Plot.Axes.SetLimitsY(0, datos.Max(x => x.CantidadUsuarios) * 1.1);
+            _plotEstados.Plot.Axes.SetLimitsY(0, datos.Max(x => x.CantidadClientes) * 1.1);
             _plotEstados.Refresh();
         }
 
@@ -148,7 +148,7 @@ namespace SAG___Diploma.Vista
 
             if (datos.Count == 0) return;
 
-            datos.Reverse();
+            datos = datos.OrderBy(x => x.CantidadUsos).ToList();
 
             List<Bar> barras = new List<Bar>();
             double[] posiciones = new double[datos.Count];
@@ -248,7 +248,7 @@ namespace SAG___Diploma.Vista
 
             var pie = _plotIngresos.Plot.Add.Pie(porciones);
 
-            pie.SliceLabelDistance = 0.5;
+            pie.SliceLabelDistance = 1.3;
 
             _plotIngresos.Plot.HideGrid();
             _plotIngresos.Plot.Axes.Frameless();
@@ -269,7 +269,7 @@ namespace SAG___Diploma.Vista
                 try
                 {
                     // 1. OBTENER DATOS (Recuperamos todo fresco)
-                    var datosEstados = _controlador.ObtenerEstadoUsuarios();
+                    var datosEstados = _controlador.ObtenerEstadoClientes();
                     var datosIngresos = _controlador.ObtenerIngresosPorPlan();
                     var datosEjercicios = _controlador.ObtenerEjerciciosMasPopulares();
 
@@ -307,7 +307,7 @@ namespace SAG___Diploma.Vista
             }
         }
         #region Generadores de imagen para PDF
-        private byte[] GenerarImagenEstados(List<Reportes.ReporteEstadoUsuarios> datos)
+        private byte[] GenerarImagenEstados(List<Reportes.ReporteEstadoClientes> datos)
         {
             ScottPlot.Plot plot = new ScottPlot.Plot(); // Plot en memoria
 
@@ -325,7 +325,7 @@ namespace SAG___Diploma.Vista
                 else if (item.Estado.Contains("Cancel")) colorBarra = ScottPlot.Color.FromHex("#F44336");
                 else colorBarra = ScottPlot.Color.FromHex("#9E9E9E");
 
-                barras.Add(new Bar { Position = i, Value = (double)item.CantidadUsuarios, FillColor = colorBarra, Label = item.CantidadUsuarios.ToString() });
+                barras.Add(new Bar { Position = i, Value = (double)item.CantidadClientes, FillColor = colorBarra, Label = item.CantidadClientes.ToString() });
                 posiciones[i] = i;
                 etiquetas[i] = $"{item.Estado}\n{item.Porcentaje}";
                 i++;
@@ -334,7 +334,7 @@ namespace SAG___Diploma.Vista
             plot.Add.Bars(barras);
             plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(posiciones, etiquetas);
             plot.Grid.MajorLineColor = ScottPlot.Colors.Transparent;
-            plot.Title("Estado de Cartera");
+            plot.Title("Estado de Cartera de Clientes");
             plot.Axes.AutoScale();
 
             return plot.GetImage(600, 400).GetImageBytes();
@@ -370,7 +370,7 @@ namespace SAG___Diploma.Vista
             }
 
             var pie = plot.Add.Pie(porciones);
-            pie.SliceLabelDistance = 0.5;
+            pie.SliceLabelDistance = 1.3;
 
             // Limpieza
             plot.HideGrid();

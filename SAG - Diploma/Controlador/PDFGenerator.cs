@@ -18,7 +18,7 @@ namespace Controlador
         public static void ExportarReporteCompleto(
             string rutaArchivo,
             // 1. Estados
-            byte[] imgEstados, List<Reportes.ReporteEstadoUsuarios> datosEstados,
+            byte[] imgEstados, List<Reportes.ReporteEstadoClientes> datosEstados,
             // 2. Ingresos Detalle
             byte[] imgIngresosDetalle, List<Reportes.ReporteIngresos> datosIngresosDetalle,
             // 3. Ingresos Grupo
@@ -104,7 +104,7 @@ namespace Controlador
         // HELPERS PARA CREAR TABLAS
         // ----------------------------------------------------------------------
 
-        private static PdfPTable CrearTablaEstados(List<Reportes.ReporteEstadoUsuarios> datos)
+        private static PdfPTable CrearTablaEstados(List<Reportes.ReporteEstadoClientes> datos)
         {
             PdfPTable t = new PdfPTable(3);
             t.WidthPercentage = 100;
@@ -115,7 +115,7 @@ namespace Controlador
             foreach (var d in datos)
             {
                 AgregarCelda(t, d.Estado);
-                AgregarCelda(t, d.CantidadUsuarios.ToString());
+                AgregarCelda(t, d.CantidadClientes.ToString());
                 AgregarCelda(t, d.Porcentaje);
             }
             return t;

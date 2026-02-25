@@ -17,10 +17,10 @@ namespace Modelo
             public string Categoria { get; set; }
         }
 
-        public class ReporteEstadoUsuarios
+        public class ReporteEstadoClientes
         {
             public string Estado { get; set; }
-            public int CantidadUsuarios { get; set; }
+            public int CantidadClientes { get; set; }
             public string Porcentaje { get; set; }
 
         }

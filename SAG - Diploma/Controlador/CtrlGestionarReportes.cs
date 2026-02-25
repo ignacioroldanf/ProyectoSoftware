@@ -39,7 +39,7 @@ namespace Controlador
         }
 
         // --- REPORTE 2: ESTADO REAL DE CLIENTES ---
-        public List<Reportes.ReporteEstadoUsuarios> ObtenerEstadoUsuarios()
+        public List<Reportes.ReporteEstadoClientes> ObtenerEstadoClientes()
         {
             var hoy = DateOnly.FromDateTime(DateTime.Now);
 
@@ -83,16 +83,16 @@ namespace Controlador
             }
 
             int totalClientes = clientes.Count;
-            var listaResultado = new List<Reportes.ReporteEstadoUsuarios>();
+            var listaResultado = new List<Reportes.ReporteEstadoClientes>();
 
             foreach (var kvp in contadores)
             {
                 double porcentaje = totalClientes > 0 ? (double)kvp.Value / totalClientes * 100 : 0;
 
-                listaResultado.Add(new Reportes.ReporteEstadoUsuarios
+                listaResultado.Add(new Reportes.ReporteEstadoClientes
                 {
                     Estado = kvp.Key,
-                    CantidadUsuarios = kvp.Value,
+                    CantidadClientes = kvp.Value,
                     Porcentaje = $"{porcentaje:0.00}%"
                 });
             }
