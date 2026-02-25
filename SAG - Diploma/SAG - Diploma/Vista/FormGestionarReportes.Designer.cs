@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             panelSuperior = new Panel();
+            label2 = new Label();
+            label1 = new Label();
+            dtpFechaHasta = new DateTimePicker();
+            dtpFechaDesde = new DateTimePicker();
             btnGenerar = new Button();
             btnExportar = new Button();
             dtgvIngresos = new DataGridView();
@@ -47,6 +51,10 @@
             // panelSuperior
             // 
             panelSuperior.BackColor = Color.White;
+            panelSuperior.Controls.Add(label2);
+            panelSuperior.Controls.Add(label1);
+            panelSuperior.Controls.Add(dtpFechaHasta);
+            panelSuperior.Controls.Add(dtpFechaDesde);
             panelSuperior.Controls.Add(btnGenerar);
             panelSuperior.Controls.Add(btnExportar);
             panelSuperior.Dock = DockStyle.Top;
@@ -54,6 +62,44 @@
             panelSuperior.Name = "panelSuperior";
             panelSuperior.Size = new Size(1427, 82);
             panelSuperior.TabIndex = 35;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(269, 49);
+            label2.Name = "label2";
+            label2.Size = new Size(65, 28);
+            label2.TabIndex = 25;
+            label2.Text = "Hasta:";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F);
+            label1.Location = new Point(264, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(70, 28);
+            label1.TabIndex = 24;
+            label1.Text = "Desde:";
+            // 
+            // dtpFechaHasta
+            // 
+            dtpFechaHasta.Font = new Font("Segoe UI", 12F);
+            dtpFechaHasta.Format = DateTimePickerFormat.Short;
+            dtpFechaHasta.Location = new Point(340, 44);
+            dtpFechaHasta.Name = "dtpFechaHasta";
+            dtpFechaHasta.Size = new Size(149, 34);
+            dtpFechaHasta.TabIndex = 23;
+            // 
+            // dtpFechaDesde
+            // 
+            dtpFechaDesde.Font = new Font("Segoe UI", 12F);
+            dtpFechaDesde.Format = DateTimePickerFormat.Short;
+            dtpFechaDesde.Location = new Point(340, 4);
+            dtpFechaDesde.Name = "dtpFechaDesde";
+            dtpFechaDesde.Size = new Size(149, 34);
+            dtpFechaDesde.TabIndex = 22;
             // 
             // btnGenerar
             // 
@@ -157,6 +203,7 @@
             Text = "GESTIONAR REPORTES";
             Load += FormGestionarReportes_Load;
             panelSuperior.ResumeLayout(false);
+            panelSuperior.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtgvIngresos).EndInit();
             ((System.ComponentModel.ISupportInitialize)dtgvEstados).EndInit();
             ((System.ComponentModel.ISupportInitialize)dtgvEjercicios).EndInit();
@@ -179,5 +226,9 @@
         private ComboBox cmbIngresos;
         private Panel panelEjercicios;
         private DataGridView dtgvEjercicios;
+        private Label label2;
+        private Label label1;
+        private DateTimePicker dtpFechaHasta;
+        private DateTimePicker dtpFechaDesde;
     }
 }

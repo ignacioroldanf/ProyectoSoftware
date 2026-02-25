@@ -43,6 +43,9 @@ namespace SAG___Diploma.Vista
 
         private void FormGestionarReportes_Load(object sender, EventArgs e)
         {
+            dtpFechaDesde.Value = DateTime.Today.AddMonths(-1);
+            dtpFechaHasta.Value = DateTime.Today;
+
             cmbIngresos.Items.Clear();
             cmbIngresos.Items.Add("Detallado por Plan");
             cmbIngresos.Items.Add("Agrupado (Premium vs Básico)");
@@ -63,9 +66,12 @@ namespace SAG___Diploma.Vista
         {
             try
             {
-                GenerarReporteEstados();
-                GenerarReporteIngresos();
-                GenerarReporteEjercicios();
+                DateTime desde = dtpFechaDesde.Value.Date;
+                DateTime hasta = dtpFechaHasta.Value.Date.AddDays(1).AddSeconds(-1);
+
+                GenerarReporteEstados(desde, hasta);
+                GenerarReporteIngresos(desde, hasta);
+                GenerarReporteEjercicios(desde, hasta);
             }
             catch (Exception ex)
             {
@@ -74,11 +80,11 @@ namespace SAG___Diploma.Vista
         }
 
         // REPORTE 1: ESTADOS
-        private void GenerarReporteEstados()
+        private void GenerarReporteEstados(DateTime desde, DateTime hasta)
         {
             _plotEstados.Plot.Clear();
 
-            var datos = _controlador.ObtenerEstadoClientes();
+            var datos = _controlador.ObtenerEstadoClientes(desde, hasta);
             dtgvEstados.DataSource = datos;
 
             if (datos.Count == 0) return;
@@ -130,9 +136,9 @@ namespace SAG___Diploma.Vista
 
         // REPORTE 2: INGRESOS
 
-        private void GenerarReporteIngresos()
+        private void GenerarReporteIngresos(DateTime desde, DateTime hasta)
         {
-            _cacheIngresos = _controlador.ObtenerIngresosPorPlan();
+            _cacheIngresos = _controlador.ObtenerIngresosPorPlan(desde, hasta);
             dtgvIngresos.DataSource = _cacheIngresos;
 
             DibujarGraficoIngresos();
@@ -140,9 +146,9 @@ namespace SAG___Diploma.Vista
 
         // REPORTE 3: EJERCICIOS POPULARES
 
-        private void GenerarReporteEjercicios()
+        private void GenerarReporteEjercicios(DateTime desde, DateTime hasta)
         {
-            var datos = _controlador.ObtenerEjerciciosMasPopulares();
+            var datos = _controlador.ObtenerEjerciciosMasPopulares(desde, hasta);
 
             dtgvEjercicios.DataSource = datos;
 
@@ -268,36 +274,49 @@ namespace SAG___Diploma.Vista
             {
                 try
                 {
-                    // 1. OBTENER DATOS (Recuperamos todo fresco)
-                    var datosEstados = _controlador.ObtenerEstadoClientes();
-                    var datosIngresos = _controlador.ObtenerIngresosPorPlan();
-                    var datosEjercicios = _controlador.ObtenerEjerciciosMasPopulares();
+                    // 1. DEFINIR LAS FECHAS
+                    // A. Fechas del rango seleccionado por el usuario
+                    DateTime desdeRango = dtpFechaDesde.Value.Date;
+                    DateTime hastaRango = dtpFechaHasta.Value.Date.AddDays(1).AddSeconds(-1);
 
-                    // Datos agrupados (LINQ)
-                    var datosAgrupados = datosIngresos
-                        .GroupBy(x => x.Categoria)
-                        .Select(g => new { Categoria = g.Key, Total = g.Sum(x => x.TotalIngresos) })
-                        .ToList();
+                    // B. Fechas para el TOTAL histórico (Desde el año 2000 hasta el futuro)
+                    DateTime desdeTotal = new DateTime(2000, 1, 1);
+                    DateTime hastaTotal = DateTime.Now.AddYears(1);
 
-                    // 2. GENERAR IMÁGENES
-                    // Usamos una función auxiliar para generar gráficos sin mostrarlos
-                    byte[] imgEstados = GenerarImagenEstados(datosEstados);
-                    byte[] imgIngresosDetalle = GenerarImagenIngresos(datosIngresos, true); // true = detallado
-                    byte[] imgIngresosGrupo = GenerarImagenIngresos(datosIngresos, false); // false = agrupado
-                    byte[] imgEjercicios = GenerarImagenEjercicios(datosEjercicios);
+                    // 2. OBTENER DATOS DEL RANGO
+                    var estRango = _controlador.ObtenerEstadoClientes(desdeRango, hastaRango);
+                    var ingRango = _controlador.ObtenerIngresosPorPlan(desdeRango, hastaRango);
+                    var ejeRango = _controlador.ObtenerEjerciciosMasPopulares(desdeRango, hastaRango);
+                    var ingGruRango = ingRango.GroupBy(x => x.Categoria).Select(g => new { Categoria = g.Key, Total = g.Sum(x => x.TotalIngresos) }).ToList();
 
-                    // 3. GENERAR PDF
+                    // 3. OBTENER DATOS TOTALES HISTÓRICOS
+                    var estTotal = _controlador.ObtenerEstadoClientes(desdeTotal, hastaTotal);
+                    var ingTotal = _controlador.ObtenerIngresosPorPlan(desdeTotal, hastaTotal);
+                    var ejeTotal = _controlador.ObtenerEjerciciosMasPopulares(desdeTotal, hastaTotal);
+                    var ingGruTotal = ingTotal.GroupBy(x => x.Categoria).Select(g => new { Categoria = g.Key, Total = g.Sum(x => x.TotalIngresos) }).ToList();
+
+                    // 4. GENERAR IMÁGENES PARA EL RANGO
+                    byte[] imgEstR = GenerarImagenEstados(estRango);
+                    byte[] imgIngDetR = GenerarImagenIngresos(ingRango, true);
+                    byte[] imgIngGruR = GenerarImagenIngresos(ingRango, false);
+                    byte[] imgEjeR = GenerarImagenEjercicios(ejeRango);
+
+                    // 5. GENERAR IMÁGENES PARA EL TOTAL HISTÓRICOS
+                    byte[] imgEstT = GenerarImagenEstados(estTotal);
+                    byte[] imgIngDetT = GenerarImagenIngresos(ingTotal, true);
+                    byte[] imgIngGruT = GenerarImagenIngresos(ingTotal, false);
+                    byte[] imgEjeT = GenerarImagenEjercicios(ejeTotal);
+
+                    // 6. ENVIAR TODO AL GENERADOR DE PDF
                     PDFGenerator.ExportarReporteCompleto(
-                        save.FileName,
-                        imgEstados, datosEstados,
-                        imgIngresosDetalle, datosIngresos,
-                        imgIngresosGrupo, datosAgrupados,
-                        imgEjercicios, datosEjercicios
+                        save.FileName, desdeRango, hastaRango,
+                        // Parámetros del Rango
+                        imgEstR, estRango, imgIngDetR, ingRango, imgIngGruR, ingGruRango, imgEjeR, ejeRango,
+                        // Parámetros del Total
+                        imgEstT, estTotal, imgIngDetT, ingTotal, imgIngGruT, ingGruTotal, imgEjeT, ejeTotal
                     );
 
                     MessageBox.Show("Reporte exportado exitosamente.");
-
-                    // Opcional: Abrir el PDF automáticamente
                     try { System.Diagnostics.Process.Start("explorer.exe", save.FileName); } catch { }
                 }
                 catch (Exception ex)
@@ -305,7 +324,8 @@ namespace SAG___Diploma.Vista
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
-        }
+        }        
+        
         #region Generadores de imagen para PDF
         private byte[] GenerarImagenEstados(List<Reportes.ReporteEstadoClientes> datos)
         {
@@ -422,6 +442,9 @@ namespace SAG___Diploma.Vista
 
             return plot.GetImage(600, 400).GetImageBytes();
         }
+
+
+
         #endregion
     }
 }

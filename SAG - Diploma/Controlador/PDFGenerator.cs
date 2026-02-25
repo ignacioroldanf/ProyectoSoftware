@@ -16,15 +16,19 @@ namespace Controlador
         static Font _fontCelda = FontFactory.GetFont(FontFactory.HELVETICA, 9);
 
         public static void ExportarReporteCompleto(
-            string rutaArchivo,
-            // 1. Estados
-            byte[] imgEstados, List<Reportes.ReporteEstadoClientes> datosEstados,
-            // 2. Ingresos Detalle
-            byte[] imgIngresosDetalle, List<Reportes.ReporteIngresos> datosIngresosDetalle,
-            // 3. Ingresos Grupo
-            byte[] imgIngresosGrupo, dynamic datosIngresosGrupo,
-            // 4. NUEVO: Ejercicios
-            byte[] imgEjercicios, List<Reportes.ReporteEjerciciosPopulares> datosEjercicios
+            string rutaArchivo, DateTime desdeRango, DateTime hastaRango,
+
+            // --- DATOS DEL RANGO SELECCIONADO ---
+            byte[] imgEstadosR, List<Reportes.ReporteEstadoClientes> datosEstadosR,
+            byte[] imgIngresosDetalleR, List<Reportes.ReporteIngresos> datosIngresosDetalleR,
+            byte[] imgIngresosGrupoR, dynamic datosIngresosGrupoR,
+            byte[] imgEjerciciosR, List<Reportes.ReporteEjerciciosPopulares> datosEjerciciosR,
+
+            // --- DATOS HISTÓRICOS TOTALES ---
+            byte[] imgEstadosT, List<Reportes.ReporteEstadoClientes> datosEstadosT,
+            byte[] imgIngresosDetalleT, List<Reportes.ReporteIngresos> datosIngresosDetalleT,
+            byte[] imgIngresosGrupoT, dynamic datosIngresosGrupoT,
+            byte[] imgEjerciciosT, List<Reportes.ReporteEjerciciosPopulares> datosEjerciciosT
             )
         {
             Document doc = new Document(PageSize.A4.Rotate(), 20, 20, 20, 20);
@@ -34,26 +38,40 @@ namespace Controlador
                 PdfWriter.GetInstance(doc, new FileStream(rutaArchivo, FileMode.Create));
                 doc.Open();
 
-                // Título General
-                doc.Add(new Paragraph("Reporte General de Gestión - Gimnasio", _fontTitulo) { Alignment = Element.ALIGN_CENTER });
-                doc.Add(new Paragraph($"Fecha de Emisión: {DateTime.Now:dd/MM/yyyy HH:mm}\n\n"));
+                // REPORTE DEL RANGO DE FECHAS SELECCIONADO
 
-                // --- SECCIÓN 1: ESTADOS ---
-                AgregarSeccion(doc, "1. Estado de la Cartera de Clientes", imgEstados, CrearTablaEstados(datosEstados));
+                doc.Add(new Paragraph("REPORTE: PERÍODO SELECCIONADO", _fontTitulo) { Alignment = Element.ALIGN_CENTER });
+                doc.Add(new Paragraph($"Fechas filtradas: {desdeRango:dd/MM/yyyy} al {hastaRango:dd/MM/yyyy}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11)) { Alignment = Element.ALIGN_CENTER });
+                doc.Add(new Paragraph($"Fecha de Emisión del PDF: {DateTime.Now:dd/MM/yyyy HH:mm}\n\n"));
+
+                AgregarSeccion(doc, "1. Estado de la Cartera de Clientes", imgEstadosR, CrearTablaEstados(datosEstadosR));
                 doc.Add(new Paragraph("\n"));
 
-                // --- SECCIÓN 2: INGRESOS POR PLAN (DETALLE) ---
-                AgregarSeccion(doc, "2. Ingresos Detallados por Plan", imgIngresosDetalle, CrearTablaIngresos(datosIngresosDetalle));
+                AgregarSeccion(doc, "2. Ingresos Detallados por Plan", imgIngresosDetalleR, CrearTablaIngresos(datosIngresosDetalleR));
                 doc.Add(new Paragraph("\n"));
 
-                // --- SECCIÓN 3: INGRESOS AGRUPADOS (PREMIUM VS BÁSICO) ---
-                AgregarSeccion(doc, "3. Resumen: Premium vs Básico", imgIngresosGrupo, CrearTablaAgrupada(datosIngresosGrupo));
+                AgregarSeccion(doc, "3. Resumen: Premium vs Básico", imgIngresosGrupoR, CrearTablaAgrupada(datosIngresosGrupoR));
                 doc.Add(new Paragraph("\n"));
 
-                // --- SECCIÓN 4: TOP EJERCICIOS (NUEVO) ---
-                // Agregamos un salto de página si es necesario, o dejamos que fluya
-                // doc.NewPage(); // Descomentar si quieres que esto empiece en hoja nueva
-                AgregarSeccion(doc, "4. Top Ejercicios Más Solicitados", imgEjercicios, CrearTablaEjercicios(datosEjercicios));
+                AgregarSeccion(doc, "4. Top Ejercicios Más Solicitados", imgEjerciciosR, CrearTablaEjercicios(datosEjerciciosR));
+
+
+                // REPORTE HISTÓRICO TOTAL
+                doc.NewPage();
+
+                doc.Add(new Paragraph("REPORTE: HISTÓRICO TOTAL", _fontTitulo) { Alignment = Element.ALIGN_CENTER });
+                doc.Add(new Paragraph($"Acumulado desde los inicios del gimnasio hasta {DateTime.Now:dd/MM/yyyy}\n\n", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11)) { Alignment = Element.ALIGN_CENTER });
+
+                AgregarSeccion(doc, "1. Estado de la Cartera de Clientes (Histórico)", imgEstadosT, CrearTablaEstados(datosEstadosT));
+                doc.Add(new Paragraph("\n"));
+
+                AgregarSeccion(doc, "2. Ingresos Detallados (Histórico Total)", imgIngresosDetalleT, CrearTablaIngresos(datosIngresosDetalleT));
+                doc.Add(new Paragraph("\n"));
+
+                AgregarSeccion(doc, "3. Resumen: Premium vs Básico (Histórico Total)", imgIngresosGrupoT, CrearTablaAgrupada(datosIngresosGrupoT));
+                doc.Add(new Paragraph("\n"));
+
+                AgregarSeccion(doc, "4. Top Ejercicios Más Solicitados (Histórico Total)", imgEjerciciosT, CrearTablaEjercicios(datosEjerciciosT));
 
                 doc.Close();
             }
@@ -73,13 +91,13 @@ namespace Controlador
             // Tabla Contenedora (Layout)
             PdfPTable layout = new PdfPTable(2);
             layout.WidthPercentage = 100;
-            layout.SetWidths(new float[] { 60f, 40f }); // Ajusté un poco: 60% Gráfico, 40% Tabla (mejor para barras horizontales)
+            layout.SetWidths(new float[] { 60f, 40f }); // 60% Gráfico, 40% Tabla
 
             // COLUMNA 1: IMAGEN
             if (imagenBytes != null && imagenBytes.Length > 0)
             {
                 iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(imagenBytes);
-                img.ScaleToFit(450f, 280f); // Aumenté un poco el tamaño permitido para el gráfico de barras
+                img.ScaleToFit(450f, 280f);
                 PdfPCell celdaImg = new PdfPCell(img);
                 celdaImg.Border = Rectangle.NO_BORDER;
                 celdaImg.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -100,9 +118,7 @@ namespace Controlador
             doc.Add(layout);
         }
 
-        // ----------------------------------------------------------------------
         // HELPERS PARA CREAR TABLAS
-        // ----------------------------------------------------------------------
 
         private static PdfPTable CrearTablaEstados(List<Reportes.ReporteEstadoClientes> datos)
         {
@@ -138,17 +154,14 @@ namespace Controlador
             return t;
         }
 
-        // NUEVO MÉTODO PARA EJERCICIOS
         private static PdfPTable CrearTablaEjercicios(List<Reportes.ReporteEjerciciosPopulares> datos)
         {
-            PdfPTable t = new PdfPTable(2); // Nombre, Cantidad
+            PdfPTable t = new PdfPTable(2);
             t.WidthPercentage = 100;
-
-            // Definir anchos relativos (Nombre más ancho que cantidad)
             t.SetWidths(new float[] { 70f, 30f });
 
             AgregarHeader(t, "Ejercicio");
-            AgregarHeader(t, "Veces Asignado");
+            AgregarHeader(t, "Usos Reales");
 
             foreach (var d in datos)
             {
@@ -172,7 +185,6 @@ namespace Controlador
                 string cat = "";
                 decimal tot = 0;
 
-                // Forma segura de leer propiedades anónimas
                 foreach (var prop in props)
                 {
                     if (prop.Name == "Categoria") cat = prop.GetValue(d, null).ToString();
@@ -185,7 +197,6 @@ namespace Controlador
             return t;
         }
 
-        // Estilos comunes
         private static void AgregarHeader(PdfPTable t, string texto)
         {
             PdfPCell c = new PdfPCell(new Phrase(texto, _fontHeader));

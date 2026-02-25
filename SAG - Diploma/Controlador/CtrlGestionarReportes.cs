@@ -16,15 +16,19 @@ namespace Controlador
             _context = new DiplomaContext();
         }
 
-        // --- REPORTE 1: INGRESOS POR PLAN ---
-        public List<Reportes.ReporteIngresos> ObtenerIngresosPorPlan()
+        // INGRESOS POR PLAN 
+        public List<Reportes.ReporteIngresos> ObtenerIngresosPorPlan(DateTime fechaDesde, DateTime fechaHasta)
         {
             var hoy = DateOnly.FromDateTime(DateTime.Now);
-
+            var desde = DateOnly.FromDateTime(fechaDesde);
+            var hasta = DateOnly.FromDateTime(fechaHasta);
+            
             var resultado = _context.Suscripciones
                 .Include(s => s.IdPlanNavigation)
                 .Include(s => s.IdEstadoSuscripcionNavigation)
-                .Where(s => s.IdEstadoSuscripcionNavigation.Descripcion == "Vigente" && s.Fin >= hoy)
+                .Where(s => s.IdEstadoSuscripcionNavigation.Descripcion == "Vigente" 
+                        && s.Inicio >= desde
+                        && s.Inicio <= hasta)
                 .GroupBy(s => s.IdPlanNavigation.NombrePlan)
                 .Select(g => new Reportes.ReporteIngresos
                 {
@@ -38,15 +42,18 @@ namespace Controlador
             return resultado;
         }
 
-        // --- REPORTE 2: ESTADO REAL DE CLIENTES ---
-        public List<Reportes.ReporteEstadoClientes> ObtenerEstadoClientes()
+        // ESTADO DE CLIENTES 
+        public List<Reportes.ReporteEstadoClientes> ObtenerEstadoClientes(DateTime fechaDesde, DateTime fechaHasta)
         {
             var hoy = DateOnly.FromDateTime(DateTime.Now);
+            var desde = DateOnly.FromDateTime(fechaDesde);
+            var hasta = DateOnly.FromDateTime(fechaHasta);
 
             var clientes = _context.Clientes
                 .Include(c => c.Suscripciones)
                     .ThenInclude(s => s.IdEstadoSuscripcionNavigation)
                 .AsNoTracking()
+                .Where(c => c.FechaAlta >= desde && c.FechaAlta <= hasta)
                 .ToList();
 
             Dictionary<string, int> contadores = new Dictionary<string, int>();
@@ -100,22 +107,30 @@ namespace Controlador
             return listaResultado;
         }
 
-        public List<Reportes.ReporteEjerciciosPopulares> ObtenerEjerciciosMasPopulares()
+        // EJERCICIOS MAS POPULARES 
+
+        public List<Reportes.ReporteEjerciciosPopulares> ObtenerEjerciciosMasPopulares(DateTime fechaDesde, DateTime fechaHasta)
         {
-            var ranking = _context.EjerciciosAsignados
-                .Include(ea => ea.IdEjercicioNavigation)
-                .Where(ea => ea.IdEjercicioNavigation != null)
-                .GroupBy(ea => ea.IdEjercicioNavigation.NombreEjercicio)
+            var desde = DateOnly.FromDateTime(fechaDesde);
+            var hasta = DateOnly.FromDateTime(fechaHasta);
+
+            var ranking = _context.Progresos
+                .Include(p => p.IdEjercicioAsignadoNavigation)
+                    .ThenInclude(ea => ea.IdEjercicioNavigation) 
+                .Where(p =>
+                    p.Fecha >= desde &&
+                    p.Fecha <= hasta &&
+                    p.IdEjercicioAsignadoNavigation != null &&
+                    p.IdEjercicioAsignadoNavigation.IdEjercicioNavigation != null)
+                .GroupBy(p => p.IdEjercicioAsignadoNavigation.IdEjercicioNavigation.NombreEjercicio)
                 .Select(grupo => new Reportes.ReporteEjerciciosPopulares
                 {
                     NombreEjercicio = grupo.Key,
-                    CantidadUsos = grupo.Count()
+                    CantidadUsos = grupo.Count() 
                 })
                 .OrderByDescending(dto => dto.CantidadUsos)
                 .Take(10)
                 .ToList();
-
-            ranking.Reverse();
 
             return ranking;
         }
