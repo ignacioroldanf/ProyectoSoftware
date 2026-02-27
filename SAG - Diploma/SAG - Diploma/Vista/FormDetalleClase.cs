@@ -16,10 +16,16 @@ namespace SAG___Diploma.Vista
     {
         private CtrlGestionarClases _controlador;
         public Clase ClaseCreada { get; private set; }
+        private Clase _claseAModificar = null;
         public FormDetalleClase()
         {
             InitializeComponent();
             _controlador = new CtrlGestionarClases(new DiplomaContext());
+        }
+
+        public FormDetalleClase(Clase claseParaEditar) : this()
+        {
+            _claseAModificar = claseParaEditar;
         }
 
         private void FormDetalleClase_Load(object sender, EventArgs e)
@@ -27,6 +33,20 @@ namespace SAG___Diploma.Vista
             ConfigurarControles();
             CargarProfesores();
 
+            if (_claseAModificar != null)
+            {
+                this.Text = "Modificar Clase"; 
+                txtNombre.Text = _claseAModificar.NombreClase;
+                txtDescripcion.Text = _claseAModificar.DescripcionClase;
+                nudCupo.Value = _claseAModificar.CupoMaximo;
+
+                if (_claseAModificar.IdProfesor != null)
+                    cmbProfesor.SelectedValue = _claseAModificar.IdProfesor;
+            }
+            else
+            {
+                this.Text = "Agregar Nueva Clase";
+            }
         }
 
         private void ConfigurarControles()
@@ -73,18 +93,29 @@ namespace SAG___Diploma.Vista
                 return;
             }
 
-            ClaseCreada = new Clase
+            if (_claseAModificar != null)
             {
-                NombreClase = txtNombre.Text.Trim(),
-                DescripcionClase = txtDescripcion.Text.Trim(),
-                CupoMaximo = (int)nudCupo.Value,
-                IdProfesor = (int)cmbProfesor.SelectedValue
-            };
+                _claseAModificar.NombreClase = txtNombre.Text.Trim();
+                _claseAModificar.DescripcionClase = txtDescripcion.Text.Trim();
+                _claseAModificar.CupoMaximo = (int)nudCupo.Value;
+                _claseAModificar.IdProfesor = (int)cmbProfesor.SelectedValue;
+
+                ClaseCreada = _claseAModificar; 
+            }
+            else
+            {
+                ClaseCreada = new Clase
+                {
+                    NombreClase = txtNombre.Text.Trim(),
+                    DescripcionClase = txtDescripcion.Text.Trim(),
+                    CupoMaximo = (int)nudCupo.Value,
+                    IdProfesor = (int)cmbProfesor.SelectedValue
+                };
+            }
 
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

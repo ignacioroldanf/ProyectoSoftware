@@ -1,0 +1,24 @@
+USE master;
+GO
+-- RUTA DEL BACKUP
+DECLARE @RutaDelBackup VARCHAR(255) = 'C:\Backups\ ACA VA EL NOMBRE .bak'; 
+
+PRINT 'Iniciando proceso de restauración...';
+
+ALTER DATABASE Diploma 
+SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+
+-- RESTAURACIÓN DE LA BASE DE DATOS
+RESTORE DATABASE Diploma
+FROM DISK = @RutaDelBackup
+WITH REPLACE, 
+     RECOVERY, 
+     STATS = 10;
+
+-- HABILITAR BASE DE DATOS
+
+ALTER DATABASE Diploma 
+SET MULTI_USER;
+
+PRINT '¡Restauración completada con éxito!';
+GO

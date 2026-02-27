@@ -207,7 +207,60 @@ namespace SAG___Diploma.Vista
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            //falta este
+            if (_idClaseSeleccionada == -1)
+            {
+                MessageBox.Show("Por favor, seleccione una clase de la grilla para modificar.");
+                return;
+            }
+
+            var claseObj = _controlador.ObtenerClasePorID(_idClaseSeleccionada);
+            if (claseObj == null) return;
+
+            FormDetalleClase form = new FormDetalleClase(claseObj);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    _controlador.ModificarClase(form.ClaseCreada);
+                    CargarGrillaClases();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al modificar: " + ex.Message);
+                }
+            }
+        }
+
+        private void btnAsistencia_Click(object sender, EventArgs e)
+        {
+            if (dtgvHorarios.CurrentRow == null)
+            {
+                MessageBox.Show("Por favor, seleccione un horario de la lista para tomar asistencia.");
+                return;
+            }
+
+            int idHorario = Convert.ToInt32(dtgvHorarios.CurrentRow.Cells["Id"].Value);
+            string diaClase = dtgvHorarios.CurrentRow.Cells["Dia"].Value.ToString();
+            string horaClase = dtgvHorarios.CurrentRow.Cells["Inicio"].Value.ToString();
+
+            // Verificar que existan reservas previas para este horario (al menos una fecha <= hoy)
+            var ctrlReservas = new CtrlGestionarReservas(new DiplomaContext());
+            var fechas = ctrlReservas.ObtenerFechasConReservasParaHorario(idHorario);
+            if (fechas == null || fechas.Count == 0)
+            {
+                MessageBox.Show("No existen reservas registradas para este horario. No se puede abrir la toma de asistencia.", "Sin reservas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DateOnly hoy = DateOnly.FromDateTime(DateTime.Today);
+            if (!fechas.Any(f => f <= hoy))
+            {
+                MessageBox.Show("Este horario no tiene ninguna clase realizada aún. No se puede abrir la toma de asistencia.", "Horario no ocurrido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            FormAsistencia form = new FormAsistencia(idHorario, diaClase, horaClase);
+            form.ShowDialog();
         }
     }
 }

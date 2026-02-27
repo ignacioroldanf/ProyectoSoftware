@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Modelo;
 using Modelo.Modelo;
 using System;
 using System.Collections.Generic;
@@ -66,7 +67,16 @@ namespace Controlador
                 throw new Exception("El cupo máximo debe ser mayor a 0.");
 
             _context.Clases.Add(nuevaClase);
-            _context.SaveChanges();
+
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                string usuarioApp = Sesion.Instancia.UsuarioActual?.NombreUsuario ?? "Desconocido";
+                _context.Database.ExecuteSqlRaw("EXEC sp_set_session_context @key=N'UsuarioApp', @value={0}", usuarioApp);
+
+                _context.SaveChanges();
+
+                transaction.Commit();
+            }
         }
 
         public void ModificarClase(Clase claseModificada)
@@ -80,7 +90,15 @@ namespace Controlador
             claseExistente.CupoMaximo = claseModificada.CupoMaximo;
             claseExistente.IdProfesor = claseModificada.IdProfesor;
 
-            _context.SaveChanges();
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                string usuarioApp = Sesion.Instancia.UsuarioActual?.NombreUsuario ?? "Desconocido";
+                _context.Database.ExecuteSqlRaw("EXEC sp_set_session_context @key=N'UsuarioApp', @value={0}", usuarioApp);
+
+                _context.SaveChanges();
+
+                transaction.Commit();
+            }
         }
 
         public void EliminarClase(int idClase)
@@ -103,7 +121,15 @@ namespace Controlador
             _context.HorarioClases.RemoveRange(clase.HorarioClases);
             _context.Clases.Remove(clase);
 
-            _context.SaveChanges();
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                string usuarioApp = Sesion.Instancia.UsuarioActual?.NombreUsuario ?? "Desconocido";
+                _context.Database.ExecuteSqlRaw("EXEC sp_set_session_context @key=N'UsuarioApp', @value={0}", usuarioApp);
+
+                _context.SaveChanges();
+
+                transaction.Commit();
+            }
         }
 
         public void AgregarHorario(int idClase, int idDia, TimeOnly inicio, TimeOnly fin)

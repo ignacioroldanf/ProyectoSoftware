@@ -61,13 +61,13 @@ namespace SAG___Diploma.Vista
 
                 var listaVisual = _listaOriginal.Select(u => new
                 {
-                    Id = u.IdUsuario,                
-                    Usuario = u.NombreUsuario,       
+                    Id = u.IdUsuario,
+                    Usuario = u.NombreUsuario,
                     Nombre = u.IdPersonaNavigation != null
                              ? $"{u.IdPersonaNavigation.Apellido}, {u.IdPersonaNavigation.Nombre}"
-                             : "-",                  
-                    Email = u.IdPersonaNavigation != null ? u.IdPersonaNavigation.Email : "-", 
-                    Estado = u.IdEstadoUsuarioNavigation != null ? u.IdEstadoUsuarioNavigation.Descripcion : "-" 
+                             : "-",
+                    Email = u.IdPersonaNavigation != null ? u.IdPersonaNavigation.Email : "-",
+                    Estado = u.IdEstadoUsuarioNavigation != null ? u.IdEstadoUsuarioNavigation.Descripcion : "-"
                 }).ToList();
 
                 dtgvUsuarios.DataSource = listaVisual;
@@ -119,7 +119,7 @@ namespace SAG___Diploma.Vista
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             FormUsuario frm = new FormUsuario();
-            
+
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 CargarUsuarios();
@@ -138,7 +138,7 @@ namespace SAG___Diploma.Vista
 
             FormUsuario frm = new FormUsuario(id);
 
-            if(frm.ShowDialog() == DialogResult.OK)
+            if (frm.ShowDialog() == DialogResult.OK)
             {
                 _listaOriginal = _controlador.ListarUsuarios();
 
@@ -158,7 +158,7 @@ namespace SAG___Diploma.Vista
             string nombre = dtgvUsuarios.CurrentRow.Cells["Nombre"].Value.ToString();
             string estado = dtgvUsuarios.CurrentRow.Cells["Estado"].Value.ToString();
 
-            if (estado == "Baja" || estado == "Inactivo") 
+            if (estado == "Baja" || estado == "Inactivo")
             {
                 MessageBox.Show("El usuario ya se encuentra inactivo.");
                 return;
@@ -169,7 +169,7 @@ namespace SAG___Diploma.Vista
                 try
                 {
                     _controlador.DesactivarUsuario(id);
-                    CargarUsuarios(); 
+                    CargarUsuarios();
                 }
                 catch (Exception ex)
                 {
@@ -225,9 +225,14 @@ namespace SAG___Diploma.Vista
         {
             if (cmbEstado.Items.Count > 0)
             {
-                cmbEstado.SelectedValue = -1; 
+                cmbEstado.SelectedValue = -1;
             }
             FiltrarGrilla();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

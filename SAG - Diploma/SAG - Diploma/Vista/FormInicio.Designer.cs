@@ -48,6 +48,8 @@
             pbCerrar = new PictureBox();
             lblTitulo = new Label();
             lblBienvenido = new Label();
+            btnBackup = new Button();
+            btnAuditoria = new Button();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pcLogo).BeginInit();
@@ -60,6 +62,8 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.DarkGray;
+            panelMenu.Controls.Add(btnAuditoria);
+            panelMenu.Controls.Add(btnBackup);
             panelMenu.Controls.Add(btnReportes);
             panelMenu.Controls.Add(btnUsuarios);
             panelMenu.Controls.Add(btnGrupos);
@@ -73,7 +77,7 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(321, 1000);
+            panelMenu.Size = new Size(321, 1085);
             panelMenu.TabIndex = 1;
             // 
             // btnReportes
@@ -84,7 +88,7 @@
             btnReportes.FlatAppearance.BorderSize = 2;
             btnReportes.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
             btnReportes.ForeColor = Color.White;
-            btnReportes.Location = new Point(0, 680);
+            btnReportes.Location = new Point(0, 765);
             btnReportes.Name = "btnReportes";
             btnReportes.Size = new Size(321, 80);
             btnReportes.TabIndex = 10;
@@ -100,7 +104,7 @@
             btnUsuarios.FlatAppearance.BorderSize = 2;
             btnUsuarios.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
             btnUsuarios.ForeColor = Color.White;
-            btnUsuarios.Location = new Point(0, 760);
+            btnUsuarios.Location = new Point(0, 845);
             btnUsuarios.Name = "btnUsuarios";
             btnUsuarios.Size = new Size(321, 80);
             btnUsuarios.TabIndex = 9;
@@ -116,7 +120,7 @@
             btnGrupos.FlatAppearance.BorderSize = 2;
             btnGrupos.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
             btnGrupos.ForeColor = Color.White;
-            btnGrupos.Location = new Point(0, 840);
+            btnGrupos.Location = new Point(0, 925);
             btnGrupos.Name = "btnGrupos";
             btnGrupos.Size = new Size(321, 80);
             btnGrupos.TabIndex = 8;
@@ -148,7 +152,7 @@
             btnCerrarSesion.FlatAppearance.BorderSize = 2;
             btnCerrarSesion.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
             btnCerrarSesion.ForeColor = Color.White;
-            btnCerrarSesion.Location = new Point(0, 920);
+            btnCerrarSesion.Location = new Point(0, 1005);
             btnCerrarSesion.Name = "btnCerrarSesion";
             btnCerrarSesion.Size = new Size(321, 80);
             btnCerrarSesion.TabIndex = 6;
@@ -255,7 +259,7 @@
             panelApp.Dock = DockStyle.Fill;
             panelApp.Location = new Point(0, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(1249, 1000);
+            panelApp.Size = new Size(1249, 1085);
             panelApp.TabIndex = 2;
             // 
             // panelForm
@@ -264,7 +268,7 @@
             panelForm.Dock = DockStyle.Fill;
             panelForm.Location = new Point(321, 60);
             panelForm.Name = "panelForm";
-            panelForm.Size = new Size(928, 940);
+            panelForm.Size = new Size(928, 1025);
             panelForm.TabIndex = 4;
             // 
             // panelTitulo
@@ -321,12 +325,44 @@
             lblBienvenido.TabIndex = 0;
             lblBienvenido.Text = "Bienvenido, seleccione una opción para continuar";
             // 
+            // btnBackup
+            // 
+            btnBackup.BackColor = Color.Black;
+            btnBackup.Dock = DockStyle.Bottom;
+            btnBackup.FlatAppearance.BorderColor = SystemColors.Info;
+            btnBackup.FlatAppearance.BorderSize = 2;
+            btnBackup.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
+            btnBackup.ForeColor = Color.White;
+            btnBackup.Location = new Point(0, 685);
+            btnBackup.Name = "btnBackup";
+            btnBackup.Size = new Size(321, 80);
+            btnBackup.TabIndex = 11;
+            btnBackup.Text = "BACKUP";
+            btnBackup.UseVisualStyleBackColor = false;
+            btnBackup.Click += btnBackup_Click;
+            // 
+            // btnAuditoria
+            // 
+            btnAuditoria.BackColor = Color.Black;
+            btnAuditoria.Dock = DockStyle.Bottom;
+            btnAuditoria.FlatAppearance.BorderColor = SystemColors.Info;
+            btnAuditoria.FlatAppearance.BorderSize = 2;
+            btnAuditoria.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
+            btnAuditoria.ForeColor = Color.White;
+            btnAuditoria.Location = new Point(0, 605);
+            btnAuditoria.Name = "btnAuditoria";
+            btnAuditoria.Size = new Size(321, 80);
+            btnAuditoria.TabIndex = 12;
+            btnAuditoria.Text = "AUDITORÍA";
+            btnAuditoria.UseVisualStyleBackColor = false;
+            btnAuditoria.Click += btnAuditoria_Click;
+            // 
             // FormInicio
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1249, 1000);
+            ClientSize = new Size(1249, 1085);
             Controls.Add(panelApp);
             FormBorderStyle = FormBorderStyle.None;
             MinimizeBox = false;
@@ -334,6 +370,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SISTEMA DE GESTION DE GIMNASIO";
             WindowState = FormWindowState.Maximized;
+            FormClosing += FormInicio_FormClosing;
             Load += FormInicio_Load;
             panelMenu.ResumeLayout(false);
             panelLogo.ResumeLayout(false);
@@ -369,5 +406,7 @@
         private Button btnGrupos;
         private Button btnUsuarios;
         private Button btnReportes;
+        private Button btnAuditoria;
+        private Button btnBackup;
     }
 }

@@ -167,6 +167,7 @@
             btnCancelar.TabIndex = 38;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // dtgvUsuarios
             // 

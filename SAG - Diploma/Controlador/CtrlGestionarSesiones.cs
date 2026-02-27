@@ -48,12 +48,39 @@ namespace Controlador
 
                 Sesion.Instancia.CargarPermisos(nombresPermisos, nombresFormularios);
 
+                try
+                {
+                    db.Database.ExecuteSqlRaw(
+                        "INSERT INTO Aud_login_logout (Usuario, Fyh_mov, Id_mov) VALUES ({0}, GETDATE(), {1})",
+                        usuario.NombreUsuario, 1);
+                }
+                catch (Exception ex)
+                {
+
+                }
+
                 return usuario;
             }
         }
 
         public void CerrarSesion()
         {
+            if (Sesion.Instancia.UsuarioActual != null)
+            {
+                using (var db = new DiplomaContext())
+                {
+                    try
+                    {
+                        db.Database.ExecuteSqlRaw(
+                            "INSERT INTO Aud_login_logout (Usuario, Fyh_mov, Id_mov) VALUES ({0}, GETDATE(), {1})",
+                            Sesion.Instancia.UsuarioActual.NombreUsuario, 2);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+
             Sesion.Instancia.Logout();
         }
         public static Sesion SesionActual

@@ -43,6 +43,7 @@
             btnSalir = new Button();
             dtgvClases = new DataGridView();
             dtgvHorarios = new DataGridView();
+            btnAsistencia = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgvClases).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dtgvHorarios).BeginInit();
@@ -50,6 +51,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnAsistencia);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(btnAgregarHorario);
             panel1.Controls.Add(dtpFinHorario);
@@ -226,6 +228,18 @@
             dtgvHorarios.Size = new Size(387, 544);
             dtgvHorarios.TabIndex = 4;
             // 
+            // btnAsistencia
+            // 
+            btnAsistencia.Anchor = AnchorStyles.Left;
+            btnAsistencia.Font = new Font("Segoe UI", 12F);
+            btnAsistencia.Location = new Point(390, 3);
+            btnAsistencia.Name = "btnAsistencia";
+            btnAsistencia.Size = new Size(120, 68);
+            btnAsistencia.TabIndex = 5;
+            btnAsistencia.Text = "Tomar Asistencia";
+            btnAsistencia.UseVisualStyleBackColor = true;
+            btnAsistencia.Click += btnAsistencia_Click;
+            // 
             // FormGestionarClases
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -264,5 +278,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
+        private Button btnAsistencia;
     }
 }

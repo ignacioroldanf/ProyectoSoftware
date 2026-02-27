@@ -17,6 +17,10 @@ public partial class DiplomaContext : DbContext
 
     public virtual DbSet<Accione> Acciones { get; set; }
 
+    public virtual DbSet<AudClase> AudClases { get; set; }
+
+    public virtual DbSet<AudLoginLogout> AudLoginLogouts { get; set; }
+
     public virtual DbSet<Clase> Clases { get; set; }
 
     public virtual DbSet<Cliente> Clientes { get; set; }
@@ -46,6 +50,8 @@ public partial class DiplomaContext : DbContext
     public virtual DbSet<HorarioClase> HorarioClases { get; set; }
 
     public virtual DbSet<Modulo> Modulos { get; set; }
+
+    public virtual DbSet<MovLoginLogout> MovLoginLogouts { get; set; }
 
     public virtual DbSet<Persona> Personas { get; set; }
 
@@ -94,9 +100,62 @@ public partial class DiplomaContext : DbContext
                 .HasConstraintName("FK__Acciones__Id_For__787EE5A0");
         });
 
+        modelBuilder.Entity<AudClase>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Aud_Clase");
+
+            entity.Property(e => e.CupoMaximo).HasColumnName("Cupo_Maximo");
+            entity.Property(e => e.DescripcionClase)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("Descripcion_Clase");
+            entity.Property(e => e.FyhMov)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("Fyh_mov");
+            entity.Property(e => e.IdClase).HasColumnName("Id_Clase");
+            entity.Property(e => e.IdProfesor).HasColumnName("Id_Profesor");
+            entity.Property(e => e.Movimiento)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.NombreClase)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Nombre_Clase");
+            entity.Property(e => e.UsuarioAuditoria)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Usuario_auditoria");
+        });
+
+        modelBuilder.Entity<AudLoginLogout>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Aud_login_logout");
+
+            entity.Property(e => e.FyhMov)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("Fyh_mov");
+            entity.Property(e => e.IdMov).HasColumnName("Id_mov");
+            entity.Property(e => e.Usuario)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.IdMovNavigation).WithMany()
+                .HasForeignKey(d => d.IdMov)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_LoginLogout_Mov");
+        });
+
         modelBuilder.Entity<Clase>(entity =>
         {
             entity.HasKey(e => e.IdClase).HasName("PK__Clases__E30692F0F029CE5C");
+
+            entity.ToTable(tb => tb.HasTrigger("TRG_Auditoria_Clase"));
 
             entity.Property(e => e.IdClase).HasColumnName("Id_Clase");
             entity.Property(e => e.CupoMaximo).HasColumnName("Cupo_Maximo");
@@ -342,6 +401,20 @@ public partial class DiplomaContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Nombre_Modulo");
+        });
+
+        modelBuilder.Entity<MovLoginLogout>(entity =>
+        {
+            entity.HasKey(e => e.IdMov).HasName("PK__Mov_logi__55E491DC586BF7A0");
+
+            entity.ToTable("Mov_login_logout");
+
+            entity.Property(e => e.IdMov)
+                .ValueGeneratedNever()
+                .HasColumnName("Id_mov");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(50)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Persona>(entity =>

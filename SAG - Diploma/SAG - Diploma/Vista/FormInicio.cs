@@ -109,38 +109,48 @@ namespace SAG___Diploma.Vista
             }
         }
 
+        private void btnBackup_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FormBackup>();
+            ResaltarBoton(btnBackup);
+        }
+
+        private void btnAuditoria_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FormAuditoria>();
+            ResaltarBoton(btnAuditoria);
+        }
+
         #endregion
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             try
             {
-                Sesion.Instancia.Logout();
-            }
-            catch { }
 
-            try
-            {
+                var ctrlSesiones = new CtrlGestionarSesiones();
+                ctrlSesiones.CerrarSesion();
+
                 var login = Application.OpenForms.OfType<FormInicioSesion>().FirstOrDefault();
                 if (login != null)
                 {
-                    login.Invoke((Action)(() => {
-                        login.LimpiarCredenciales();
-                        login.Show();
-                        login.BringToFront();
-                    }));
+                    login.LimpiarCredenciales();
+                    login.Show();
+                    login.BringToFront();
                 }
                 else
                 {
-                    var nuevo = new FormInicioSesion();
-                    nuevo.Show();
+                    var nuevoLogin = new FormInicioSesion();
+                    nuevoLogin.Show();
                 }
+
+                this.Close();
             }
-            catch { }
-
-            this.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cerrar sesión: " + ex.Message);
+            }
         }
-
         private void pbCerrar_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -235,6 +245,19 @@ namespace SAG___Diploma.Vista
         #endregion
 
 
+
+        private void FormInicio_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Sesion.Instancia.UsuarioActual != null)
+            {
+                try
+                {
+                    var ctrlSesiones = new CtrlGestionarSesiones();
+                    ctrlSesiones.CerrarSesion();
+                }
+                catch { }
+            }
+        }
 
     }
 }
