@@ -19,13 +19,13 @@ namespace Controlador
             string rutaArchivo, DateTime desdeRango, DateTime hastaRango,
 
             // --- DATOS DEL RANGO SELECCIONADO ---
-            byte[] imgEstadosR, List<Reportes.ReporteEstadoClientes> datosEstadosR,
+            byte[] imgInasistenciasR, List<Reportes.ReporteInasistencias> datosInasistenciasR,
             byte[] imgIngresosDetalleR, List<Reportes.ReporteIngresos> datosIngresosDetalleR,
             byte[] imgIngresosGrupoR, dynamic datosIngresosGrupoR,
             byte[] imgEjerciciosR, List<Reportes.ReporteEjerciciosPopulares> datosEjerciciosR,
 
             // --- DATOS HISTÓRICOS TOTALES ---
-            byte[] imgEstadosT, List<Reportes.ReporteEstadoClientes> datosEstadosT,
+            byte[] imgInasistenciasT, List<Reportes.ReporteInasistencias> datosInasistenciasT,
             byte[] imgIngresosDetalleT, List<Reportes.ReporteIngresos> datosIngresosDetalleT,
             byte[] imgIngresosGrupoT, dynamic datosIngresosGrupoT,
             byte[] imgEjerciciosT, List<Reportes.ReporteEjerciciosPopulares> datosEjerciciosT
@@ -44,7 +44,7 @@ namespace Controlador
                 doc.Add(new Paragraph($"Fechas filtradas: {desdeRango:dd/MM/yyyy} al {hastaRango:dd/MM/yyyy}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11)) { Alignment = Element.ALIGN_CENTER });
                 doc.Add(new Paragraph($"Fecha de Emisión del PDF: {DateTime.Now:dd/MM/yyyy HH:mm}\n\n"));
 
-                AgregarSeccion(doc, "1. Estado de la Cartera de Clientes", imgEstadosR, CrearTablaEstados(datosEstadosR));
+                AgregarSeccion(doc, "1. Top % Inasistencias a Clases", imgInasistenciasR, CrearTablaInasistencias(datosInasistenciasR)); 
                 doc.Add(new Paragraph("\n"));
 
                 AgregarSeccion(doc, "2. Ingresos Detallados por Plan", imgIngresosDetalleR, CrearTablaIngresos(datosIngresosDetalleR));
@@ -62,7 +62,7 @@ namespace Controlador
                 doc.Add(new Paragraph("REPORTE: HISTÓRICO TOTAL", _fontTitulo) { Alignment = Element.ALIGN_CENTER });
                 doc.Add(new Paragraph($"Acumulado desde los inicios del gimnasio hasta {DateTime.Now:dd/MM/yyyy}\n\n", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11)) { Alignment = Element.ALIGN_CENTER });
 
-                AgregarSeccion(doc, "1. Estado de la Cartera de Clientes (Histórico)", imgEstadosT, CrearTablaEstados(datosEstadosT));
+                AgregarSeccion(doc, "1. Top % Inasistencias a Clases (Histórico)", imgInasistenciasT, CrearTablaInasistencias(datosInasistenciasT));
                 doc.Add(new Paragraph("\n"));
 
                 AgregarSeccion(doc, "2. Ingresos Detallados (Histórico Total)", imgIngresosDetalleT, CrearTablaIngresos(datosIngresosDetalleT));
@@ -120,22 +120,27 @@ namespace Controlador
 
         // HELPERS PARA CREAR TABLAS
 
-        private static PdfPTable CrearTablaEstados(List<Reportes.ReporteEstadoClientes> datos)
+        private static PdfPTable CrearTablaInasistencias(List<Reportes.ReporteInasistencias> datos)
         {
-            PdfPTable t = new PdfPTable(3);
+            PdfPTable t = new PdfPTable(4);
             t.WidthPercentage = 100;
-            AgregarHeader(t, "Estado");
-            AgregarHeader(t, "Clientes");
-            AgregarHeader(t, "%");
+            t.SetWidths(new float[] { 40f, 20f, 20f, 20f });
+
+            AgregarHeader(t, "Cliente");
+            AgregarHeader(t, "Reservas");
+            AgregarHeader(t, "Faltas");
+            AgregarHeader(t, "% Faltas");
 
             foreach (var d in datos)
             {
-                AgregarCelda(t, d.Estado);
-                AgregarCelda(t, d.CantidadClientes.ToString());
+                AgregarCelda(t, d.Cliente);
+                AgregarCelda(t, d.TotalReservas.ToString());
+                AgregarCelda(t, d.Faltas.ToString());
                 AgregarCelda(t, d.Porcentaje);
             }
             return t;
         }
+
 
         private static PdfPTable CrearTablaIngresos(List<Reportes.ReporteIngresos> datos)
         {

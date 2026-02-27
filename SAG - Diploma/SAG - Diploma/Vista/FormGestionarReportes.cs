@@ -16,7 +16,7 @@ namespace SAG___Diploma.Vista
         private CtrlGestionarReportes _controlador;
 
         private FormsPlot _plotIngresos;
-        private FormsPlot _plotEstados;
+        private FormsPlot _plotInasistencias;
         private FormsPlot _plotEjercicios;
 
         private List<Reportes.ReporteIngresos> _cacheIngresos;
@@ -34,8 +34,8 @@ namespace SAG___Diploma.Vista
             _plotIngresos = new FormsPlot() { Dock = DockStyle.Fill };
             panelIngresos.Controls.Add(_plotIngresos);
 
-            _plotEstados = new FormsPlot() { Dock = DockStyle.Fill };
-            panelEstados.Controls.Add(_plotEstados);
+            _plotInasistencias = new FormsPlot() { Dock = DockStyle.Fill };
+            panelInasistencias.Controls.Add(_plotInasistencias);
 
             _plotEjercicios = new FormsPlot() { Dock = DockStyle.Fill };
             panelEjercicios.Controls.Add(_plotEjercicios);
@@ -69,7 +69,7 @@ namespace SAG___Diploma.Vista
                 DateTime desde = dtpFechaDesde.Value.Date;
                 DateTime hasta = dtpFechaHasta.Value.Date.AddDays(1).AddSeconds(-1);
 
-                GenerarReporteEstados(desde, hasta);
+                GenerarReporteInasistencias(desde, hasta);
                 GenerarReporteIngresos(desde, hasta);
                 GenerarReporteEjercicios(desde, hasta);
             }
@@ -79,61 +79,45 @@ namespace SAG___Diploma.Vista
             }
         }
 
-        // REPORTE 1: ESTADOS
-        private void GenerarReporteEstados(DateTime desde, DateTime hasta)
+        // REPORTE 1: INASISTENCIAS
+        private void GenerarReporteInasistencias(DateTime desde, DateTime hasta)
         {
-            _plotEstados.Plot.Clear();
+            _plotInasistencias.Plot.Clear();
 
-            var datos = _controlador.ObtenerEstadoClientes(desde, hasta);
-            dtgvEstados.DataSource = datos;
+            var datos = _controlador.ObtenerTopInasistencias(desde, hasta);
+            dtgvInasistencias.DataSource = datos;
+
+            if (dtgvInasistencias.Columns.Contains("PorcentajeFaltas"))
+                dtgvInasistencias.Columns["PorcentajeFaltas"].Visible = false;
 
             if (datos.Count == 0) return;
 
-            List<Bar> barras = new List<Bar>();
+            var datosDibujo = new List<Reportes.ReporteInasistencias>(datos);
+            datosDibujo.Reverse(); 
 
-            double[] posiciones = new double[datos.Count];
-            string[] etiquetas = new string[datos.Count];
+            List<Bar> barras = new List<Bar>();
+            double[] posiciones = new double[datosDibujo.Count];
+            string[] etiquetas = new string[datosDibujo.Count];
 
             int i = 0;
-            foreach (var item in datos)
+            foreach (var item in datosDibujo)
             {
-                ScottPlot.Color colorBarra;
-                if (item.Estado.Contains("Vigente") || item.Estado.Contains("Activo"))
-                    colorBarra = ScottPlot.Color.FromHex("#4CAF50");
-                else if (item.Estado.Contains("Vencid"))
-                    colorBarra = ScottPlot.Color.FromHex("#FF9800");
-                else if (item.Estado.Contains("Cancel"))
-                    colorBarra = ScottPlot.Color.FromHex("#F44336");
-                else
-                    colorBarra = ScottPlot.Color.FromHex("#9E9E9E");
-
-                var barra = new Bar
-                {
-                    Position = i,
-                    Value = (double)item.CantidadClientes,
-                    FillColor = colorBarra,
-                    Label = item.CantidadClientes.ToString()
-                };
-                barras.Add(barra);
-
+                barras.Add(new Bar { Position = i, Value = item.PorcentajeFaltas, FillColor = ScottPlot.Color.FromHex("#E53935"), Label = $"{item.PorcentajeFaltas:0.00}%" });
                 posiciones[i] = i;
-                etiquetas[i] = $"{item.Estado}\n{item.Porcentaje}";
-
+                etiquetas[i] = item.Cliente;
                 i++;
             }
 
-            _plotEstados.Plot.Add.Bars(barras);
-            _plotEstados.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(posiciones, etiquetas);
+            var barPlot = _plotInasistencias.Plot.Add.Bars(barras);
+            barPlot.Horizontal = true;
 
-            _plotEstados.Plot.Grid.MajorLineColor = ScottPlot.Colors.Transparent;
-            _plotEstados.Plot.Title("Estado de Cartera de Clientes");
-
-            _plotEstados.Plot.Axes.AutoScale();
-
-            _plotEstados.Plot.Axes.SetLimitsY(0, datos.Max(x => x.CantidadClientes) * 1.1);
-            _plotEstados.Refresh();
+            _plotInasistencias.Plot.Axes.Left.TickGenerator = new ScottPlot.TickGenerators.NumericManual(posiciones, etiquetas);
+            _plotInasistencias.Plot.Grid.MajorLineColor = ScottPlot.Colors.Transparent;
+            _plotInasistencias.Plot.Title("Mayor % Inasistencias");
+            _plotInasistencias.Plot.Axes.AutoScale();
+            _plotInasistencias.Plot.Axes.SetLimitsX(0, datosDibujo.Max(x => x.PorcentajeFaltas) * 1.2);
+            _plotInasistencias.Refresh();
         }
-
         // REPORTE 2: INGRESOS
 
         private void GenerarReporteIngresos(DateTime desde, DateTime hasta)
@@ -205,13 +189,13 @@ namespace SAG___Diploma.Vista
             List<PieSlice> porciones = new List<PieSlice>();
 
             ScottPlot.Color[] paletaPremium = {
-        ScottPlot.Color.FromHex("#FFD700"), ScottPlot.Color.FromHex("#FFA500"),
-        ScottPlot.Color.FromHex("#B8860B"), ScottPlot.Color.FromHex("#F0E68C")
-    };
+                ScottPlot.Color.FromHex("#FFD700"), ScottPlot.Color.FromHex("#FFA500"),
+                ScottPlot.Color.FromHex("#B8860B"), ScottPlot.Color.FromHex("#F0E68C")
+            };
             ScottPlot.Color[] paletaBasico = {
-        ScottPlot.Color.FromHex("#2196F3"), ScottPlot.Color.FromHex("#03A9F4"),
-        ScottPlot.Color.FromHex("#00BCD4"), ScottPlot.Color.FromHex("#3F51B5")
-    };
+                ScottPlot.Color.FromHex("#2196F3"), ScottPlot.Color.FromHex("#03A9F4"),
+                ScottPlot.Color.FromHex("#00BCD4"), ScottPlot.Color.FromHex("#3F51B5")
+            };
 
             if (cmbIngresos.SelectedIndex == 0) // Detallado
             {
@@ -284,37 +268,35 @@ namespace SAG___Diploma.Vista
                     DateTime hastaTotal = DateTime.Now.AddYears(1);
 
                     // 2. OBTENER DATOS DEL RANGO
-                    var estRango = _controlador.ObtenerEstadoClientes(desdeRango, hastaRango);
+                    var inaRango = _controlador.ObtenerTopInasistencias(desdeRango, hastaRango);
                     var ingRango = _controlador.ObtenerIngresosPorPlan(desdeRango, hastaRango);
                     var ejeRango = _controlador.ObtenerEjerciciosMasPopulares(desdeRango, hastaRango);
                     var ingGruRango = ingRango.GroupBy(x => x.Categoria).Select(g => new { Categoria = g.Key, Total = g.Sum(x => x.TotalIngresos) }).ToList();
 
                     // 3. OBTENER DATOS TOTALES HISTÓRICOS
-                    var estTotal = _controlador.ObtenerEstadoClientes(desdeTotal, hastaTotal);
+                    var inaTotal = _controlador.ObtenerTopInasistencias(desdeTotal, hastaTotal);
                     var ingTotal = _controlador.ObtenerIngresosPorPlan(desdeTotal, hastaTotal);
                     var ejeTotal = _controlador.ObtenerEjerciciosMasPopulares(desdeTotal, hastaTotal);
                     var ingGruTotal = ingTotal.GroupBy(x => x.Categoria).Select(g => new { Categoria = g.Key, Total = g.Sum(x => x.TotalIngresos) }).ToList();
 
                     // 4. GENERAR IMÁGENES PARA EL RANGO
-                    byte[] imgEstR = GenerarImagenEstados(estRango);
+                    byte[] imgInaR = GenerarImagenInasistencias(inaRango);
                     byte[] imgIngDetR = GenerarImagenIngresos(ingRango, true);
                     byte[] imgIngGruR = GenerarImagenIngresos(ingRango, false);
                     byte[] imgEjeR = GenerarImagenEjercicios(ejeRango);
 
                     // 5. GENERAR IMÁGENES PARA EL TOTAL HISTÓRICOS
-                    byte[] imgEstT = GenerarImagenEstados(estTotal);
+                    byte[] imgInaT = GenerarImagenInasistencias(inaTotal);
                     byte[] imgIngDetT = GenerarImagenIngresos(ingTotal, true);
                     byte[] imgIngGruT = GenerarImagenIngresos(ingTotal, false);
                     byte[] imgEjeT = GenerarImagenEjercicios(ejeTotal);
 
                     // 6. ENVIAR TODO AL GENERADOR DE PDF
                     PDFGenerator.ExportarReporteCompleto(
-                        save.FileName, desdeRango, hastaRango,
-                        // Parámetros del Rango
-                        imgEstR, estRango, imgIngDetR, ingRango, imgIngGruR, ingGruRango, imgEjeR, ejeRango,
-                        // Parámetros del Total
-                        imgEstT, estTotal, imgIngDetT, ingTotal, imgIngGruT, ingGruTotal, imgEjeT, ejeTotal
-                    );
+                                            save.FileName, desdeRango, hastaRango,
+                                            imgInaR, inaRango, imgIngDetR, ingRango, imgIngGruR, ingGruRango, imgEjeR, ejeRango,
+                                            imgInaT, inaTotal, imgIngDetT, ingTotal, imgIngGruT, ingGruTotal, imgEjeT, ejeTotal
+                                        );
 
                     MessageBox.Show("Reporte exportado exitosamente.");
                     try { System.Diagnostics.Process.Start("explorer.exe", save.FileName); } catch { }
@@ -327,38 +309,6 @@ namespace SAG___Diploma.Vista
         }        
         
         #region Generadores de imagen para PDF
-        private byte[] GenerarImagenEstados(List<Reportes.ReporteEstadoClientes> datos)
-        {
-            ScottPlot.Plot plot = new ScottPlot.Plot(); // Plot en memoria
-
-            List<Bar> barras = new List<Bar>();
-            double[] posiciones = new double[datos.Count];
-            string[] etiquetas = new string[datos.Count];
-            int i = 0;
-
-            foreach (var item in datos)
-            {
-                // Colores
-                ScottPlot.Color colorBarra;
-                if (item.Estado.Contains("Vigente")) colorBarra = ScottPlot.Color.FromHex("#4CAF50");
-                else if (item.Estado.Contains("Vencid")) colorBarra = ScottPlot.Color.FromHex("#FF9800");
-                else if (item.Estado.Contains("Cancel")) colorBarra = ScottPlot.Color.FromHex("#F44336");
-                else colorBarra = ScottPlot.Color.FromHex("#9E9E9E");
-
-                barras.Add(new Bar { Position = i, Value = (double)item.CantidadClientes, FillColor = colorBarra, Label = item.CantidadClientes.ToString() });
-                posiciones[i] = i;
-                etiquetas[i] = $"{item.Estado}\n{item.Porcentaje}";
-                i++;
-            }
-
-            plot.Add.Bars(barras);
-            plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(posiciones, etiquetas);
-            plot.Grid.MajorLineColor = ScottPlot.Colors.Transparent;
-            plot.Title("Estado de Cartera de Clientes");
-            plot.Axes.AutoScale();
-
-            return plot.GetImage(600, 400).GetImageBytes();
-        }
 
         private byte[] GenerarImagenIngresos(List<Reportes.ReporteIngresos> datos, bool detallado)
         {
@@ -444,6 +394,34 @@ namespace SAG___Diploma.Vista
         }
 
 
+        private byte[] GenerarImagenInasistencias(List<Reportes.ReporteInasistencias> datos)
+        {
+            ScottPlot.Plot plot = new ScottPlot.Plot();
+            if (datos.Count == 0) return plot.GetImage(600, 400).GetImageBytes();
+
+            var datosDibujo = new List<Reportes.ReporteInasistencias>(datos);
+            datosDibujo.Reverse();
+
+            List<Bar> barras = new List<Bar>();
+            double[] pos = new double[datosDibujo.Count];
+            string[] tags = new string[datosDibujo.Count];
+            int i = 0;
+
+            foreach (var item in datosDibujo)
+            {
+                barras.Add(new Bar { Position = i, Value = item.PorcentajeFaltas, FillColor = ScottPlot.Color.FromHex("#E53935"), Label = $"{item.PorcentajeFaltas:0.00}%" });
+                pos[i] = i; tags[i] = item.Cliente; i++;
+            }
+
+            var barPlot = plot.Add.Bars(barras);
+            barPlot.Horizontal = true;
+            plot.Axes.Left.TickGenerator = new ScottPlot.TickGenerators.NumericManual(pos, tags);
+            plot.Grid.MajorLineColor = ScottPlot.Colors.Transparent;
+            plot.Title("Top % Inasistencias");
+            plot.Axes.AutoScale();
+            plot.Axes.SetLimitsX(0, datosDibujo.Max(x => x.PorcentajeFaltas) * 1.2);
+            return plot.GetImage(600, 400).GetImageBytes();
+        }
 
         #endregion
     }

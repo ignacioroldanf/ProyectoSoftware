@@ -30,5 +30,15 @@ namespace Modelo
             public string NombreEjercicio { get; set; }
             public int CantidadUsos { get; set; }
         }
+
+        public class ReporteInasistencias
+        {
+            public string Cliente { get; set; }
+            public int TotalReservas { get; set; }
+            public int Faltas { get; set; }
+            public double PorcentajeFaltas { get; set; }
+
+            public string Porcentaje => $"{PorcentajeFaltas:0.00} %";
+        }
     }
 }

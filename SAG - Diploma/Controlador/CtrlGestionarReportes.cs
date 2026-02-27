@@ -42,71 +42,7 @@ namespace Controlador
             return resultado;
         }
 
-        // ESTADO DE CLIENTES 
-        public List<Reportes.ReporteEstadoClientes> ObtenerEstadoClientes(DateTime fechaDesde, DateTime fechaHasta)
-        {
-            var hoy = DateOnly.FromDateTime(DateTime.Now);
-            var desde = DateOnly.FromDateTime(fechaDesde);
-            var hasta = DateOnly.FromDateTime(fechaHasta);
-
-            var clientes = _context.Clientes
-                .Include(c => c.Suscripciones)
-                    .ThenInclude(s => s.IdEstadoSuscripcionNavigation)
-                .AsNoTracking()
-                .Where(c => c.FechaAlta >= desde && c.FechaAlta <= hasta)
-                .ToList();
-
-            Dictionary<string, int> contadores = new Dictionary<string, int>();
-
-            foreach (var cliente in clientes)
-            {
-                string estadoFinalDelCliente = "Sin Historial";
-
-                bool tieneVigente = cliente.Suscripciones.Any(s =>
-                    s.IdEstadoSuscripcionNavigation != null &&
-                    s.IdEstadoSuscripcionNavigation.Descripcion == "Vigente" &&
-                    s.Fin >= hoy);
-
-                if (tieneVigente)
-                {
-                    estadoFinalDelCliente = "Vigente";
-                }
-                else
-                {
-                    var ultimaSuscripcion = cliente.Suscripciones
-                        .OrderByDescending(s => s.Inicio)
-                        .FirstOrDefault();
-
-                    if (ultimaSuscripcion != null && ultimaSuscripcion.IdEstadoSuscripcionNavigation != null)
-                    {
-                        estadoFinalDelCliente = ultimaSuscripcion.IdEstadoSuscripcionNavigation.Descripcion;
-                    }
-                }
-
-                if (contadores.ContainsKey(estadoFinalDelCliente))
-                    contadores[estadoFinalDelCliente]++;
-                else
-                    contadores.Add(estadoFinalDelCliente, 1);
-            }
-
-            int totalClientes = clientes.Count;
-            var listaResultado = new List<Reportes.ReporteEstadoClientes>();
-
-            foreach (var kvp in contadores)
-            {
-                double porcentaje = totalClientes > 0 ? (double)kvp.Value / totalClientes * 100 : 0;
-
-                listaResultado.Add(new Reportes.ReporteEstadoClientes
-                {
-                    Estado = kvp.Key,
-                    CantidadClientes = kvp.Value,
-                    Porcentaje = $"{porcentaje:0.00}%"
-                });
-            }
-
-            return listaResultado;
-        }
-
+        
         // EJERCICIOS MAS POPULARES 
 
         public List<Reportes.ReporteEjerciciosPopulares> ObtenerEjerciciosMasPopulares(DateTime fechaDesde, DateTime fechaHasta)
@@ -129,6 +65,44 @@ namespace Controlador
                     CantidadUsos = grupo.Count() 
                 })
                 .OrderByDescending(dto => dto.CantidadUsos)
+                .Take(10)
+                .ToList();
+
+            return ranking;
+        }
+
+        // TOP INASISTENCIAS (POR PORCENTAJE)
+        public List<Reportes.ReporteInasistencias> ObtenerTopInasistencias(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            var desde = DateOnly.FromDateTime(fechaDesde);
+            var hasta = DateOnly.FromDateTime(fechaHasta);
+
+            var reservas = _context.Reservas
+                .Include(r => r.IdClienteNavigation)
+                    .ThenInclude(c => c.IdPersonaNavigation)
+                .AsNoTracking()
+                .Where(r => r.ReservaIndividual != null &&
+                            r.ReservaIndividual.FechaReserva >= desde &&
+                            r.ReservaIndividual.FechaReserva <= hasta)
+                .ToList();
+
+            var ranking = reservas
+                .GroupBy(r => r.IdCliente)
+                .Select(grupo => new
+                {
+                    ClienteObj = grupo.First().IdClienteNavigation,
+                    TotalReservas = grupo.Count(),
+                    Faltas = grupo.Count(r => r.IdEstadoReserva == 5)
+                })
+                .Where(x => x.Faltas > 0)
+                .Select(x => new Reportes.ReporteInasistencias
+                {
+                    Cliente = x.ClienteObj.IdPersonaNavigation.Nombre + " " + x.ClienteObj.IdPersonaNavigation.Apellido,
+                    TotalReservas = x.TotalReservas,
+                    Faltas = x.Faltas,
+                    PorcentajeFaltas = x.TotalReservas > 0 ? Math.Round(((double)x.Faltas / x.TotalReservas) * 100, 2) : 0
+                })
+                .OrderByDescending(x => x.PorcentajeFaltas)
                 .Take(10)
                 .ToList();
 

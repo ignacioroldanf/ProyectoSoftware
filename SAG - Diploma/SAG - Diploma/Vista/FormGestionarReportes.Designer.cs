@@ -36,15 +36,15 @@
             btnGenerar = new Button();
             btnExportar = new Button();
             dtgvIngresos = new DataGridView();
-            dtgvEstados = new DataGridView();
-            panelEstados = new Panel();
+            dtgvInasistencias = new DataGridView();
+            panelInasistencias = new Panel();
             panelIngresos = new Panel();
             cmbIngresos = new ComboBox();
             panelEjercicios = new Panel();
             dtgvEjercicios = new DataGridView();
             panelSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgvIngresos).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dtgvEstados).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dtgvInasistencias).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dtgvEjercicios).BeginInit();
             SuspendLayout();
             // 
@@ -137,22 +137,22 @@
             dtgvIngresos.Size = new Size(596, 239);
             dtgvIngresos.TabIndex = 0;
             // 
-            // dtgvEstados
+            // dtgvInasistencias
             // 
-            dtgvEstados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dtgvEstados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtgvEstados.Location = new Point(138, 442);
-            dtgvEstados.Name = "dtgvEstados";
-            dtgvEstados.RowHeadersWidth = 51;
-            dtgvEstados.Size = new Size(596, 239);
-            dtgvEstados.TabIndex = 37;
+            dtgvInasistencias.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgvInasistencias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtgvInasistencias.Location = new Point(138, 762);
+            dtgvInasistencias.Name = "dtgvInasistencias";
+            dtgvInasistencias.RowHeadersWidth = 51;
+            dtgvInasistencias.Size = new Size(596, 239);
+            dtgvInasistencias.TabIndex = 37;
             // 
-            // panelEstados
+            // panelInasistencias
             // 
-            panelEstados.Location = new Point(861, 408);
-            panelEstados.Name = "panelEstados";
-            panelEstados.Size = new Size(543, 314);
-            panelEstados.TabIndex = 37;
+            panelInasistencias.Location = new Point(861, 728);
+            panelInasistencias.Name = "panelInasistencias";
+            panelInasistencias.Size = new Size(543, 314);
+            panelInasistencias.TabIndex = 37;
             // 
             // panelIngresos
             // 
@@ -171,7 +171,7 @@
             // 
             // panelEjercicios
             // 
-            panelEjercicios.Location = new Point(861, 728);
+            panelEjercicios.Location = new Point(861, 408);
             panelEjercicios.Name = "panelEjercicios";
             panelEjercicios.Size = new Size(543, 314);
             panelEjercicios.TabIndex = 38;
@@ -180,7 +180,7 @@
             // 
             dtgvEjercicios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgvEjercicios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtgvEjercicios.Location = new Point(138, 762);
+            dtgvEjercicios.Location = new Point(138, 442);
             dtgvEjercicios.Name = "dtgvEjercicios";
             dtgvEjercicios.RowHeadersWidth = 51;
             dtgvEjercicios.Size = new Size(596, 239);
@@ -195,8 +195,8 @@
             Controls.Add(panelEjercicios);
             Controls.Add(panelIngresos);
             Controls.Add(cmbIngresos);
-            Controls.Add(panelEstados);
-            Controls.Add(dtgvEstados);
+            Controls.Add(panelInasistencias);
+            Controls.Add(dtgvInasistencias);
             Controls.Add(dtgvIngresos);
             Controls.Add(panelSuperior);
             Name = "FormGestionarReportes";
@@ -205,7 +205,7 @@
             panelSuperior.ResumeLayout(false);
             panelSuperior.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtgvIngresos).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dtgvEstados).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dtgvInasistencias).EndInit();
             ((System.ComponentModel.ISupportInitialize)dtgvEjercicios).EndInit();
             ResumeLayout(false);
         }
@@ -220,8 +220,8 @@
         private Panel panelGrafico;
         private ComboBox cmbReporte;
         private DataGridView dtgvIngresos;
-        private DataGridView dtgvEstados;
-        private Panel panelEstados;
+        private DataGridView dtgvInasistencias;
+        private Panel panelInasistencias;
         private Panel panelIngresos;
         private ComboBox cmbIngresos;
         private Panel panelEjercicios;

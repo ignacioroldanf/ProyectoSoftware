@@ -30,13 +30,17 @@
         {
             btnGenerarBackup = new Button();
             btnRestaurar = new Button();
+            panel1 = new Panel();
+            btnSalir = new Button();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // btnGenerarBackup
             // 
-            btnGenerarBackup.Location = new Point(232, 183);
+            btnGenerarBackup.Font = new Font("Segoe UI", 12F);
+            btnGenerarBackup.Location = new Point(12, 124);
             btnGenerarBackup.Name = "btnGenerarBackup";
-            btnGenerarBackup.Size = new Size(94, 29);
+            btnGenerarBackup.Size = new Size(120, 68);
             btnGenerarBackup.TabIndex = 0;
             btnGenerarBackup.Text = "Generar Backup";
             btnGenerarBackup.UseVisualStyleBackColor = true;
@@ -44,23 +48,49 @@
             // 
             // btnRestaurar
             // 
-            btnRestaurar.Location = new Point(361, 183);
+            btnRestaurar.Font = new Font("Segoe UI", 12F);
+            btnRestaurar.Location = new Point(12, 249);
             btnRestaurar.Name = "btnRestaurar";
-            btnRestaurar.Size = new Size(107, 45);
+            btnRestaurar.Size = new Size(120, 68);
             btnRestaurar.TabIndex = 1;
-            btnRestaurar.Text = "button1";
+            btnRestaurar.Text = "Restaurar Backup";
             btnRestaurar.UseVisualStyleBackColor = true;
             btnRestaurar.Click += btnRestaurar_Click;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(btnSalir);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(378, 82);
+            panel1.TabIndex = 2;
+            // 
+            // btnSalir
+            // 
+            btnSalir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSalir.Font = new Font("Segoe UI", 12F);
+            btnSalir.Location = new Point(246, 3);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(120, 68);
+            btnSalir.TabIndex = 1;
+            btnSalir.Text = "Salir";
+            btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click;
             // 
             // FormBackup
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(378, 353);
             Controls.Add(btnRestaurar);
             Controls.Add(btnGenerarBackup);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "FormBackup";
-            Text = "FormBackup";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "BACKUP";
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -68,5 +98,7 @@
 
         private Button btnGenerarBackup;
         private Button btnRestaurar;
+        private Panel panel1;
+        private Button btnSalir;
     }
 }

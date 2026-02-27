@@ -111,7 +111,8 @@ namespace SAG___Diploma.Vista
 
         private void btnBackup_Click(object sender, EventArgs e)
         {
-            AbrirFormulario<FormBackup>();
+            FormBackup frm = new FormBackup();
+            frm.ShowDialog();
             ResaltarBoton(btnBackup);
         }
 

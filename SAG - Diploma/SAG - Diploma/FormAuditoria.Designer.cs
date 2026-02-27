@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            label3 = new Label();
             dtgvLogins = new DataGridView();
             dtgvClases = new DataGridView();
             btnSalir = new Button();
             label1 = new Label();
             label2 = new Label();
-            label3 = new Label();
+            cmbFiltroLogins = new ComboBox();
+            cmbFiltroClases = new ComboBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgvLogins).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dtgvClases).BeginInit();
@@ -48,6 +50,17 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1565, 82);
             panel1.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(12, 25);
+            label3.Name = "label3";
+            label3.Size = new Size(123, 28);
+            label3.TabIndex = 42;
+            label3.Text = "AUDITORÍAS";
             // 
             // dtgvLogins
             // 
@@ -103,22 +116,35 @@
             label2.TabIndex = 41;
             label2.Text = "Auditoría de Trazabilidad (Clase)";
             // 
-            // label3
+            // cmbFiltroLogins
             // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(12, 25);
-            label3.Name = "label3";
-            label3.Size = new Size(123, 28);
-            label3.TabIndex = 42;
-            label3.Text = "AUDITORÍAS";
+            cmbFiltroLogins.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            cmbFiltroLogins.Font = new Font("Segoe UI", 12F);
+            cmbFiltroLogins.FormattingEnabled = true;
+            cmbFiltroLogins.Location = new Point(615, 95);
+            cmbFiltroLogins.Name = "cmbFiltroLogins";
+            cmbFiltroLogins.Size = new Size(197, 36);
+            cmbFiltroLogins.TabIndex = 42;
+            cmbFiltroLogins.SelectedIndexChanged += cmbFiltroLogins_SelectedIndexChanged;
+            // 
+            // cmbFiltroClases
+            // 
+            cmbFiltroClases.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            cmbFiltroClases.Font = new Font("Segoe UI", 12F);
+            cmbFiltroClases.FormattingEnabled = true;
+            cmbFiltroClases.Location = new Point(1356, 95);
+            cmbFiltroClases.Name = "cmbFiltroClases";
+            cmbFiltroClases.Size = new Size(197, 36);
+            cmbFiltroClases.TabIndex = 43;
+            cmbFiltroClases.SelectedIndexChanged += cmbFiltroClases_SelectedIndexChanged;
             // 
             // FormAuditoria
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1565, 782);
+            Controls.Add(cmbFiltroClases);
+            Controls.Add(cmbFiltroLogins);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnSalir);
@@ -146,5 +172,7 @@
         private Label label1;
         private Label label2;
         private Label label3;
+        private ComboBox cmbFiltroLogins;
+        private ComboBox cmbFiltroClases;
     }
 }

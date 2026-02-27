@@ -31,6 +31,12 @@ namespace SAG___Diploma
 
                 dtgvLogins.DataSource = _controlador.ObtenerAuditoriaLogins();
                 dtgvClases.DataSource = _controlador.ObtenerAuditoriaClases();
+
+                cmbFiltroLogins.Items.AddRange(new string[] { "TODOS", "LOGIN", "LOGOUT" });
+                cmbFiltroClases.Items.AddRange(new string[] { "TODOS", "ALTA", "MODIFICACION", "BAJA FISICA" });
+
+                cmbFiltroLogins.SelectedIndex = 0;
+                cmbFiltroClases.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -41,6 +47,23 @@ namespace SAG___Diploma
             {
                 this.Cursor = Cursors.Default;
             }
+        }
+        private void cmbFiltroLogins_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbFiltroLogins.SelectedItem == null) return;
+
+            string seleccion = cmbFiltroLogins.SelectedItem.ToString();
+
+            dtgvLogins.DataSource = _controlador.ObtenerAuditoriaLogins(seleccion);
+        }
+
+        private void cmbFiltroClases_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbFiltroClases.SelectedItem == null) return;
+
+            string seleccion = cmbFiltroClases.SelectedItem.ToString();
+
+            dtgvClases.DataSource = _controlador.ObtenerAuditoriaClases(seleccion);
         }
 
         private void ConfigurarGrilla(DataGridView dtgv)
