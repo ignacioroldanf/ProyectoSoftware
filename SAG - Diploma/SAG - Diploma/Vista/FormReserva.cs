@@ -125,19 +125,15 @@ namespace SAG___Diploma.Vista
             cmbHorario.DataSource = horarios;
             cmbHorario.SelectedIndex = -1;
 
-            // Ajustar dtpFechaExacta para la próxima fecha que corresponda a este día de la semana
             if (cmbDia.SelectedItem != null)
             {
-                int diaSemana = (int)cmbDia.SelectedValue; // 0=Sunday .. 6=Saturday
+                int diaSemana = (int)cmbDia.SelectedValue;
                 var next = ProximaFechaParaDia(diaSemana, DateTime.Today);
                 dtpFechaExacta.Value = next;
 
-                // Limit dtpFechaExacta ValidDates: allow only next 12 weeks for this day
                 dtpFechaExacta.MinDate = DateTime.Today;
                 dtpFechaExacta.MaxDate = DateTime.Today.AddDays(7 * 12);
 
-                // Optionally, we can disable dates that are not matching the selected day by handling the DateChanged event externally,
-                // but WinForms DateTimePicker doesn't support disabling individual dates natively without third-party controls.
             }
         }
 
@@ -196,20 +192,16 @@ namespace SAG___Diploma.Vista
 
         private DateTime ProximaFechaParaDia(int diaSemana, DateTime desde)
         {
-            // diaSemana expected as 0=Sunday .. 6=Saturday to match DayOfWeek
             int hoy = (int)desde.DayOfWeek;
-            // Our DiasSemana ids are likely 1..7 or 0..6 depending on DB - map to DayOfWeek (0..6)
             int target = diaSemana;
-            // If DB stores 1=Monday..7=Sunday, adapt: try both mappings safely
             if (diaSemana >= 1 && diaSemana <= 7)
             {
-                // Map 1(Mon)->1 .. 7(Sun)->0
-                target = (diaSemana % 7); // Monday(1)->1, Sunday(7)->0
+                target = (diaSemana % 7); 
             }
 
             int delta = ((target - hoy) + 7) % 7;
             if (delta == 0)
-                delta = 7; // prefer next week if same day
+                delta = 7;
             return desde.Date.AddDays(delta);
         }
 
@@ -233,30 +225,60 @@ namespace SAG___Diploma.Vista
             if (cmbClase.SelectedIndex == -1)
             {
                 MessageBox.Show("Por favor, seleccione una clase.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // Cortamos la ejecución acá
             }
             if (cmbHorario.SelectedIndex == -1)
             {
                 MessageBox.Show("Por favor, seleccione un horario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
-            if (chkEsRecurrente.Checked && dtpFechaFin.Value < dtpFechaInicio.Value)
-            {
-                MessageBox.Show("La fecha de fin no puede ser anterior a la fecha de inicio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             try
             {
-                // Use the exact selected date for single reservations; for recurrent use the recurrencia start date
-                DateTime inicio = chkEsRecurrente.Checked ? dtpFechaInicio.Value : dtpFechaExacta.Value;
-                DateTime? fin = chkEsRecurrente.Checked ? dtpFechaFin.Value : (DateTime?)null;
+                DateTime inicio;
+                DateTime? fin = null;
+                int idRecurrencia = 1; // 1 = Semanal por defecto
 
+                // Si no es recurrente, usamos la fecha exacta que eligió arriba
+                if (!chkEsRecurrente.Checked)
+                {
+                    inicio = dtpFechaExacta.Value.Date;
+                }
+                else // Si ES recurrente
+                {
+                    inicio = dtpFechaInicio.Value.Date;
+
+                    // Nos fijamos si eligieron "Mensual" (asumo que es el índice 1 del combo)
+                    if (cmbTipoRecurrencia.Text.Contains("Mensual"))
+                    {
+                        // Magia: Le sumamos a la fecha de inicio la cantidad de meses del control "nudMeses"
+                        int cantidadMeses = (int)nudMeses.Value;
+                        fin = inicio.AddMonths(cantidadMeses);
+
+                        idRecurrencia = 2; // Asumo que 2 es el ID de Mensual en tu Base de Datos
+                    }
+                    else // Si es Semanal
+                    {
+                        // Toma lo que el usuario puso a mano en el calendario de fecha fin
+                        fin = dtpFechaFin.Value.Date;
+                        idRecurrencia = 1;
+
+                        if (fin < inicio)
+                        {
+                            MessageBox.Show("La fecha de fin no puede ser anterior a la fecha de inicio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                }
+
+                // Llamamos a tu controlador pasando el id de recurrencia que calculamos
                 _controladorReservas.CrearReserva(
                     _idCliente,
                     _idHorarioSeleccionado,
                     inicio,
                     fin,
-                    chkEsRecurrente.Checked);
+                    chkEsRecurrente.Checked,
+                    idRecurrencia);
 
                 MessageBox.Show("Reserva creada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
@@ -266,7 +288,24 @@ namespace SAG___Diploma.Vista
             {
                 MessageBox.Show($"Error al crear la reserva: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void cmbTipoRecurrencia_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+            if (cmbTipoRecurrencia.SelectedIndex == 0)
+            {
+                dtpFechaFin.Visible = true;
+                lblFechaFin.Text = "Fecha de Fin:";
+
+                nudMeses.Visible = false;
+            }
+            else
+            {
+                dtpFechaFin.Visible = false;
+                lblFechaFin.Text = "Cantidad de Meses:";
+
+                nudMeses.Visible = true;
+            }
         }
     }
 }

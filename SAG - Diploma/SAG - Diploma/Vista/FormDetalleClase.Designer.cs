@@ -97,9 +97,11 @@
             // 
             nudCupo.Font = new Font("Segoe UI", 12F);
             nudCupo.Location = new Point(262, 243);
+            nudCupo.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudCupo.Name = "nudCupo";
             nudCupo.Size = new Size(192, 34);
             nudCupo.TabIndex = 4;
+            nudCupo.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // cmbProfesor
             // 

@@ -83,7 +83,7 @@ namespace Controlador
                                          .OrderByDescending(f => f.CreationTime)
                                          .FirstOrDefault();
 
-            if (ultimoBackup == null || (DateTime.Now - ultimoBackup.CreationTime).TotalDays >= 7)
+            if (ultimoBackup == null || (DateTime.Now - ultimoBackup.CreationTime).TotalDays >= 14)
             {
                 try
                 {

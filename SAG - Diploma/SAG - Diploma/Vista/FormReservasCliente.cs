@@ -121,20 +121,35 @@ namespace SAG___Diploma.Vista
                     .ToList();
             }
 
-            // Ordenar por cercanía a la fecha de hoy
             try
             {
-                var hoy = DateOnly.FromDateTime(DateTime.Today);
-                listaFiltrada = listaFiltrada
-                    .OrderBy(x => Math.Abs((ObtenerFechaPropiedad(x, "Fecha") - hoy).Days))
-                    .ToList();
+                if (listaFiltrada.Count > 0)
+                {
+                    var hoy = DateOnly.FromDateTime(DateTime.Today);
+                    var propFecha = System.ComponentModel.TypeDescriptor.GetProperties(listaFiltrada[0])["Fecha"];
+
+                    listaFiltrada = listaFiltrada.OrderBy(x =>
+                    {
+                        var valorFecha = propFecha.GetValue(x);
+                        DateOnly fechaReserva;
+
+                        if (valorFecha is DateOnly d) fechaReserva = d;
+                        else if (valorFecha is DateTime dt) fechaReserva = DateOnly.FromDateTime(dt);
+                        else DateOnly.TryParse(valorFecha?.ToString(), out fechaReserva);
+
+                        int diferenciaDias = fechaReserva.DayNumber - hoy.DayNumber;
+
+                        if (diferenciaDias >= 0)
+                            return diferenciaDias;
+                        return 100000 + Math.Abs(diferenciaDias);
+                    }).ToList();
+                }
             }
-            catch { /* Si falla el ordenamiento, mantiene el original */ }
+            catch { }
 
             dtgvReservas.DataSource = null;
             dtgvReservas.DataSource = listaFiltrada;
 
-            // Ocultar columnas internas
             if (dtgvReservas.Columns["IdReserva"] != null) dtgvReservas.Columns["IdReserva"].Visible = false;
             if (dtgvReservas.Columns["IdReservaPadre"] != null) dtgvReservas.Columns["IdReservaPadre"].Visible = false;
             dtgvReservas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -144,7 +159,6 @@ namespace SAG___Diploma.Vista
 
         #region Métodos de Ayuda (Reflexión)
 
-        // Traducción y limpieza del GetMemberDate
         private static DateOnly ObtenerFechaPropiedad(object objeto, string nombrePropiedad)
         {
             try
@@ -172,7 +186,6 @@ namespace SAG___Diploma.Vista
             return DateOnly.FromDateTime(DateTime.MaxValue);
         }
 
-        // Traducción y limpieza del GetMemberString (se eliminó código basura)
         private static string ObtenerCadenaPropiedad(object objeto, string nombrePropiedad)
         {
             if (objeto == null) return string.Empty;
@@ -213,8 +226,6 @@ namespace SAG___Diploma.Vista
             var celdaPadre = dtgvReservas.CurrentRow.Cells["IdReservaPadre"].Value;
             string estado = dtgvReservas.CurrentRow.Cells["Estado"].Value.ToString();
 
-            // Lógica de habilitación de botones (Seguro porque si el usuario no tiene permisos, 
-            // el botón directamente está INVISIBLE gracias a AplicarSeguridad)
             if (estado == "Cancelada")
             {
                 btnCancelarClase.Enabled = false;

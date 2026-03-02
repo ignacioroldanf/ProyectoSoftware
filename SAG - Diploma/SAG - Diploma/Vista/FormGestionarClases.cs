@@ -243,22 +243,6 @@ namespace SAG___Diploma.Vista
             string diaClase = dtgvHorarios.CurrentRow.Cells["Dia"].Value.ToString();
             string horaClase = dtgvHorarios.CurrentRow.Cells["Inicio"].Value.ToString();
 
-            // Verificar que existan reservas previas para este horario (al menos una fecha <= hoy)
-            var ctrlReservas = new CtrlGestionarReservas(new DiplomaContext());
-            var fechas = ctrlReservas.ObtenerFechasConReservasParaHorario(idHorario);
-            if (fechas == null || fechas.Count == 0)
-            {
-                MessageBox.Show("No existen reservas registradas para este horario. No se puede abrir la toma de asistencia.", "Sin reservas", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            DateOnly hoy = DateOnly.FromDateTime(DateTime.Today);
-            if (!fechas.Any(f => f <= hoy))
-            {
-                MessageBox.Show("Este horario no tiene ninguna clase realizada aún. No se puede abrir la toma de asistencia.", "Horario no ocurrido", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
             FormAsistencia form = new FormAsistencia(idHorario, diaClase, horaClase);
             form.ShowDialog();
         }

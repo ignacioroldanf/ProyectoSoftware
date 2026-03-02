@@ -45,15 +45,17 @@
             label4 = new Label();
             label5 = new Label();
             gbRecurrencia = new GroupBox();
+            nudMeses = new NumericUpDown();
             cmbTipoRecurrencia = new ComboBox();
             dtpFechaInicio = new DateTimePicker();
             dtpFechaFin = new DateTimePicker();
-            label8 = new Label();
-            label7 = new Label();
+            lblFechaFin = new Label();
+            lblFecha = new Label();
             label6 = new Label();
             labelFecha = new Label();
             panelSuperior.SuspendLayout();
             gbRecurrencia.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudMeses).BeginInit();
             SuspendLayout();
             // 
             // panelSuperior
@@ -208,11 +210,12 @@
             // 
             // gbRecurrencia
             // 
+            gbRecurrencia.Controls.Add(nudMeses);
             gbRecurrencia.Controls.Add(cmbTipoRecurrencia);
             gbRecurrencia.Controls.Add(dtpFechaInicio);
             gbRecurrencia.Controls.Add(dtpFechaFin);
-            gbRecurrencia.Controls.Add(label8);
-            gbRecurrencia.Controls.Add(label7);
+            gbRecurrencia.Controls.Add(lblFechaFin);
+            gbRecurrencia.Controls.Add(lblFecha);
             gbRecurrencia.Controls.Add(label6);
             gbRecurrencia.Location = new Point(28, 227);
             gbRecurrencia.Name = "gbRecurrencia";
@@ -221,6 +224,17 @@
             gbRecurrencia.TabStop = false;
             gbRecurrencia.Text = "Recurrencia";
             // 
+            // nudMeses
+            // 
+            nudMeses.Location = new Point(391, 93);
+            nudMeses.Maximum = new decimal(new int[] { 12, 0, 0, 0 });
+            nudMeses.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudMeses.Name = "nudMeses";
+            nudMeses.Size = new Size(48, 27);
+            nudMeses.TabIndex = 6;
+            nudMeses.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudMeses.Visible = false;
+            // 
             // cmbTipoRecurrencia
             // 
             cmbTipoRecurrencia.FormattingEnabled = true;
@@ -228,6 +242,7 @@
             cmbTipoRecurrencia.Name = "cmbTipoRecurrencia";
             cmbTipoRecurrencia.Size = new Size(151, 28);
             cmbTipoRecurrencia.TabIndex = 5;
+            cmbTipoRecurrencia.SelectedIndexChanged += cmbTipoRecurrencia_SelectedIndexChanged;
             // 
             // dtpFechaInicio
             // 
@@ -244,23 +259,23 @@
             dtpFechaFin.Size = new Size(289, 27);
             dtpFechaFin.TabIndex = 3;
             // 
-            // label8
+            // lblFechaFin
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(6, 98);
-            label8.Name = "label8";
-            label8.Size = new Size(91, 20);
-            label8.TabIndex = 2;
-            label8.Text = "Fecha de Fin";
+            lblFechaFin.AutoSize = true;
+            lblFechaFin.Location = new Point(6, 98);
+            lblFechaFin.Name = "lblFechaFin";
+            lblFechaFin.Size = new Size(91, 20);
+            lblFechaFin.TabIndex = 2;
+            lblFechaFin.Text = "Fecha de Fin";
             // 
-            // label7
+            // lblFecha
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(6, 65);
-            label7.Name = "label7";
-            label7.Size = new Size(108, 20);
-            label7.TabIndex = 1;
-            label7.Text = "Fecha de Inicio";
+            lblFecha.AutoSize = true;
+            lblFecha.Location = new Point(6, 65);
+            lblFecha.Name = "lblFecha";
+            lblFecha.Size = new Size(108, 20);
+            lblFecha.TabIndex = 1;
+            lblFecha.Text = "Fecha de Inicio";
             // 
             // label6
             // 
@@ -307,6 +322,7 @@
             panelSuperior.PerformLayout();
             gbRecurrencia.ResumeLayout(false);
             gbRecurrencia.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudMeses).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -329,6 +345,7 @@
         private Label label5;
         private Label label4;
         private Label label3;
+        private Label lblFechaFin;
         private Label lblNombreCliente;
         private ComboBox cmbTipoRecurrencia;
         private DateTimePicker dtpFechaInicio;
@@ -336,7 +353,8 @@
         private DateTimePicker dtpFechaExacta;
         private Label labelFecha;
         private Label label8;
-        private Label label7;
+        private Label lblFecha;
         private Label label6;
+        private NumericUpDown nudMeses;
     }
 }
